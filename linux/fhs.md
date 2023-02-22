@@ -55,7 +55,10 @@ system as a whole, while the information provided in /sys is device-centric and
 relates to the hardware and drivers in the system.
 
 ## Additional Notes
-
+- Nowadays, `/bin`, `/sbin` and `/lib` often are links to `/usr/bin`, `/usr/sbin` and
+`/usr/lib`. This allows improved compatibility with other *NIXes. Historically the
+/bin and /sbin directories were used to mount the usr partition. This job is nowadays
+done by initramfs, and splitting the directories therefore no longer serves any purpose.
 
 ## Links
 
