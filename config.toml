@@ -1,6 +1,6 @@
 baseURL = 'http://wiki.mathieurollet.com/'
 languageCode = 'en-us'
-title = 'My Wiki'
+title = 'My DevOps Notes'
 theme="terminal"
 paginate = 5
 
@@ -64,7 +64,7 @@ paginate = 5
 [languages]
   [languages.en]
     languageName = "English"
-    title = "DevOps Notes"
+    title = "My DevOps Notes"
     subtitle = ""
     owner = ""
     keywords = ""
@@ -80,7 +80,7 @@ paginate = 5
     words = "words"
 
     [languages.en.params.logo]
-      logoText = "DevOps Notes"
+      logoText = "My DevOps Notes"
       logoHomeLink = "/"
 
     [languages.en.menu]
