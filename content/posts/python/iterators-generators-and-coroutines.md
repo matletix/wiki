@@ -1,14 +1,19 @@
----
-title: Iterators, Generators and Coroutines
-description: Quick overview of these concepts in Python
-published: true
-date: 2022-06-19T14:52:15.416Z
-tags: python, iterators, generators, coroutines
-editor: markdown
-dateCreated: 2022-06-19T14:47:51.574Z
----
++++
+title = "Iterators, Generators and Coroutines"
+date = "2022-06-19T14:52:15+01:00"
+author = ""
+authorTwitter = "" #do not include @
+cover = ""
+tags = ["python", "iterators", "generators", "coroutines"]
+keywords = ["", ""]
+description = "Quick overview of these concepts in Python"
+showFullContent = false
+readingTime = false
+hideComments = false
+color = "" #color from the theme settings
+toc = true
++++
 
-# Iterators, Generators and Coroutines in Python
 
 ## Iterable
 An *iterable* is an object that can produce an *iterator* by calling the `iter()` function on it. 

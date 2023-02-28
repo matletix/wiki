@@ -1,4 +1,18 @@
-# The Filesystem Hierarchy Standard (FHS)
++++
+title = "The Filesystem Hierarchy Standard (FHS)"
+date = "2023-02-28T20:30:30+01:00"
+author = ""
+authorTwitter = "" #do not include @
+cover = ""
+tags = ["linux", "fhs", "filesystem"]
+keywords = ["", ""]
+description = "Overview of the FHS"
+showFullContent = false
+readingTime = false
+hideComments = false
+color = "" #color from the theme settings
++++
+
 
 Many UNIX systems use a set of standardized directories and files for organizing
 their file system. Maintained by the Linux Foundation, the **Filesystem Hierarchy
