@@ -4,6 +4,7 @@ git clone --recurse-submodules https://github.com/matletix/wiki.git
 ```
 
 Install hugo : grab the last `.deb` package from the [release page](https://github.com/gohugoio/hugo/releases)
+
 **Warning : get the `extended` version ! Not the normal one**
 Example :
 ```bash
