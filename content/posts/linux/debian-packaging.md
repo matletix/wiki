@@ -178,6 +178,10 @@ $ ls hello-2.10/
 ABOUT-NLS   AUTHORS    ChangeLog    config.in  configure.ac  COPYING  doc          hello.1  lib  maint.mk     Makefile.in  NEWS  README      README-release  tests   TODO
 aclocal.m4  build-aux  ChangeLog.O  configure  contrib       debian   GNUmakefile  INSTALL  m4   Makefile.am  man          po    README-dev  src             THANKS
 ```
+
+> 📝 Note: without the `--download-only` option, `apt source` downloads the source
+> package and decompresses it at once.
+
 A lot of the work you do when packaging is inside the `debian` directory.
 
 - the `debian/control` file describes metadata about the package like its
