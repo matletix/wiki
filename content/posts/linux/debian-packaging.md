@@ -8,7 +8,7 @@ tags = ["debian", "packaging"]
 keywords = ["", ""]
 description = "A Debian packaging guide"
 showFullContent = false
-readingTime = false
+readingTime = true
 hideComments = false
 color = "" #color from the theme settings
 toc = true
@@ -54,7 +54,7 @@ Before we start, install the `dpkg-dev` and `devscripts` packages to have access
 build commands like `dpkg-source` and `dch`:
 
 ```bash
-sudo apt install dpkg-dev devscripts
+$ sudo apt install dpkg-dev devscripts
 ```
 
 
@@ -179,7 +179,7 @@ ABOUT-NLS   AUTHORS    ChangeLog    config.in  configure.ac  COPYING  doc       
 aclocal.m4  build-aux  ChangeLog.O  configure  contrib       debian   GNUmakefile  INSTALL  m4   Makefile.am  man          po    README-dev  src             THANKS
 ```
 
-> 📝 Note: without the `--download-only` option, `apt source` downloads the source
+> 📝 __NOTE__: without the `--download-only` option, `apt source` downloads the source
 > package and decompresses it at once.
 
 A lot of the work you do when packaging is inside the `debian` directory.
@@ -271,8 +271,9 @@ To build the binary package from our current source package, we then use the
 `dpkg-buildpackage` command, with the *-us* and *-uc* parameters that will tell
 it not to sign our package. The dpkg-buildpackage command will invoke multiple
 commands, including the `dpkg-source` command (that will create the .dsc and
-other files)
-
+other files). You can see the different steps of the process in the
+[man](https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html)
+of dpkg-buildpackage.
 ```bash
 $ cd hello-2.10/
 $ dpkg-buildpackage -us -uc
@@ -295,7 +296,7 @@ hello-2.10  hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.debian.tar.xz  hello_2.1
 We can install the binary packages with apt :
 
 ```bash
-sudo apt install ../hello_2.10-2_amd64.deb
+$ sudo apt install ../hello_2.10-2_amd64.deb
 ```
 You can now run it :
 
@@ -349,7 +350,7 @@ use `dch -v <VERSION>` instead of `dch -i`.
 Ok, save that file. We'll now try to build the new version of our package !
 
 ```bash
-dpkg-buildpackage -us -uc
+$ dpkg-buildpackage -us -uc
 ```
 
 The command produces the following error :
@@ -428,13 +429,13 @@ Last-Update: 2023-03-01
 
 Let's try building the packages again :
 ```bash
-dpkg-buildpackage -us -uc
+$ dpkg-buildpackage -us -uc
 ```
 
 This time it works and we have additional files in the parent directory :
 
 ```bash
-ls ..
+$ ls ..
 
 hello-2.10                       hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.1.dsc              hello_2.10-2.1_amd64.changes  hello_2.10-2.debian.tar.xz  hello_2.10-2_amd64.buildinfo  hello_2.10-2_amd64.deb
 hello-dbgsym_2.10-2.1_amd64.deb  hello_2.10-2.1.debian.tar.xz   hello_2.10-2.1_amd64.buildinfo  hello_2.10-2.1_amd64.deb      hello_2.10-2.dsc            hello_2.10-2_amd64.changes    hello_2.10.orig.tar.gz
@@ -457,7 +458,7 @@ Congratulations !
 allows you to download an entire source package given the URL to the *.dsc*
 file, by inspecting the *.dsc* file and downloading any additional files that
 it references. It then verifies the validity of the signatures (with `dscverify`)
-and extract the source package (with `dpkg-source -x`)
+and extract the source package (with `dpkg-source -x`).
 Example : 
 
 ```bash
@@ -485,8 +486,15 @@ hello-2.10  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10.orig.tar.gz
 ```
 
 ## Links
-- https://debian-handbook.info/browse/stable/sect.source-package-structure.html
-- https://manpages.debian.org/bullseye/dpkg-dev/dpkg-source.1.en.html
-- https://manpages.debian.org/bullseye-backports/devscripts/dget.1.en.html
-- https://manpages.debian.org/bullseye-backports/devscripts/dscverify.1.en.html
-- https://metebalci.com/blog/a-minimum-complete-example-of-debian-packaging-and-launchpad-ppa-hellodeb/
+- [Structure of a source package](https://debian-handbook.info/browse/stable/sect.source-package-structure.html)
+- [Debian New Maintainers' Guide](https://www.debian.org/doc/manuals/maint-guide/index.en.html)
+- [Introduction to Debian packaging](https://www.debian.org/doc/manuals/packaging-tutorial/packaging-tutorial.en.pdf)
+- [Guide for Debian Maintainers](https://www.debian.org/doc/manuals/debmake-doc/index.en.html)
+
+man pages:
+- [dpkg-source](https://manpages.debian.org/bullseye/dpkg-dev/dpkg-source.1.en.html)
+- [dpkg-buildpackage](https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html)
+- [dget](https://manpages.debian.org/bullseye-backports/devscripts/dget.1.en.html)
+- [dscverify](https://manpages.debian.org/bullseye-backports/devscripts/dscverify.1.en.html)
+- [dch](https://manpages.debian.org/bullseye/devscripts/dch.1.en.html)
+
