@@ -6,7 +6,7 @@ authorTwitter = "" #do not include @
 cover = ""
 tags = ["debian", "packaging"]
 keywords = ["", ""]
-description = "Basics of Debian packaging"
+description = "A Debian packaging guide"
 showFullContent = false
 readingTime = false
 hideComments = false
@@ -170,7 +170,7 @@ dpkg-source: info: extraction de hello_2.10.orig.tar.gz
 dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
 ```
 
-We now have access to the (upstream) source code and the debian/ metadata directory :
+We now have access to the (upstream) source code and the debian/ metadata directory:
 
 ```bash
 $ ls hello-2.10/
@@ -300,17 +300,17 @@ $ hello
 Hello, world!
 ```
 
-## Modify the package
+## Make modifications to the package
 Let's do some modification to the code. In the `hello-2.10/src/hello.c`, modify
-the default message on line 60 to greet you by your first name, by example,
-from `Hello, world!` to `Hello, Mathieu!`:
+the default message on line 60 to greet you by your first name,
+from `Hello, world!` to `Hello, Mathieu!` for example:
 
 ```c
   /* Having initialized gettext, get the default message. */
   greeting_msg = _("Hello, Mathieu!");
 ```
 
-Also modify the `hello-2.10/tests/hello-1 test file, line 24, as the tests will
+Also modify the `hello-2.10/tests/hello-1` test file, line 24, as the tests will
 be run during the packaging :
 
 ```c
