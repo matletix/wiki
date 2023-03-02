@@ -310,17 +310,17 @@ the default message on line 60 to greet you by your first name,
 from `Hello, world!` to `Hello, Mathieu!` for example:
 
 ```c
-  /* Having initialized gettext, get the default message. */
-  greeting_msg = _("Hello, Mathieu!");
+59 /* Having initialized gettext, get the default message. */
+60 greeting_msg = _("Hello, Mathieu!");
 ```
 
 Also modify the `hello-2.10/tests/hello-1` test file, line 24, as the tests will
 be run during the packaging :
 
 ```c
-cat <<EOF > hello-test1.ok
-Hello, Mathieu!
-EOF
+23 cat <<EOF > hello-test1.ok
+24 Hello, Mathieu!
+25 EOF
 ```
 
 Now that our modifications are done, let's put them into the *debian/changelog*
