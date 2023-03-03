@@ -277,6 +277,17 @@ the subsequent blocks describe the associated binary package(s) :
 
 - the `debian/rule` file is the executable that will be run for building
   the package.
+  ```bash
+  #!/usr/bin/make -f
+  %:
+	  dh $@
+
+  override_dh_auto_clean:
+	  [ ! -f Makefile ] || $(MAKE) distclean
+
+  override_dh_installdocs:
+	  dh_installdocs NEWS
+  ```
 
 - the `debian/source/format` file indicates the format of the source package
   ```bash
