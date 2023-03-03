@@ -182,7 +182,39 @@ aclocal.m4  build-aux  ChangeLog.O  configure  contrib       debian   GNUmakefil
 > 📝 __NOTE__: without the `--download-only` option, `apt source` downloads the source
 > package and decompresses it at once.
 
-A lot of the work you do when packaging is inside the `debian` directory.
+As an alternative to `apt source`, `dget` is another useful tool when dealing
+with debian source packages. It allows you to download an entire source package
+given the URL to the *.dsc* file, by inspecting the *.dsc* file and downloading
+any additional files that it references. It then verifies the validity of the
+signatures (with `dscverify`) and extract the source package (with `dpkg-source -x`).
+Example : 
+
+```bash
+$ dget http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
+
+dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
+dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10.orig.tar.gz
+dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.debian.tar.xz
+
+hello_2.10-2.dsc:
+      Good signature found
+   validating hello_2.10.orig.tar.gz
+   validating hello_2.10-2.debian.tar.xz
+All files validated successfully.
+
+dpkg-source: info: extraction de hello dans hello-2.10
+dpkg-source: info: extraction de hello_2.10.orig.tar.gz
+dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
+```
+After which we are left with the following :
+```bash
+$ ls
+
+hello-2.10  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10.orig.tar.gz
+```
+
+Great ! Now, a lot of the work you do when packaging is inside the `debian` directory.
+Some of the important files in this directory:
 
 - the `debian/control` file describes metadata about the package like its
   description, its architecture and its relationship to other packages
@@ -293,19 +325,32 @@ hello-2.10  hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.debian.tar.xz  hello_2.1
   the changelog and the checksum of the artefacts produced by the build
 - the `.deb` files are the binary packages
 
+```mermaid
+graph TB;
+A(upstream repository)
+B(source package\n.dsc\n.orig.tar.gz\n.debian.tar.xz)
+C(source code)
+D(binary packages\n.deb)
+
+A --> |dget, apt source| B
+B --> |dpkg-source -x| C
+B & C --> |dpkg-buildpackage| D
+```
+
 We can install the binary packages with apt :
 
 ```bash
 $ sudo apt install ../hello_2.10-2_amd64.deb
 ```
-You can now run it :
+
+Launch the newly installed `hello` command to check that it's working properly:
 
 ```bash
 $ hello
 Hello, world!
 ```
 
-## Make modifications to the package
+## Make modifications and rebuild the package
 Let's do some modification to the code. In the `hello-2.10/src/hello.c`, modify
 the default message on line 60 to greet you by your first name,
 from `Hello, world!` to `Hello, Mathieu!` for example:
@@ -451,39 +496,9 @@ $ sudo apt install ../hello_2.10-2.1_amd64.deb
 $ hello
 Hello, Mathieu!
 ```
-Congratulations !
+Congratulations ! You just downloaded the source package of a .deb package, modified
+its source code, and rebuilded an upgraded version of it.
 
-## Dget
-`dget` is another useful tool when dealing with debian source packages. It
-allows you to download an entire source package given the URL to the *.dsc*
-file, by inspecting the *.dsc* file and downloading any additional files that
-it references. It then verifies the validity of the signatures (with `dscverify`)
-and extract the source package (with `dpkg-source -x`).
-Example : 
-
-```bash
-$ dget http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
-
-dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
-dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10.orig.tar.gz
-dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.debian.tar.xz
-
-hello_2.10-2.dsc:
-      Good signature found
-   validating hello_2.10.orig.tar.gz
-   validating hello_2.10-2.debian.tar.xz
-All files validated successfully.
-
-dpkg-source: info: extraction de hello dans hello-2.10
-dpkg-source: info: extraction de hello_2.10.orig.tar.gz
-dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
-```
-After which we are left with the following :
-```bash
-$ ls
-
-hello-2.10  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10.orig.tar.gz
-```
 
 ## Links
 - [Structure of a source package](https://debian-handbook.info/browse/stable/sect.source-package-structure.html)
