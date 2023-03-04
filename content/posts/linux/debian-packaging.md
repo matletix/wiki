@@ -56,6 +56,8 @@ build commands like `dpkg-source` and `dch`:
 ```bash
 $ sudo apt install dpkg-dev devscripts
 ```
+These install a lot of dependencies so I usually use a dedicated building box
+to do the packaging.
 
 
 ## Structure of a source package
@@ -213,8 +215,8 @@ $ ls
 hello-2.10  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10.orig.tar.gz
 ```
 
-Great ! Now, a lot of the work you do when packaging is inside the `debian` directory.
-Some of the important files in this directory:
+Great ! Now, a lot of the work you do when packaging is inside the `debian` directory
+(from the *.debian.tar.xz* archive). Here are some of the important files in this directory:
 
 - the `debian/control` file describes metadata about the package like its
   description, its architecture and its relationship to other packages
@@ -275,9 +277,12 @@ the subsequent blocks describe the associated binary package(s) :
    -- Santiago Vila <sanvila@debian.org>  Sun, 22 Mar 2015 11:56:00 +0100
   ```
 
-- the `debian/rule` file is the executable that will be run for building
-  the package.
+- the `debian/rules` file is the executable that will be run for building
+  the package. It's a makefile which contain recipes for building the
+artefacts, cleaning them, etc.
   ```bash
+  $ cat debian/rules
+
   #!/usr/bin/make -f
   %:
 	  dh $@
@@ -312,11 +317,8 @@ $ apt build-dep hello
 
 To build the binary package from our current source package, we then use the
 `dpkg-buildpackage` command, with the *-us* and *-uc* parameters that will tell
-it not to sign our package. The dpkg-buildpackage command will invoke multiple
-commands, including the `dpkg-source` command (that will create the .dsc and
-other files). You can see the different steps of the process in the
-[man](https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html)
-of dpkg-buildpackage.
+it not to sign our package.
+
 ```bash
 $ cd hello-2.10/
 $ dpkg-buildpackage -us -uc
@@ -336,7 +338,26 @@ hello-2.10  hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.debian.tar.xz  hello_2.1
   the changelog and the checksum of the artefacts produced by the build
 - the `.deb` files are the binary packages
 
-We can install the binary packages with apt :
+Behind the scenes, the dpkg-buildpackage command will invoke multiple
+commands. You can see the different steps of the process in the
+[man](https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html)
+of dpkg-buildpackage. Here's an overview :
+1. run `dpkg-source --before-build` to prepare the build environment
+2. check that build dependencies (that we just installed above) are satisfied
+3. run the `clean` recipe of `debian/rules` to clean the build tree
+4. run `dpkg-source -b` to generate the source package
+5. run the `build` recipe of `debian/rules` to build the software followed by
+   the `binary` recipe to create the `.deb` binary packages
+6. run `dpkg-genbuildinfo` to generate a .buildinfo file
+7. run `dpkg-genchanges` to generate a .changes file
+8. run the `clean` recipe of `debian/rules` again
+9. run `dpkg-source --after-build`, generally to undo what `dpkg-source
+   --before-build` did
+10. run the `check` hook
+11. sign the `.dsc`, `.changes` and `.buildinfo` files with gpg
+12. run the `done` hook
+
+Ok, we can now install the created binary packages with apt :
 
 ```bash
 $ sudo apt install ../hello_2.10-2_amd64.deb
@@ -360,7 +381,7 @@ from `Hello, world!` to `Hello, Mathieu!` for example:
 ```
 
 Also modify the `hello-2.10/tests/hello-1` test file, line 24, as the tests will
-be run during the packaging :
+be run during the build:
 
 ```c
 23 cat <<EOF > hello-test1.ok
