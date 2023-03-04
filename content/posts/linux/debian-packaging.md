@@ -336,18 +336,6 @@ hello-2.10  hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.debian.tar.xz  hello_2.1
   the changelog and the checksum of the artefacts produced by the build
 - the `.deb` files are the binary packages
 
-```mermaid
-graph TB;
-A(upstream repository)
-B(source package\n.dsc\n.orig.tar.gz\n.debian.tar.xz)
-C(source code)
-D(binary packages\n.deb)
-
-A --> |dget, apt source| B
-B --> |dpkg-source -x| C
-B & C --> |dpkg-buildpackage| D
-```
-
 We can install the binary packages with apt :
 
 ```bash
@@ -510,6 +498,46 @@ Hello, Mathieu!
 Congratulations ! You just downloaded the source package of a .deb package, modified
 its source code, and rebuilded an upgraded version of it.
 
+To wrap it up, here is a (simplified) graph summarizing the workflow
+we worked with for packaging :
+
+```mermaid
+graph TB;
+
+subgraph buildpackage[dpkg-buildpackage]
+    direction TB
+    s1(debian/rules clean)--cleaned source directory-->
+    s2(dpkg-source -b)--source package built-->
+    s3(debian/rules build)--artefacts built-->
+    s4(debian/rules binary)--.deb packages built-->
+    s5(dpkg-genbuildinfo)--.buildinfo file created-->
+    s6(dpkg-genchanges)--.changes file created-->
+    s7(debian/rules clean)--build artefacts removed-->
+    s9(gpg)--signed .dsc, .changes and .buildinfo-->
+    s10(done)
+end
+
+A((upstream\nrepository))-->
+a1(dget, apt source)-->
+B((source package\n.dsc, .orig.tar.gz,\n.debian.tar.xz))-->
+b1(dpkg-source -x)-->
+C((source code\n+ debian/))
+C2(dpkg-source --commit)
+D((.deb\nbinary packages))-->
+E(apt install)-->
+F((files installed\non the host))
+G((.buildinfo file))
+H((.changes file))
+
+B-->buildpackage
+C-->buildpackage
+C--make changes to\nthe source code-->C2
+C2--create patches/-->C
+buildpackage-->B
+buildpackage-->D
+buildpackage-->G
+buildpackage-->H
+```
 
 ## Links
 - [Structure of a source package](https://debian-handbook.info/browse/stable/sect.source-package-structure.html)
