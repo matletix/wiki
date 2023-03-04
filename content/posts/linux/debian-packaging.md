@@ -517,7 +517,7 @@ $ hello
 Hello, Mathieu!
 ```
 Congratulations ! You just downloaded the source package of a .deb package, modified
-its source code, and rebuilded an upgraded version of it.
+its source code, and rebuilt an upgraded version of it.
 
 To wrap it up, here is a (simplified) graph summarizing the workflow
 we worked with for packaging :
