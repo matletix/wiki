@@ -1,0 +1,796 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on My DevOps Notes</title>
+    <link>http://wiki.mrollet.com/posts/</link>
+    <description>Recent content in Posts on My DevOps Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Debian Packaging</title>
+      <link>http://wiki.mrollet.com/posts/linux/debian-packaging/</link>
+      <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
+      <description>How do you create the .deb packages that you use on your system to install software ? Let&amp;rsquo;s walk through a simple example with the hello package, a package that installs an executable to display &amp;ldquo;Hello World!&amp;rdquo;. We&amp;rsquo;ll modify it to display a personalized message with your first name and repackage it.
+$ apt show hello Package: hello Version: 2.10-2 Priority: optional Section: devel Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt; Installed-Size: 287 kB Depends: libc6 (&amp;gt;= 2.</description>
+      <content>&lt;p&gt;How do you create the &lt;code&gt;.deb&lt;/code&gt; packages that you use on your system to install
+software ? Let&amp;rsquo;s walk through a simple example with the &lt;code&gt;hello&lt;/code&gt; package, a
+package that installs an executable to display &amp;ldquo;Hello World!&amp;rdquo;. We&amp;rsquo;ll modify it
+to display a personalized message with your first name and repackage it.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ apt show hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Package: hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Version: 2.10-2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Priority: optional
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Section: devel
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Installed-Size: &lt;span style=&#34;color:#ae81ff&#34;&gt;287&lt;/span&gt; kB
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Depends: libc6 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&amp;gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 2.14&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Conflicts: hello-traditional
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Breaks: hello-debhelper &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt; 2.9)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Replaces: hello-debhelper (&amp;lt;&amp;lt; 2&lt;/span&gt;.9&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;, hello-traditional
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Homepage: http://www.gnu.org/software/hello/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Tag: devel::debian, devel::examples, devel::lang:c, devel::lang:posix-shell,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; devel::packaging, implemented-in::c, interface::commandline,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; role::documentation, role::program, scope::utility, suite::debian,
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; suite::gnu
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Download-Size: 56,1 kB
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;APT-Manual-Installed: yes
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;APT-Sources: http://deb.debian.org/debian bullseye/main amd64 Packages
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Description: example package based on GNU hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; The GNU hello program produces a familiar, friendly greeting.  It
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; allows non-programmers to use a classic computer science tool which
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; would otherwise be unavailable to them.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Seriously, though: this is an example of how to &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; a Debian package.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; It is the Debian version of the GNU Project&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s `hello world&amp;#39;&lt;/span&gt; program
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;which is itself an example &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; the GNU Project&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Before we start, install the &lt;code&gt;dpkg-dev&lt;/code&gt; and &lt;code&gt;devscripts&lt;/code&gt; packages to have access to
+build commands like &lt;code&gt;dpkg-source&lt;/code&gt; and &lt;code&gt;dch&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo apt install dpkg-dev devscripts
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;These install a lot of dependencies so I usually use a dedicated building box
+to do the packaging.&lt;/p&gt;
+&lt;h2 id=&#34;structure-of-a-source-package&#34;&gt;Structure of a source package&lt;/h2&gt;
+&lt;p&gt;Each binary &lt;em&gt;.deb&lt;/em&gt; package originates from a debian &lt;em&gt;source package&lt;/em&gt;. You can
+download the sources of a package by using the &lt;code&gt;apt source&lt;/code&gt; command.
+A relevant &amp;ldquo;deb-src&amp;rdquo; line must be present in your &lt;code&gt;sources.list&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ apt source --download-only hello
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will download 3 files in the current directory :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hello_2.10-2.debian.tar.xz&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hello_2.10-2.dsc&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hello_2.10.orig.tar.gz&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;This set of files is the &lt;em&gt;source package&lt;/em&gt; of our binary package &lt;em&gt;hello&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;.dsc&lt;/code&gt; file is the &lt;em&gt;Debian source control&lt;/em&gt; file. It describes the source
+package: the files that it contains, the version, the format, the
+maintainer, etc.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cat hello_2.10-2.dsc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-----BEGIN PGP SIGNED MESSAGE-----
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hash: SHA256
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Format: 3.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;quilt&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Source: hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Binary: hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Architecture: any
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Version: 2.10-2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Homepage: http://www.gnu.org/software/hello/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Standards-Version: 4.3.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Build-Depends: debhelper-compat &lt;span style=&#34;color:#f92672&#34;&gt;(=&lt;/span&gt; 9&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Package-List:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; hello deb devel optional arch&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;any
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Checksums-Sha1:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; f7bebf6f9c62a2295e889f66e05ce9bfaed9ace3 &lt;span style=&#34;color:#ae81ff&#34;&gt;725946&lt;/span&gt; hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; a35d97bd364670b045cdd86d446e71b171e915cc &lt;span style=&#34;color:#ae81ff&#34;&gt;6132&lt;/span&gt; hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Checksums-Sha256:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 31e066137a962676e89f69d1b65382de95a7ef7d914b8cb956f41ea72e0f516b &lt;span style=&#34;color:#ae81ff&#34;&gt;725946&lt;/span&gt; hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 811ad0255495279fc98dc75f4460da1722f5c1030740cb52638cb80d0fdb24f0 &lt;span style=&#34;color:#ae81ff&#34;&gt;6132&lt;/span&gt; hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Files:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 6cd0ffea3884a4e79330338dcc2987d6 &lt;span style=&#34;color:#ae81ff&#34;&gt;725946&lt;/span&gt; hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; e522e61c27eb0401c86321b9d8e137ae &lt;span style=&#34;color:#ae81ff&#34;&gt;6132&lt;/span&gt; hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-----BEGIN PGP SIGNATURE-----
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;iQEzBAEBCAAdFiEE1Uw7+v+wQt44LaXXQc5/C58bizIFAlzZsmAACgkQQc5/C58b
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;izLpZAf/c8SfVAmQNaj2OXK08n2AmrWwE177tg4ELZLLDlXK0O//2eoc/507jdTT
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;SOcvb8E7ABmqVZeJmoeEAf7G/YNuOw/gC/h64mb8fzqekxjc2ME5ZjCyhX2A8PSU
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;gN7KF7pdTuzjZzlBqciao00mOJFlLLsLgy913MbKUQv5jWNMEHp66k5oCsvwPCKZ
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;F3XzVD+rdviG4DOLdWERCfoToIFcTW2Bb//A/lMovaH90qETSm1Vu+0YpU75Zvc8
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hc7o8ceESilCvIZBnKu7z7XjDuv1cJsQcwd4d/g9ExIttOUVFr6ZsjO2OTgz9Dtr
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;NoZBXv/SrHo5rEVf7MvorSX4z276yw&lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;SItA
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-----END PGP SIGNATURE-----
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The file is signed by the maintainer to ensure its authenticity.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s look inside the archives.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;orig.tar.gz&lt;/code&gt; file contains the source code for our software.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ tar -tf hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/COPYING
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/tests/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/tests/greeting-1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/tests/traditional-1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/Makefile.am
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/config.in
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/maint.mk
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/README
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/INSTALL
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10/NEWS
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;...
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The &lt;code&gt;debian.tar.xz&lt;/code&gt; archive contains the &lt;code&gt;debian/&lt;/code&gt; folder which contains all the
+necessary metadata for packaging.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ tar -tf hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/changelog
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/control
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/copyright
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/rules
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/rules-old
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/source/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/source/format
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;debian/watch
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;dpkg-source&lt;/code&gt; is a tool for manipulating debian source packages. We can use it
+to extract the &lt;code&gt;.orig.tar.gz&lt;/code&gt; and &lt;code&gt;.debian.tar.xz&lt;/code&gt; archives of our source
+package into a &lt;code&gt;hello-2.10/&lt;/code&gt; directory :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dpkg-source -x hello_2.10-2.dsc 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: extraction de hello dans hello-2.10
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: extraction de hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We now have access to the (upstream) source code and the debian/ metadata directory:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ls hello-2.10/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;ABOUT-NLS   AUTHORS    ChangeLog    config.in  configure.ac  COPYING  doc          hello.1  lib  maint.mk     Makefile.in  NEWS  README      README-release  tests   TODO
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;aclocal.m4  build-aux  ChangeLog.O  configure  contrib       debian   GNUmakefile  INSTALL  m4   Makefile.am  man          po    README-dev  src             THANKS
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
+&lt;p&gt;📝 &lt;strong&gt;NOTE&lt;/strong&gt;: without the &lt;code&gt;--download-only&lt;/code&gt; option, &lt;code&gt;apt source&lt;/code&gt; downloads the source
+package and decompresses it at once.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;As an alternative to &lt;code&gt;apt source&lt;/code&gt;, &lt;code&gt;dget&lt;/code&gt; is another useful tool when dealing
+with debian source packages. It allows you to download an entire source package
+given the URL to the &lt;em&gt;.dsc&lt;/em&gt; file, by inspecting the &lt;em&gt;.dsc&lt;/em&gt; file and downloading
+any additional files that it references. It then verifies the validity of the
+signatures (with &lt;code&gt;dscverify&lt;/code&gt;) and extract the source package (with &lt;code&gt;dpkg-source -x&lt;/code&gt;).
+Example :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dget http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello_2.10-2.dsc:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      Good signature found
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   validating hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   validating hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;All files validated successfully.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: extraction de hello dans hello-2.10
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: extraction de hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;After which we are left with the following :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ls
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Great ! Now, a lot of the work you do when packaging is inside the &lt;code&gt;debian&lt;/code&gt; directory
+(from the &lt;em&gt;.debian.tar.xz&lt;/em&gt; archive). Here are some of the important files in this directory:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;the &lt;code&gt;debian/control&lt;/code&gt; file describes metadata about the package like its
+description, its architecture and its relationship to other packages
+(dependencies, conflicts, etc). The first block describe the source package, and
+the subsequent blocks describe the associated binary package(s) :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cat debian/control
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Source: hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Section: devel
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Priority: optional
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Standards-Version: 4.3.0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Build-Depends: debhelper-compat &lt;span style=&#34;color:#f92672&#34;&gt;(=&lt;/span&gt; 9&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Homepage: http://www.gnu.org/software/hello/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Rules-Requires-Root: no
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Package: hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Architecture: any
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Depends: &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;shlibs:Depends&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;${&lt;/span&gt;misc:Depends&lt;span style=&#34;color:#e6db74&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Conflicts: hello-traditional
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Replaces: hello-traditional, hello-debhelper &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt; 2.9)
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;Breaks: hello-debhelper (&amp;lt;&amp;lt; 2&lt;/span&gt;.9&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Description: example package based on GNU hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; The GNU hello program produces a familiar, friendly greeting.  It
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; allows non-programmers to use a classic computer science tool which
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; would otherwise be unavailable to them.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; .
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; Seriously, though: this is an example of how to &lt;span style=&#34;color:#66d9ef&#34;&gt;do&lt;/span&gt; a Debian package.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; It is the Debian version of the GNU Project&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;s `hello world&amp;#39;&lt;/span&gt; program
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;which is itself an example &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; the GNU Project&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the &lt;code&gt;debian/changelog&lt;/code&gt; file tracks the revisions of the package, with the
+associated names, versions and distributions :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cat debian/changelog
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2.10-2&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; unstable; urgency&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;medium
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * Fix version skew. Closes: &lt;span style=&#34;color:#75715e&#34;&gt;#928887.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * Drop debian/compat and use new syntax to specify compat level.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * Standards-Version: 4.3.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;no changes &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; this&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * Rules-Requires-Root: no
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; -- Santiago Vila &amp;lt;sanvila@debian.org&amp;gt;  Mon, &lt;span style=&#34;color:#ae81ff&#34;&gt;13&lt;/span&gt; May &lt;span style=&#34;color:#ae81ff&#34;&gt;2019&lt;/span&gt; 20:06:50 +0200
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2.10-1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; unstable; urgency&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;low
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * New upstream release.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * debian/patches: Drop 01-fix-i18n-of-default-message, no longer needed.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * debian/patches: Drop 99-config-guess-config-sub, no longer needed.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * debian/rules: Drop override_dh_auto_build hack, no longer needed.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * Standards-Version: 3.9.6 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;no changes &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; this&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;.
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; -- Santiago Vila &amp;lt;sanvila@debian.org&amp;gt;  Sun, &lt;span style=&#34;color:#ae81ff&#34;&gt;22&lt;/span&gt; Mar &lt;span style=&#34;color:#ae81ff&#34;&gt;2015&lt;/span&gt; 11:56:00 +0100
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the &lt;code&gt;debian/rules&lt;/code&gt; file is the executable that will be run for building
+the package. It&amp;rsquo;s a makefile which contain recipes for building the
+artefacts, cleaning them, etc.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cat debian/rules
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;#!/usr/bin/make -f&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dh $@
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;override_dh_auto_clean:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt; ! -f Makefile &lt;span style=&#34;color:#f92672&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;||&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;$(&lt;/span&gt;MAKE&lt;span style=&#34;color:#66d9ef&#34;&gt;)&lt;/span&gt; distclean
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;override_dh_installdocs:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    dh_installdocs NEWS
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the &lt;code&gt;debian/source/format&lt;/code&gt; file indicates the format of the source package&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cat debian/source/format
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;3.0 &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;quilt&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here we&amp;rsquo;re dealing with a &lt;em&gt;3.0 (quilt)&lt;/em&gt; source package, that&amp;rsquo;s why it
+contains the 3 files &lt;code&gt;.dsc&lt;/code&gt;, &lt;code&gt;.orig.tar.gz&lt;/code&gt; and &lt;code&gt;.debian.tar.xz&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;building-the-binary-packages&#34;&gt;Building the binary packages&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s start by building the binary packages for the source package that we got. To
+do that, we first have to install the build dependencies that are specifically
+required for building this package. You do that with the following command :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ apt build-dep hello
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;To build the binary package from our current source package, we then use the
+&lt;code&gt;dpkg-buildpackage&lt;/code&gt; command, with the &lt;em&gt;-us&lt;/em&gt; and &lt;em&gt;-uc&lt;/em&gt; parameters that will tell
+it not to sign our package.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cd hello-2.10/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dpkg-buildpackage -us -uc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Done! if you list the parent directory, you can find some additional files:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ls ..
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10  hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10-2_amd64.buildinfo  hello_2.10-2_amd64.changes  hello_2.10-2_amd64.deb  hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;the &lt;code&gt;.buildinfo&lt;/code&gt; file contains information about the build environment, such
+as the version of the build dependencies and the architecture of the build
+system&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;.changes&lt;/code&gt; file contains data about the build like the related section of
+the changelog and the checksum of the artefacts produced by the build&lt;/li&gt;
+&lt;li&gt;the &lt;code&gt;.deb&lt;/code&gt; files are the binary packages&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Behind the scenes, the dpkg-buildpackage command will invoke multiple
+commands. You can see the different steps of the process in the
+&lt;a href=&#34;https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html&#34;&gt;man&lt;/a&gt;
+of dpkg-buildpackage. Here&amp;rsquo;s an overview :&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;run &lt;code&gt;dpkg-source --before-build&lt;/code&gt; to prepare the build environment&lt;/li&gt;
+&lt;li&gt;check that build dependencies (that we just installed above) are satisfied&lt;/li&gt;
+&lt;li&gt;run the &lt;code&gt;clean&lt;/code&gt; recipe of &lt;code&gt;debian/rules&lt;/code&gt; to clean the build tree&lt;/li&gt;
+&lt;li&gt;run &lt;code&gt;dpkg-source -b&lt;/code&gt; to generate the source package&lt;/li&gt;
+&lt;li&gt;run the &lt;code&gt;build&lt;/code&gt; recipe of &lt;code&gt;debian/rules&lt;/code&gt; to build the software followed by
+the &lt;code&gt;binary&lt;/code&gt; recipe to create the &lt;code&gt;.deb&lt;/code&gt; binary packages&lt;/li&gt;
+&lt;li&gt;run &lt;code&gt;dpkg-genbuildinfo&lt;/code&gt; to generate a .buildinfo file&lt;/li&gt;
+&lt;li&gt;run &lt;code&gt;dpkg-genchanges&lt;/code&gt; to generate a .changes file&lt;/li&gt;
+&lt;li&gt;run the &lt;code&gt;clean&lt;/code&gt; recipe of &lt;code&gt;debian/rules&lt;/code&gt; again&lt;/li&gt;
+&lt;li&gt;run &lt;code&gt;dpkg-source --after-build&lt;/code&gt;, generally to undo what &lt;code&gt;dpkg-source --before-build&lt;/code&gt; did&lt;/li&gt;
+&lt;li&gt;run the &lt;code&gt;check&lt;/code&gt; hook&lt;/li&gt;
+&lt;li&gt;sign the &lt;code&gt;.dsc&lt;/code&gt;, &lt;code&gt;.changes&lt;/code&gt; and &lt;code&gt;.buildinfo&lt;/code&gt; files with gpg&lt;/li&gt;
+&lt;li&gt;run the &lt;code&gt;done&lt;/code&gt; hook&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Ok, we can now install the created binary packages with apt :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo apt install ../hello_2.10-2_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Launch the newly installed &lt;code&gt;hello&lt;/code&gt; command to check that it&amp;rsquo;s working properly:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hello, world!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;make-modifications-and-rebuild-the-package&#34;&gt;Make modifications and rebuild the package&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s do some modification to the code. In the &lt;code&gt;hello-2.10/src/hello.c&lt;/code&gt;, modify
+the default message on line 60 to greet you by your first name,
+from &lt;code&gt;Hello, world!&lt;/code&gt; to &lt;code&gt;Hello, Mathieu!&lt;/code&gt; for example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;59&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;/* Having initialized gettext, get the default message. */&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;60&lt;/span&gt; greeting_msg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, Mathieu!&amp;#34;&lt;/span&gt;);
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Also modify the &lt;code&gt;hello-2.10/tests/hello-1&lt;/code&gt; test file, line 24, as the tests will
+be run during the build:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-c&#34; data-lang=&#34;c&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;23&lt;/span&gt; cat &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;lt;&lt;/span&gt;EOF &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;&lt;/span&gt; hello&lt;span style=&#34;color:#f92672&#34;&gt;-&lt;/span&gt;test1.ok
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;24&lt;/span&gt; Hello, Mathieu&lt;span style=&#34;color:#f92672&#34;&gt;!&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;25&lt;/span&gt; EOF
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Now that our modifications are done, let&amp;rsquo;s put them into the &lt;em&gt;debian/changelog&lt;/em&gt;
+file and increment the version number of our package. The &lt;code&gt;dch&lt;/code&gt;
+command is made for this:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cd hello-2.10/
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dch -i
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;We&amp;rsquo;re then prompted to edit the message in the changelog. Put a message that
+reflect your changes, for example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello (2.10-2.1) UNRELEASED; urgency=medium
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  * Customize the default greeting message
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; -- Mathieu Rollet &amp;lt;mrollet@local&amp;gt;  Wed, 01 Mar 2023 17:41:08 +0100
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Notice that the version number has automatically been increased from &lt;code&gt;2.10-2&lt;/code&gt;
+to &lt;code&gt;2.10-2.1&lt;/code&gt;. If you want to explicitly pass the new version to use you can
+use &lt;code&gt;dch -v &amp;lt;VERSION&amp;gt;&lt;/code&gt; instead of &lt;code&gt;dch -i&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Ok, save that file. We&amp;rsquo;ll now try to build the new version of our package !&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dpkg-buildpackage -us -uc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The command produces the following error :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: using source format &amp;#39;3.0 (quilt)&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: building hello using existing ./hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: local changes detected, the modified files are:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; hello-2.10/src/hello.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; hello-2.10/tests/hello-1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: info: you can integrate the local changes with dpkg-source --commit
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-source: error: aborting due to unexpected upstream changes, see /tmp/hello_2.10-2.1.diff.4RRfd1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dpkg-buildpackage: error: dpkg-source -b . subprocess returned exit status 2
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The build process was not expecting the changes that we made (the original
+files are available for comparison in the &lt;code&gt;.orig.tar.gz&lt;/code&gt; archive). In order to
+complete the build process, we need to create a &lt;em&gt;patch&lt;/em&gt; that will help document
+and keep track of the changes we made. Use &lt;code&gt;dpkg-source&lt;/code&gt; to create the patch:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dpkg-source --commit
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It will ask you for the name of the patch, you can name it
+&amp;ldquo;customized-greetings&amp;rdquo;. You&amp;rsquo;re then prompted to edit the patch file.
+Once saved, you can find the patch file in the &lt;code&gt;debian/patches&lt;/code&gt; directory.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ cat debian/patches/customized-greetings
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Description: Customize the default greeting message
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; hello &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;2.10-2.1&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; UNRELEASED; urgency&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;medium
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   * Customize the default greeting message
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   * Display &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, &amp;lt;FIRSTNAME&amp;gt;!&amp;#34;&lt;/span&gt; instead of &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, world!&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Author: Mathieu Rollet &amp;lt;mrollet@local&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;---
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;The information above should follow the Patch Tagging Guidelines, please
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;are templates &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; supplementary fields that you might want to add:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Origin: &amp;lt;vendor|upstream|other&amp;gt;, &amp;lt;url of original patch&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bug: &amp;lt;url in upstream bugtracker&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bug-Debian: https://bugs.debian.org/&amp;lt;bugnumber&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Bug-Ubuntu: https://launchpad.net/bugs/&amp;lt;bugnumber&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Forwarded: &amp;lt;no|not-needed|url proving that it has been forwarded&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Reviewed-By: &amp;lt;name and email of someone who approved the patch&amp;gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Last-Update: 2023-03-01
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;--- hello-2.10.orig/src/hello.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;+++ hello-2.10/src/hello.c
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;@@ -57,7 +57,7 @@ main &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;int argc, char *argv&lt;span style=&#34;color:#f92672&#34;&gt;[])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;#endif&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   /* Having initialized gettext, get the default message. */
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-  greeting_msg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, world!&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;+  greeting_msg &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; _&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Hello, Mathieu!&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   /* Even exiting has subtleties.  On exit, &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; any writes failed, change
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      the exit status.  The /dev/full device on GNU/Linux can be used &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;--- hello-2.10.orig/tests/hello-1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;+++ hello-2.10/tests/hello-1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;@@ -21,7 +21,7 @@ export LANGUAGE LC_ALL LC_MESSAGES LANG
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; tmpfiles&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;hello-test1.ok&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; cat &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;lt;&amp;lt;EOF &amp;gt; hello-test1.ok
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;-Hello, world!
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;+Hello, Mathieu!
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt; EOF&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; tmpfiles&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&lt;/span&gt;$tmpfiles&lt;span style=&#34;color:#e6db74&#34;&gt; hello-test1.out&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Let&amp;rsquo;s try building the packages again :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ dpkg-buildpackage -us -uc
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This time it works and we have additional files in the parent directory :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ls ..
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-2.10                       hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.1.dsc              hello_2.10-2.1_amd64.changes  hello_2.10-2.debian.tar.xz  hello_2.10-2_amd64.buildinfo  hello_2.10-2_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;hello-dbgsym_2.10-2.1_amd64.deb  hello_2.10-2.1.debian.tar.xz   hello_2.10-2.1_amd64.buildinfo  hello_2.10-2.1_amd64.deb      hello_2.10-2.dsc            hello_2.10-2_amd64.changes    hello_2.10.orig.tar.gz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;The build created new &lt;code&gt;.dsc&lt;/code&gt; and &lt;code&gt;.debian.tar.xz&lt;/code&gt; source package files for the
+new &lt;em&gt;2.10-2.1&lt;/em&gt; version, as well as the new &lt;code&gt;.buildinfo&lt;/code&gt;, &lt;code&gt;.changes&lt;/code&gt; and &lt;code&gt;.deb&lt;/code&gt;
+artefacts for the &lt;em&gt;2.10-2.1&lt;/em&gt; version.&lt;/p&gt;
+&lt;p&gt;Install and run your new version of &lt;code&gt;hello&lt;/code&gt; to see the difference !&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ sudo apt install ../hello_2.10-2.1_amd64.deb
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ hello
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Hello, Mathieu!
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Congratulations ! You just downloaded the source package of a .deb package, modified
+its source code, and rebuilt an upgraded version of it.&lt;/p&gt;
+&lt;p&gt;To wrap it up, here is a (simplified) graph summarizing the workflow
+we worked with for packaging :&lt;/p&gt;
+&lt;div class=&#34;mermaid&#34; style=&#34;text-align: center;&#34;&gt;graph TB;
+
+subgraph buildpackage[dpkg-buildpackage]
+    direction TB
+    s1(debian/rules clean)--cleaned source directory--&gt;
+    s2(dpkg-source -b)--source package built--&gt;
+    s3(debian/rules build)--artefacts built--&gt;
+    s4(debian/rules binary)--.deb packages built--&gt;
+    s5(dpkg-genbuildinfo)--.buildinfo file created--&gt;
+    s6(dpkg-genchanges)--.changes file created--&gt;
+    s7(debian/rules clean)--build artefacts removed--&gt;
+    s9(gpg)--signed .dsc, .changes and .buildinfo--&gt;
+    s10(done)
+end
+
+A((upstream\nrepository))--&gt;
+a1(dget, apt source)--&gt;
+B((source package\n.dsc, .orig.tar.gz,\n.debian.tar.xz))--&gt;
+b1(dpkg-source -x)--&gt;
+C((source code\n+ debian/))
+C2(dpkg-source --commit)
+D((.deb\nbinary packages))--&gt;
+E(apt install)--&gt;
+F((files installed\non the host))
+G((.buildinfo file))
+H((.changes file))
+
+B--&gt;buildpackage
+C--&gt;buildpackage
+C--make changes to\nthe source code--&gt;C2
+C2--create patches/--&gt;C
+buildpackage--&gt;B
+buildpackage--&gt;D
+buildpackage--&gt;G
+buildpackage--&gt;H
+&lt;/div&gt;
+
+
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://debian-handbook.info/browse/stable/sect.source-package-structure.html&#34;&gt;Structure of a source package&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.debian.org/doc/manuals/maint-guide/index.en.html&#34;&gt;Debian New Maintainers&amp;rsquo; Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.debian.org/doc/manuals/packaging-tutorial/packaging-tutorial.en.pdf&#34;&gt;Introduction to Debian packaging&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.debian.org/doc/manuals/debmake-doc/index.en.html&#34;&gt;Guide for Debian Maintainers&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;man pages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://manpages.debian.org/bullseye/dpkg-dev/dpkg-source.1.en.html&#34;&gt;dpkg-source&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html&#34;&gt;dpkg-buildpackage&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://manpages.debian.org/bullseye-backports/devscripts/dget.1.en.html&#34;&gt;dget&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://manpages.debian.org/bullseye-backports/devscripts/dscverify.1.en.html&#34;&gt;dscverify&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://manpages.debian.org/bullseye/devscripts/dch.1.en.html&#34;&gt;dch&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Rust for Python Programmers</title>
+      <link>http://wiki.mrollet.com/posts/python/rust-for-python-programmers/</link>
+      <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/python/rust-for-python-programmers/</guid>
+      <description>Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language from the perspective of a Python programmer.
+Carefully exploring Rust as a Python developer Rust for Python Programmers From Python to Rust, a video series by &amp;ldquo;Bedroom Builds&amp;rdquo; </description>
+      <content>&lt;p&gt;Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language
+from the perspective of a Python programmer.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://karimjedda.com/carefully-exploring-rust/&#34;&gt;Carefully exploring Rust as a Python developer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://lucumr.pocoo.org/2015/5/27/rust-for-pythonistas/&#34;&gt;Rust for Python Programmers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.youtube.com/playlist?list=PLEIv4NBmh-GsWGE9mY3sF9c5lgh5Z_jLr&#34;&gt;From Python to Rust&lt;/a&gt;, a video series by &amp;ldquo;Bedroom Builds&amp;rdquo;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>CISCO Routers Configuration Basics</title>
+      <link>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
+      <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
+      <description>Cisco Routers Configuration Basics Enter privileged mode : enable Enter global config mode : configure terminal Set router hostname to R1 : hostname R1 Do a non-config command in config mode : do &amp;lt;COMMAND&amp;gt; Show interfaces : show ip interface brief Show routes : show ip route Show running configuration : show running-config Configure interface g0/1 : interface g0/1 Set interface IP : ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt; Set interface description : description ## DESCRIPTION ## Enable the interface : no shutdown Add a route (in global config mode) : ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt; Remove a route : check routes in the running config : do sh run | include ip route remove the relevant route : no ip route .</description>
+      <content>&lt;h1 id=&#34;cisco-routers-configuration-basics&#34;&gt;Cisco Routers Configuration Basics&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Enter privileged mode : &lt;code&gt;enable&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Enter global config mode : &lt;code&gt;configure terminal&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Set router hostname to R1 : &lt;code&gt;hostname R1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Do a non-config command in config mode : &lt;code&gt;do &amp;lt;COMMAND&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Show interfaces : &lt;code&gt;show ip interface brief&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Show routes : &lt;code&gt;show ip route&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Show running configuration : &lt;code&gt;show running-config&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Configure interface g0/1 : &lt;code&gt;interface g0/1&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;Set interface IP : &lt;code&gt;ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Set interface description : &lt;code&gt;description ## DESCRIPTION ##&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Enable the interface : &lt;code&gt;no shutdown&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Add a route (in global config mode) : &lt;code&gt;ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Remove a route :
+&lt;ul&gt;
+&lt;li&gt;check routes in the running config : &lt;code&gt;do sh run | include ip route&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;remove the relevant route : &lt;code&gt;no ip route ...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>The Filesystem Hierarchy Standard (FHS)</title>
+      <link>http://wiki.mrollet.com/posts/linux/fhs/</link>
+      <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/linux/fhs/</guid>
+      <description>Many UNIX systems use a set of standardized directories and files for organizing their file system. Maintained by the Linux Foundation, the Filesystem Hierarchy Standard (FHS) is the reference describing these conventions.
+Conventions /home : user home directories /root : root user&amp;rsquo;s home directory. Not in /home because /home is often on a separate partition or network share and it needs to be accessible in single user mode /boot : boot loader, kernel files /etc : text configuration files /opt : self-contained 3rd party packages /media : content of the removable media /mnt : temporary mounted filesystems /tmp : temporary files, usually deleted on reboot /bin : essential binaries needed before /usr is mounted (eg.</description>
+      <content>&lt;p&gt;Many UNIX systems use a set of standardized directories and files for organizing
+their file system. Maintained by the Linux Foundation, the &lt;strong&gt;Filesystem Hierarchy
+Standard (FHS)&lt;/strong&gt; is the reference describing these conventions.&lt;/p&gt;
+&lt;h2 id=&#34;conventions&#34;&gt;Conventions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/home&lt;/strong&gt; : user home directories&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/root&lt;/strong&gt; : root user&amp;rsquo;s home directory. Not in /home because /home is often on a
+separate partition or network share and it needs to be accessible in single user mode&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/boot&lt;/strong&gt; : boot loader, kernel files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/etc&lt;/strong&gt; : text configuration files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/opt&lt;/strong&gt; : self-contained 3rd party packages&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/media&lt;/strong&gt; : content of the removable media&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/mnt&lt;/strong&gt; : temporary mounted filesystems&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/tmp&lt;/strong&gt; : temporary files, usually deleted on reboot&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/bin&lt;/strong&gt; : essential binaries needed before /usr is mounted (eg. during early boot
+stage or in single user mode)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/sbin&lt;/strong&gt; : essential binaries for which superuser privileges (root) are required&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/lib&lt;/strong&gt; : library files needed by essential binaries&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr&lt;/strong&gt; : things not needed for single user mode
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/usr/bin&lt;/strong&gt; : general system-wide binaries&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/sbin&lt;/strong&gt; : general binaries for system administration&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/lib&lt;/strong&gt; : library files needed by general binaries&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/local&lt;/strong&gt; : local to this computer. Not managed by the system packages
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/usr/local/bin&lt;/strong&gt; : locally installed programs&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/local/sbin&lt;/strong&gt; : locally installed programs for system administration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var&lt;/strong&gt; : files that change a lot. Often on its own partition to avoid crashing
+the system if it fills up
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/var/log&lt;/strong&gt; : log files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/tmp&lt;/strong&gt; : temporary files, do persist accross reboots, although they are
+often deleted in a site-specific manner (but less frequently than /tmp).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool&lt;/strong&gt; : store various type of spooled data. &amp;ldquo;spooling&amp;rdquo; refers to the
+process of temporarily holding data in a queue or buffer while it&amp;rsquo;s being
+processed or transmitted.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool/cron&lt;/strong&gt; : spool files for the cron job scheduler&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool/mail&lt;/strong&gt; : spool files for local email messages&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool/cups&lt;/strong&gt; : spool files for print jobs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/dev&lt;/strong&gt; : hardware represented as files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/dev/shm&lt;/strong&gt; : virtual filesystem for in-memory temporary files (shared memory)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc&lt;/strong&gt; : virtual filesystem used to expose kernel data structures to user-space
+programs. Mostly read-only and process-centric. Contains one folder per process.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/proc/cpuinfo&lt;/strong&gt; : info about CPU on the system&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/meminfo&lt;/strong&gt; : info about memory usage on the system&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/kcore&lt;/strong&gt; : displays the actual system memory. Only file in proc with a size&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/modules&lt;/strong&gt; : list of kernel loaded modules&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/cmdline&lt;/strong&gt; : passed boot parameters&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/version&lt;/strong&gt; : kernel version and time of compilation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/swaps&lt;/strong&gt; : status of swap partitions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/sys&lt;/strong&gt;: virtual filesystem used to expose device information to user-space
+programs. Read/write filesystem, allows configuration of devices by writing to a file.
+In general, the information provided in /proc is process-centric and relates to the
+system as a whole, while the information provided in /sys is device-centric and
+relates to the hardware and drivers in the system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;additional-notes&#34;&gt;Additional Notes&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Nowadays, &lt;code&gt;/bin&lt;/code&gt;, &lt;code&gt;/sbin&lt;/code&gt; and &lt;code&gt;/lib&lt;/code&gt; often are links to &lt;code&gt;/usr/bin&lt;/code&gt;, &lt;code&gt;/usr/sbin&lt;/code&gt; and
+&lt;code&gt;/usr/lib&lt;/code&gt;. This allows improved compatibility with other *NIXes. Historically the
+/bin and /sbin directories were used to mount the usr partition. This job is nowadays
+done by initramfs, and splitting the directories therefore no longer serves any purpose.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://refspecs.linuxfoundation.org/fhs.shtml&#34;&gt;https://refspecs.linuxfoundation.org/fhs.shtml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard&#34;&gt;https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local&#34;&gt;https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://unix.stackexchange.com/questions/266517/why-is-bin-a-symbolic-link-to-usr-bin&#34;&gt;https://unix.stackexchange.com/questions/266517/why-is-bin-a-symbolic-link-to-usr-bin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/&#34;&gt;https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Web servers in Python and the WSGI/ASGI protocols</title>
+      <link>http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</link>
+      <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</guid>
+      <description>Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate with the HTTP protocol ? And what exactly was the additional component like uWSGI/werkzeug/uvicorn doing to serve your app ?
+Then I encourage you to read the following, a step-by-step and in-depth blog series on understanding web servers in Python and the WSGI and ASGI protocols : https://mleue.com/posts/lets-build-our-own-fastapi/</description>
+      <content>&lt;p&gt;Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate
+with the HTTP protocol ? And what exactly was the additional component like
+uWSGI/werkzeug/uvicorn doing to serve your app ?&lt;/p&gt;
+&lt;p&gt;Then I encourage you to read the following, a step-by-step and in-depth blog series on
+understanding web servers in Python and the &lt;em&gt;WSGI&lt;/em&gt; and &lt;em&gt;ASGI&lt;/em&gt; protocols :
+&lt;a href=&#34;https://mleue.com/posts/lets-build-our-own-fastapi/&#34;&gt;https://mleue.com/posts/lets-build-our-own-fastapi/&lt;/a&gt;&lt;/p&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Iterators, Generators and Coroutines</title>
+      <link>http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</link>
+      <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</guid>
+      <description>Iterable An iterable is an object that can produce an iterator by calling the iter() function on it. Eg: list, tuple, dict, set, string, etc. It must define the __iter__() method:
+__iter__(): method called on the initialization of an Iterator. (eg. by iter()) {.is-info}
+abcd = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;, &amp;#34;d&amp;#34;] type(abcd) # &amp;lt;class &amp;#39;list&amp;#39;&amp;gt; it = iter(abcd) type(it) # &amp;lt;class &amp;#39;list_iterator&amp;#39;&amp;gt; Iterator An iterator is a value producer that yields successive values from its associated iterable object.</description>
+      <content>&lt;h2 id=&#34;iterable&#34;&gt;Iterable&lt;/h2&gt;
+&lt;p&gt;An &lt;em&gt;iterable&lt;/em&gt; is an object that can produce an &lt;em&gt;iterator&lt;/em&gt; by calling the &lt;code&gt;iter()&lt;/code&gt; function on it.
+Eg: &lt;code&gt;list&lt;/code&gt;, &lt;code&gt;tuple&lt;/code&gt;, &lt;code&gt;dict&lt;/code&gt;, &lt;code&gt;set&lt;/code&gt;, &lt;code&gt;string&lt;/code&gt;, etc.
+It must define the &lt;code&gt;__iter__()&lt;/code&gt; method:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;__iter__()&lt;/code&gt;: method called on the initialization of an Iterator. (eg. by &lt;code&gt;iter()&lt;/code&gt;)
+{.is-info}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;abcd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;d&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;type(abcd)  &lt;span style=&#34;color:#75715e&#34;&gt;# &amp;lt;class &amp;#39;list&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;it &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iter(abcd)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;type(it)  &lt;span style=&#34;color:#75715e&#34;&gt;# &amp;lt;class &amp;#39;list_iterator&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;iterator&#34;&gt;Iterator&lt;/h2&gt;
+&lt;p&gt;An iterator is a value producer that &lt;em&gt;yields&lt;/em&gt; successive values from its associated iterable object. It retains its state internally, so when you call &lt;code&gt;next()&lt;/code&gt;,  it knows which values have been obtained already and what value to return next.
+It must define the &lt;code&gt;__next__()&lt;/code&gt; method:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;code&gt;__next__()&lt;/code&gt; : method called to produce the next element of an Iterator. (eg. by &lt;code&gt;next()&lt;/code&gt;)
+{.is-info}&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;The &lt;code&gt;for ... in ...&lt;/code&gt; loop makes use of iterators. The two codes below are equivalent :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;abcd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;d&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; letter &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; abcd:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  print(letter)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# a, b, c, d&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;abcd &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; [&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;d&amp;#34;&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;it &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; iter(abcd)  &lt;span style=&#34;color:#75715e&#34;&gt;# Create the Iterator&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    letter &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; next(it)  &lt;span style=&#34;color:#75715e&#34;&gt;# Get the next element&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;except&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;StopIteration&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;break&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# Stop looping at the end of the iterator&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  print(letter)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;# a, b, c, d&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;generator&#34;&gt;Generator&lt;/h2&gt;
+&lt;p&gt;A generator can refers to several concepts: the &lt;em&gt;generator functions&lt;/em&gt;, the &lt;em&gt;generator expressions&lt;/em&gt; and the &lt;em&gt;generator iterators&lt;/em&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;generator iterator&lt;/strong&gt; : it’s an object built on top of Iterators. It can be created using a generator function or a generator expression, that greatly reduce the boilerplate necessary to create a pure iterator (by defining a class with &lt;code&gt;__iter__()&lt;/code&gt; and &lt;code&gt;__next__()&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;generator function&lt;/strong&gt; : a function that uses the yield keyword. When called, it returns a new generator iterator. Example:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;generator_function&lt;/span&gt;(max&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;Return a generator that iterates from 1 to max included.&amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; max:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; n
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    n &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator_function()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;type(g)  &lt;span style=&#34;color:#75715e&#34;&gt;# &amp;lt;class &amp;#39;generator&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;list(g)  &lt;span style=&#34;color:#75715e&#34;&gt;# [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;generator expression&lt;/strong&gt; : it’s the same as a list-comprehension except that the brackets are replaced by parentheses and the returned object is a generator iterator instead of a list. Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;max &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (i &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, max&lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;))
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;type(g)  &lt;span style=&#34;color:#75715e&#34;&gt;# &amp;lt;class &amp;#39;generator&amp;#39;&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;list(g)  &lt;span style=&#34;color:#75715e&#34;&gt;# [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;special-methods&#34;&gt;Special methods&lt;/h3&gt;
+&lt;p&gt;Generators come with their own methods that extend the way they can be interacted with: &lt;code&gt;send()&lt;/code&gt;, &lt;code&gt;throw()&lt;/code&gt; and &lt;code&gt;close()&lt;/code&gt;.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;send()&lt;/code&gt; : the &lt;em&gt;send&lt;/em&gt; method allows you to inject a value back into the generator, effectively making it a &lt;em&gt;coroutine&lt;/em&gt;. The injected value is returned by the yield statement that stopped the generator when it restarts its execution. It can be retrieved by assigning a value to the yield statement:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Here is an example of a coroutine jumping from 0 up to &lt;em&gt;max&lt;/em&gt; by a dynamically injected step:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;jump_to&lt;/span&gt;(max):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;&amp;#34;&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  Yield a value from 0 to max, incrementing by &amp;lt;jump&amp;gt; everytime.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  If a value is sent back to the generator, then set &amp;lt;jump&amp;gt; to this value.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  Otherwise set &amp;lt;jump&amp;gt; to 1.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;  &amp;#34;&amp;#34;&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; max:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    jump &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; i
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    i &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; jump &lt;span style=&#34;color:#f92672&#34;&gt;is&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;None&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; jump
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; generator_function(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;next(g)    &lt;span style=&#34;color:#75715e&#34;&gt;# 0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;next(g)    &lt;span style=&#34;color:#75715e&#34;&gt;# 1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send(&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# 6&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;send(&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# 10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;next(g)    &lt;span style=&#34;color:#75715e&#34;&gt;# StopIteration&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;throw()&lt;/code&gt; : the &lt;em&gt;throw&lt;/em&gt; method allows you to throw errors within the generator. The following example creates a generator from a list of numbers and raises an error if the generator yields a non-integer value:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;numbers &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (i &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0.33&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;])  &lt;span style=&#34;color:#75715e&#34;&gt;# create generator&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; numbers:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; n &lt;span style=&#34;color:#f92672&#34;&gt;%&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    numbers&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;throw(&lt;span style=&#34;color:#a6e22e&#34;&gt;ValueError&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# throw an error if n is not an interger&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  print(n)
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;close()&lt;/code&gt; : the &lt;em&gt;close&lt;/em&gt; method allows you to stop an iterator. It makes it throw the StopIteration exception. It’s particularly useful with inifinite generators. Let’s look at an example : the code below creates an infinite generator counting from 0. It then uses a function that defines a max number to count to, and when reaching this max number, closes the infinite generator.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;counting&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  n &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;True&lt;/span&gt;:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; n
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    n &lt;span style=&#34;color:#f92672&#34;&gt;+=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;count_to&lt;/span&gt;(max):
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  g &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; counting()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; g:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    print(i)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;gt;=&lt;/span&gt; max:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      g&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;close()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;count_to(&lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;subgenerators&#34;&gt;Subgenerators&lt;/h3&gt;
+&lt;p&gt;Let consider this example:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (i &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;))   &lt;span style=&#34;color:#75715e&#34;&gt;# 1, 2, 3, 4, 5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; (i &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;))  &lt;span style=&#34;color:#75715e&#34;&gt;# 6, 7, 8, 9, 10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main_generator&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; g1:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; i
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; g2:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; i
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; main_generator():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  print(i)  &lt;span style=&#34;color:#75715e&#34;&gt;# 1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;It uses two generators (&lt;em&gt;g1&lt;/em&gt; and &lt;em&gt;g2&lt;/em&gt;) inside a generator function (&lt;em&gt;main_generator&lt;/em&gt;) to create a third generator combining the values yielded by g1 and g2. These two generators are subgenerators of the delegating generator (main_generator). Python 3.3 introduces a new syntax for simplifying the use of subgenerators :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;yield from&lt;/span&gt; EXPRESSION
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;where &lt;code&gt;EXPRESSION&lt;/code&gt; is an expression evaluating to an iterable. It can replace:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; EXPRESSION:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;yield&lt;/span&gt; i
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This syntax allows to factor out a portion of a generator inside another generator. It has also the benefit of handling the corner cases and calls to &lt;code&gt;.send()&lt;/code&gt;, &lt;code&gt;.throw()&lt;/code&gt; and &lt;code&gt;.close()&lt;/code&gt;: if these methods are called on the delegating generator, they are propagated to the subgenerators. More details about the &lt;code&gt;yield from syntax&lt;/code&gt; in the &lt;a href=&#34;https://www.python.org/dev/peps/pep-0380/&#34;&gt;PEP 380&lt;/a&gt;.
+The previous code can be rewritten as :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g1 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;)   &lt;span style=&#34;color:#75715e&#34;&gt;# 1, 2, 3, 4, 5&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;g2 &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; range(&lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;)  &lt;span style=&#34;color:#75715e&#34;&gt;# 6, 7, 8, 9, 10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main_generator&lt;/span&gt;():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;yield from&lt;/span&gt; g1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;yield from&lt;/span&gt; g2
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;in&lt;/span&gt; main_generator():
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;  print(i)  &lt;span style=&#34;color:#75715e&#34;&gt;# 1, 2, 3, 4, 5, 6, 7, 8, 9, 10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;p&gt;&lt;em&gt;Sources&lt;/em&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.python.org/dev/peps/pep-0380/&#34;&gt;https://www.python.org/dev/peps/pep-0380/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://dbader.org/blog/python-iterators&#34;&gt;https://dbader.org/blog/python-iterators&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.integralist.co.uk/posts/python-generators/&#34;&gt;https://www.integralist.co.uk/posts/python-generators/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://realpython.com/python-for-loop/&#34;&gt;https://realpython.com/python-for-loop/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

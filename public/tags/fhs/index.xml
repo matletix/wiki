@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fhs on My DevOps Notes</title>
+    <link>http://wiki.mrollet.com/tags/fhs/</link>
+    <description>Recent content in fhs on My DevOps Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Feb 2023 20:30:30 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/fhs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Filesystem Hierarchy Standard (FHS)</title>
+      <link>http://wiki.mrollet.com/posts/linux/fhs/</link>
+      <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/linux/fhs/</guid>
+      <description>Many UNIX systems use a set of standardized directories and files for organizing their file system. Maintained by the Linux Foundation, the Filesystem Hierarchy Standard (FHS) is the reference describing these conventions.
+Conventions /home : user home directories /root : root user&amp;rsquo;s home directory. Not in /home because /home is often on a separate partition or network share and it needs to be accessible in single user mode /boot : boot loader, kernel files /etc : text configuration files /opt : self-contained 3rd party packages /media : content of the removable media /mnt : temporary mounted filesystems /tmp : temporary files, usually deleted on reboot /bin : essential binaries needed before /usr is mounted (eg.</description>
+      <content>&lt;p&gt;Many UNIX systems use a set of standardized directories and files for organizing
+their file system. Maintained by the Linux Foundation, the &lt;strong&gt;Filesystem Hierarchy
+Standard (FHS)&lt;/strong&gt; is the reference describing these conventions.&lt;/p&gt;
+&lt;h2 id=&#34;conventions&#34;&gt;Conventions&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/home&lt;/strong&gt; : user home directories&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/root&lt;/strong&gt; : root user&amp;rsquo;s home directory. Not in /home because /home is often on a
+separate partition or network share and it needs to be accessible in single user mode&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/boot&lt;/strong&gt; : boot loader, kernel files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/etc&lt;/strong&gt; : text configuration files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/opt&lt;/strong&gt; : self-contained 3rd party packages&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/media&lt;/strong&gt; : content of the removable media&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/mnt&lt;/strong&gt; : temporary mounted filesystems&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/tmp&lt;/strong&gt; : temporary files, usually deleted on reboot&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/bin&lt;/strong&gt; : essential binaries needed before /usr is mounted (eg. during early boot
+stage or in single user mode)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/sbin&lt;/strong&gt; : essential binaries for which superuser privileges (root) are required&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/lib&lt;/strong&gt; : library files needed by essential binaries&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr&lt;/strong&gt; : things not needed for single user mode
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/usr/bin&lt;/strong&gt; : general system-wide binaries&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/sbin&lt;/strong&gt; : general binaries for system administration&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/lib&lt;/strong&gt; : library files needed by general binaries&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/local&lt;/strong&gt; : local to this computer. Not managed by the system packages
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/usr/local/bin&lt;/strong&gt; : locally installed programs&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/usr/local/sbin&lt;/strong&gt; : locally installed programs for system administration&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var&lt;/strong&gt; : files that change a lot. Often on its own partition to avoid crashing
+the system if it fills up
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/var/log&lt;/strong&gt; : log files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/tmp&lt;/strong&gt; : temporary files, do persist accross reboots, although they are
+often deleted in a site-specific manner (but less frequently than /tmp).&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool&lt;/strong&gt; : store various type of spooled data. &amp;ldquo;spooling&amp;rdquo; refers to the
+process of temporarily holding data in a queue or buffer while it&amp;rsquo;s being
+processed or transmitted.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool/cron&lt;/strong&gt; : spool files for the cron job scheduler&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool/mail&lt;/strong&gt; : spool files for local email messages&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/var/spool/cups&lt;/strong&gt; : spool files for print jobs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/dev&lt;/strong&gt; : hardware represented as files&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/dev/shm&lt;/strong&gt; : virtual filesystem for in-memory temporary files (shared memory)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc&lt;/strong&gt; : virtual filesystem used to expose kernel data structures to user-space
+programs. Mostly read-only and process-centric. Contains one folder per process.
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/proc/cpuinfo&lt;/strong&gt; : info about CPU on the system&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/meminfo&lt;/strong&gt; : info about memory usage on the system&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/kcore&lt;/strong&gt; : displays the actual system memory. Only file in proc with a size&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/modules&lt;/strong&gt; : list of kernel loaded modules&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/cmdline&lt;/strong&gt; : passed boot parameters&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/version&lt;/strong&gt; : kernel version and time of compilation&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/proc/swaps&lt;/strong&gt; : status of swap partitions&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/sys&lt;/strong&gt;: virtual filesystem used to expose device information to user-space
+programs. Read/write filesystem, allows configuration of devices by writing to a file.
+In general, the information provided in /proc is process-centric and relates to the
+system as a whole, while the information provided in /sys is device-centric and
+relates to the hardware and drivers in the system.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;additional-notes&#34;&gt;Additional Notes&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Nowadays, &lt;code&gt;/bin&lt;/code&gt;, &lt;code&gt;/sbin&lt;/code&gt; and &lt;code&gt;/lib&lt;/code&gt; often are links to &lt;code&gt;/usr/bin&lt;/code&gt;, &lt;code&gt;/usr/sbin&lt;/code&gt; and
+&lt;code&gt;/usr/lib&lt;/code&gt;. This allows improved compatibility with other *NIXes. Historically the
+/bin and /sbin directories were used to mount the usr partition. This job is nowadays
+done by initramfs, and splitting the directories therefore no longer serves any purpose.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://refspecs.linuxfoundation.org/fhs.shtml&#34;&gt;https://refspecs.linuxfoundation.org/fhs.shtml&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard&#34;&gt;https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local&#34;&gt;https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://unix.stackexchange.com/questions/266517/why-is-bin-a-symbolic-link-to-usr-bin&#34;&gt;https://unix.stackexchange.com/questions/266517/why-is-bin-a-symbolic-link-to-usr-bin&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/&#34;&gt;https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

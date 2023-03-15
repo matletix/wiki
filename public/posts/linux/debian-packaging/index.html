@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Debian Packaging :: My DevOps Notes</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A Debian packaging guide" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://wiki.mrollet.com/posts/linux/debian-packaging/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="http://wiki.mrollet.com/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="http://wiki.mrollet.com/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="http://wiki.mrollet.com/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Debian Packaging">
+<meta property="og:description" content="A Debian packaging guide" />
+<meta property="og:url" content="http://wiki.mrollet.com/posts/linux/debian-packaging/" />
+<meta property="og:site_name" content="My DevOps Notes" />
+
+  
+  
+  <meta property="og:image" content="http://wiki.mrollet.com/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-03-01 23:55:28 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    My DevOps Notes
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="http://wiki.mrollet.com/posts/linux/debian-packaging/">Debian Packaging</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2023-03-01 ::
+        
+      </time>
+    
+    
+    
+      <span class="post-reading-time">:: 11 min read (2178 words)</span>
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="http://wiki.mrollet.com/tags/debian/">debian</a>&nbsp;
+      
+      #<a href="http://wiki.mrollet.com/tags/packaging/">packaging</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+    <div class="table-of-contents">
+      <h2>
+        Table of Contents
+      </h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#structure-of-a-source-package">Structure of a source package</a></li>
+    <li><a href="#building-the-binary-packages">Building the binary packages</a></li>
+    <li><a href="#make-modifications-and-rebuild-the-package">Make modifications and rebuild the package</a></li>
+    <li><a href="#links">Links</a></li>
+  </ul>
+</nav>
+    </div>
+  
+
+  <div class="post-content"><div>
+        <p>How do you create the <code>.deb</code> packages that you use on your system to install
+software ? Let&rsquo;s walk through a simple example with the <code>hello</code> package, a
+package that installs an executable to display &ldquo;Hello World!&rdquo;. We&rsquo;ll modify it
+to display a personalized message with your first name and repackage it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ apt show hello
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Package: hello
+</span></span><span style="display:flex;"><span>Version: 2.10-2
+</span></span><span style="display:flex;"><span>Priority: optional
+</span></span><span style="display:flex;"><span>Section: devel
+</span></span><span style="display:flex;"><span>Maintainer: Santiago Vila &lt;sanvila@debian.org&gt;
+</span></span><span style="display:flex;"><span>Installed-Size: <span style="color:#ae81ff">287</span> kB
+</span></span><span style="display:flex;"><span>Depends: libc6 <span style="color:#f92672">(</span>&gt;<span style="color:#f92672">=</span> 2.14<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Conflicts: hello-traditional
+</span></span><span style="display:flex;"><span>Breaks: hello-debhelper <span style="color:#f92672">(</span><span style="color:#e6db74">&lt;&lt; 2.9)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Replaces: hello-debhelper (&lt;&lt; 2</span>.9<span style="color:#f92672">)</span>, hello-traditional
+</span></span><span style="display:flex;"><span>Homepage: http://www.gnu.org/software/hello/
+</span></span><span style="display:flex;"><span>Tag: devel::debian, devel::examples, devel::lang:c, devel::lang:posix-shell,
+</span></span><span style="display:flex;"><span> devel::packaging, implemented-in::c, interface::commandline,
+</span></span><span style="display:flex;"><span> role::documentation, role::program, scope::utility, suite::debian,
+</span></span><span style="display:flex;"><span> suite::gnu
+</span></span><span style="display:flex;"><span>Download-Size: 56,1 kB
+</span></span><span style="display:flex;"><span>APT-Manual-Installed: yes
+</span></span><span style="display:flex;"><span>APT-Sources: http://deb.debian.org/debian bullseye/main amd64 Packages
+</span></span><span style="display:flex;"><span>Description: example package based on GNU hello
+</span></span><span style="display:flex;"><span> The GNU hello program produces a familiar, friendly greeting.  It
+</span></span><span style="display:flex;"><span> allows non-programmers to use a classic computer science tool which
+</span></span><span style="display:flex;"><span> would otherwise be unavailable to them.
+</span></span><span style="display:flex;"><span> .
+</span></span><span style="display:flex;"><span> Seriously, though: this is an example of how to <span style="color:#66d9ef">do</span> a Debian package.
+</span></span><span style="display:flex;"><span> It is the Debian version of the GNU Project<span style="color:#e6db74">&#39;s `hello world&#39;</span> program
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>which is itself an example <span style="color:#66d9ef">for</span> the GNU Project<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Before we start, install the <code>dpkg-dev</code> and <code>devscripts</code> packages to have access to
+build commands like <code>dpkg-source</code> and <code>dch</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo apt install dpkg-dev devscripts
+</span></span></code></pre></div><p>These install a lot of dependencies so I usually use a dedicated building box
+to do the packaging.</p>
+<h2 id="structure-of-a-source-package">Structure of a source package<a href="#structure-of-a-source-package" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Each binary <em>.deb</em> package originates from a debian <em>source package</em>. You can
+download the sources of a package by using the <code>apt source</code> command.
+A relevant &ldquo;deb-src&rdquo; line must be present in your <code>sources.list</code> file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ apt source --download-only hello
+</span></span></code></pre></div><p>This will download 3 files in the current directory :</p>
+<ul>
+<li><code>hello_2.10-2.debian.tar.xz</code></li>
+<li><code>hello_2.10-2.dsc</code></li>
+<li><code>hello_2.10.orig.tar.gz</code></li>
+</ul>
+<p>This set of files is the <em>source package</em> of our binary package <em>hello</em>.</p>
+<p>The <code>.dsc</code> file is the <em>Debian source control</em> file. It describes the source
+package: the files that it contains, the version, the format, the
+maintainer, etc.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat hello_2.10-2.dsc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-----BEGIN PGP SIGNED MESSAGE-----
+</span></span><span style="display:flex;"><span>Hash: SHA256
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Format: 3.0 <span style="color:#f92672">(</span>quilt<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Source: hello
+</span></span><span style="display:flex;"><span>Binary: hello
+</span></span><span style="display:flex;"><span>Architecture: any
+</span></span><span style="display:flex;"><span>Version: 2.10-2
+</span></span><span style="display:flex;"><span>Maintainer: Santiago Vila &lt;sanvila@debian.org&gt;
+</span></span><span style="display:flex;"><span>Homepage: http://www.gnu.org/software/hello/
+</span></span><span style="display:flex;"><span>Standards-Version: 4.3.0
+</span></span><span style="display:flex;"><span>Build-Depends: debhelper-compat <span style="color:#f92672">(=</span> 9<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Package-List:
+</span></span><span style="display:flex;"><span> hello deb devel optional arch<span style="color:#f92672">=</span>any
+</span></span><span style="display:flex;"><span>Checksums-Sha1:
+</span></span><span style="display:flex;"><span> f7bebf6f9c62a2295e889f66e05ce9bfaed9ace3 <span style="color:#ae81ff">725946</span> hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span> a35d97bd364670b045cdd86d446e71b171e915cc <span style="color:#ae81ff">6132</span> hello_2.10-2.debian.tar.xz
+</span></span><span style="display:flex;"><span>Checksums-Sha256:
+</span></span><span style="display:flex;"><span> 31e066137a962676e89f69d1b65382de95a7ef7d914b8cb956f41ea72e0f516b <span style="color:#ae81ff">725946</span> hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span> 811ad0255495279fc98dc75f4460da1722f5c1030740cb52638cb80d0fdb24f0 <span style="color:#ae81ff">6132</span> hello_2.10-2.debian.tar.xz
+</span></span><span style="display:flex;"><span>Files:
+</span></span><span style="display:flex;"><span> 6cd0ffea3884a4e79330338dcc2987d6 <span style="color:#ae81ff">725946</span> hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span> e522e61c27eb0401c86321b9d8e137ae <span style="color:#ae81ff">6132</span> hello_2.10-2.debian.tar.xz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>-----BEGIN PGP SIGNATURE-----
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>iQEzBAEBCAAdFiEE1Uw7+v+wQt44LaXXQc5/C58bizIFAlzZsmAACgkQQc5/C58b
+</span></span><span style="display:flex;"><span>izLpZAf/c8SfVAmQNaj2OXK08n2AmrWwE177tg4ELZLLDlXK0O//2eoc/507jdTT
+</span></span><span style="display:flex;"><span>SOcvb8E7ABmqVZeJmoeEAf7G/YNuOw/gC/h64mb8fzqekxjc2ME5ZjCyhX2A8PSU
+</span></span><span style="display:flex;"><span>gN7KF7pdTuzjZzlBqciao00mOJFlLLsLgy913MbKUQv5jWNMEHp66k5oCsvwPCKZ
+</span></span><span style="display:flex;"><span>F3XzVD+rdviG4DOLdWERCfoToIFcTW2Bb//A/lMovaH90qETSm1Vu+0YpU75Zvc8
+</span></span><span style="display:flex;"><span>hc7o8ceESilCvIZBnKu7z7XjDuv1cJsQcwd4d/g9ExIttOUVFr6ZsjO2OTgz9Dtr
+</span></span><span style="display:flex;"><span>NoZBXv/SrHo5rEVf7MvorSX4z276yw<span style="color:#f92672">==</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">=</span>SItA
+</span></span><span style="display:flex;"><span>-----END PGP SIGNATURE-----
+</span></span></code></pre></div><p>The file is signed by the maintainer to ensure its authenticity.</p>
+<p>Let&rsquo;s look inside the archives.</p>
+<p>The <code>orig.tar.gz</code> file contains the source code for our software.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ tar -tf hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello-2.10/
+</span></span><span style="display:flex;"><span>hello-2.10/COPYING
+</span></span><span style="display:flex;"><span>hello-2.10/tests/
+</span></span><span style="display:flex;"><span>hello-2.10/tests/greeting-1
+</span></span><span style="display:flex;"><span>hello-2.10/tests/traditional-1
+</span></span><span style="display:flex;"><span>hello-2.10/Makefile.am
+</span></span><span style="display:flex;"><span>hello-2.10/config.in
+</span></span><span style="display:flex;"><span>hello-2.10/maint.mk
+</span></span><span style="display:flex;"><span>hello-2.10/README
+</span></span><span style="display:flex;"><span>hello-2.10/INSTALL
+</span></span><span style="display:flex;"><span>hello-2.10/NEWS
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>The <code>debian.tar.xz</code> archive contains the <code>debian/</code> folder which contains all the
+necessary metadata for packaging.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ tar -tf hello_2.10-2.debian.tar.xz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>debian/
+</span></span><span style="display:flex;"><span>debian/changelog
+</span></span><span style="display:flex;"><span>debian/control
+</span></span><span style="display:flex;"><span>debian/copyright
+</span></span><span style="display:flex;"><span>debian/rules
+</span></span><span style="display:flex;"><span>debian/rules-old
+</span></span><span style="display:flex;"><span>debian/source/
+</span></span><span style="display:flex;"><span>debian/source/format
+</span></span><span style="display:flex;"><span>debian/watch
+</span></span></code></pre></div><p><code>dpkg-source</code> is a tool for manipulating debian source packages. We can use it
+to extract the <code>.orig.tar.gz</code> and <code>.debian.tar.xz</code> archives of our source
+package into a <code>hello-2.10/</code> directory :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dpkg-source -x hello_2.10-2.dsc 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dpkg-source: info: extraction de hello dans hello-2.10
+</span></span><span style="display:flex;"><span>dpkg-source: info: extraction de hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span>dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
+</span></span></code></pre></div><p>We now have access to the (upstream) source code and the debian/ metadata directory:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls hello-2.10/
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>ABOUT-NLS   AUTHORS    ChangeLog    config.in  configure.ac  COPYING  doc          hello.1  lib  maint.mk     Makefile.in  NEWS  README      README-release  tests   TODO
+</span></span><span style="display:flex;"><span>aclocal.m4  build-aux  ChangeLog.O  configure  contrib       debian   GNUmakefile  INSTALL  m4   Makefile.am  man          po    README-dev  src             THANKS
+</span></span></code></pre></div><blockquote>
+<p>📝 <strong>NOTE</strong>: without the <code>--download-only</code> option, <code>apt source</code> downloads the source
+package and decompresses it at once.</p>
+</blockquote>
+<p>As an alternative to <code>apt source</code>, <code>dget</code> is another useful tool when dealing
+with debian source packages. It allows you to download an entire source package
+given the URL to the <em>.dsc</em> file, by inspecting the <em>.dsc</em> file and downloading
+any additional files that it references. It then verifies the validity of the
+signatures (with <code>dscverify</code>) and extract the source package (with <code>dpkg-source -x</code>).
+Example :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dget http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.dsc
+</span></span><span style="display:flex;"><span>dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span>dget: retrieving http://deb.debian.org/debian/pool/main/h/hello/hello_2.10-2.debian.tar.xz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello_2.10-2.dsc:
+</span></span><span style="display:flex;"><span>      Good signature found
+</span></span><span style="display:flex;"><span>   validating hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span>   validating hello_2.10-2.debian.tar.xz
+</span></span><span style="display:flex;"><span>All files validated successfully.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>dpkg-source: info: extraction de hello dans hello-2.10
+</span></span><span style="display:flex;"><span>dpkg-source: info: extraction de hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span>dpkg-source: info: extraction de hello_2.10-2.debian.tar.xz
+</span></span></code></pre></div><p>After which we are left with the following :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello-2.10  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10.orig.tar.gz
+</span></span></code></pre></div><p>Great ! Now, a lot of the work you do when packaging is inside the <code>debian</code> directory
+(from the <em>.debian.tar.xz</em> archive). Here are some of the important files in this directory:</p>
+<ul>
+<li>
+<p>the <code>debian/control</code> file describes metadata about the package like its
+description, its architecture and its relationship to other packages
+(dependencies, conflicts, etc). The first block describe the source package, and
+the subsequent blocks describe the associated binary package(s) :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat debian/control
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Source: hello
+</span></span><span style="display:flex;"><span>Section: devel
+</span></span><span style="display:flex;"><span>Priority: optional
+</span></span><span style="display:flex;"><span>Maintainer: Santiago Vila &lt;sanvila@debian.org&gt;
+</span></span><span style="display:flex;"><span>Standards-Version: 4.3.0
+</span></span><span style="display:flex;"><span>Build-Depends: debhelper-compat <span style="color:#f92672">(=</span> 9<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Homepage: http://www.gnu.org/software/hello/
+</span></span><span style="display:flex;"><span>Rules-Requires-Root: no
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Package: hello
+</span></span><span style="display:flex;"><span>Architecture: any
+</span></span><span style="display:flex;"><span>Depends: <span style="color:#e6db74">${</span>shlibs:Depends<span style="color:#e6db74">}</span>, <span style="color:#e6db74">${</span>misc:Depends<span style="color:#e6db74">}</span>
+</span></span><span style="display:flex;"><span>Conflicts: hello-traditional
+</span></span><span style="display:flex;"><span>Replaces: hello-traditional, hello-debhelper <span style="color:#f92672">(</span><span style="color:#e6db74">&lt;&lt; 2.9)
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">Breaks: hello-debhelper (&lt;&lt; 2</span>.9<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>Description: example package based on GNU hello
+</span></span><span style="display:flex;"><span> The GNU hello program produces a familiar, friendly greeting.  It
+</span></span><span style="display:flex;"><span> allows non-programmers to use a classic computer science tool which
+</span></span><span style="display:flex;"><span> would otherwise be unavailable to them.
+</span></span><span style="display:flex;"><span> .
+</span></span><span style="display:flex;"><span> Seriously, though: this is an example of how to <span style="color:#66d9ef">do</span> a Debian package.
+</span></span><span style="display:flex;"><span> It is the Debian version of the GNU Project<span style="color:#e6db74">&#39;s `hello world&#39;</span> program
+</span></span><span style="display:flex;"><span> <span style="color:#f92672">(</span>which is itself an example <span style="color:#66d9ef">for</span> the GNU Project<span style="color:#f92672">)</span>.
+</span></span></code></pre></div></li>
+<li>
+<p>the <code>debian/changelog</code> file tracks the revisions of the package, with the
+associated names, versions and distributions :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat debian/changelog
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello <span style="color:#f92672">(</span>2.10-2<span style="color:#f92672">)</span> unstable; urgency<span style="color:#f92672">=</span>medium
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  * Fix version skew. Closes: <span style="color:#75715e">#928887.</span>
+</span></span><span style="display:flex;"><span>  * Drop debian/compat and use new syntax to specify compat level.
+</span></span><span style="display:flex;"><span>  * Standards-Version: 4.3.0 <span style="color:#f92672">(</span>no changes <span style="color:#66d9ef">for</span> this<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>  * Rules-Requires-Root: no
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> -- Santiago Vila &lt;sanvila@debian.org&gt;  Mon, <span style="color:#ae81ff">13</span> May <span style="color:#ae81ff">2019</span> 20:06:50 +0200
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello <span style="color:#f92672">(</span>2.10-1<span style="color:#f92672">)</span> unstable; urgency<span style="color:#f92672">=</span>low
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  * New upstream release.
+</span></span><span style="display:flex;"><span>  * debian/patches: Drop 01-fix-i18n-of-default-message, no longer needed.
+</span></span><span style="display:flex;"><span>  * debian/patches: Drop 99-config-guess-config-sub, no longer needed.
+</span></span><span style="display:flex;"><span>  * debian/rules: Drop override_dh_auto_build hack, no longer needed.
+</span></span><span style="display:flex;"><span>  * Standards-Version: 3.9.6 <span style="color:#f92672">(</span>no changes <span style="color:#66d9ef">for</span> this<span style="color:#f92672">)</span>.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> -- Santiago Vila &lt;sanvila@debian.org&gt;  Sun, <span style="color:#ae81ff">22</span> Mar <span style="color:#ae81ff">2015</span> 11:56:00 +0100
+</span></span></code></pre></div></li>
+<li>
+<p>the <code>debian/rules</code> file is the executable that will be run for building
+the package. It&rsquo;s a makefile which contain recipes for building the
+artefacts, cleaning them, etc.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat debian/rules
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#!/usr/bin/make -f</span>
+</span></span><span style="display:flex;"><span>%:
+</span></span><span style="display:flex;"><span>    dh $@
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>override_dh_auto_clean:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">[</span> ! -f Makefile <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> <span style="color:#66d9ef">$(</span>MAKE<span style="color:#66d9ef">)</span> distclean
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>override_dh_installdocs:
+</span></span><span style="display:flex;"><span>    dh_installdocs NEWS
+</span></span></code></pre></div></li>
+<li>
+<p>the <code>debian/source/format</code> file indicates the format of the source package</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat debian/source/format
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>3.0 <span style="color:#f92672">(</span>quilt<span style="color:#f92672">)</span>
+</span></span></code></pre></div><p>Here we&rsquo;re dealing with a <em>3.0 (quilt)</em> source package, that&rsquo;s why it
+contains the 3 files <code>.dsc</code>, <code>.orig.tar.gz</code> and <code>.debian.tar.xz</code>.</p>
+</li>
+</ul>
+<h2 id="building-the-binary-packages">Building the binary packages<a href="#building-the-binary-packages" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Let&rsquo;s start by building the binary packages for the source package that we got. To
+do that, we first have to install the build dependencies that are specifically
+required for building this package. You do that with the following command :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ apt build-dep hello
+</span></span></code></pre></div><p>To build the binary package from our current source package, we then use the
+<code>dpkg-buildpackage</code> command, with the <em>-us</em> and <em>-uc</em> parameters that will tell
+it not to sign our package.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cd hello-2.10/
+</span></span><span style="display:flex;"><span>$ dpkg-buildpackage -us -uc
+</span></span></code></pre></div><p>Done! if you list the parent directory, you can find some additional files:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls ..
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello-2.10  hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.debian.tar.xz  hello_2.10-2.dsc  hello_2.10-2_amd64.buildinfo  hello_2.10-2_amd64.changes  hello_2.10-2_amd64.deb  hello_2.10.orig.tar.gz
+</span></span></code></pre></div><ul>
+<li>the <code>.buildinfo</code> file contains information about the build environment, such
+as the version of the build dependencies and the architecture of the build
+system</li>
+<li>the <code>.changes</code> file contains data about the build like the related section of
+the changelog and the checksum of the artefacts produced by the build</li>
+<li>the <code>.deb</code> files are the binary packages</li>
+</ul>
+<p>Behind the scenes, the dpkg-buildpackage command will invoke multiple
+commands. You can see the different steps of the process in the
+<a href="https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html">man</a>
+of dpkg-buildpackage. Here&rsquo;s an overview :</p>
+<ol>
+<li>run <code>dpkg-source --before-build</code> to prepare the build environment</li>
+<li>check that build dependencies (that we just installed above) are satisfied</li>
+<li>run the <code>clean</code> recipe of <code>debian/rules</code> to clean the build tree</li>
+<li>run <code>dpkg-source -b</code> to generate the source package</li>
+<li>run the <code>build</code> recipe of <code>debian/rules</code> to build the software followed by
+the <code>binary</code> recipe to create the <code>.deb</code> binary packages</li>
+<li>run <code>dpkg-genbuildinfo</code> to generate a .buildinfo file</li>
+<li>run <code>dpkg-genchanges</code> to generate a .changes file</li>
+<li>run the <code>clean</code> recipe of <code>debian/rules</code> again</li>
+<li>run <code>dpkg-source --after-build</code>, generally to undo what <code>dpkg-source --before-build</code> did</li>
+<li>run the <code>check</code> hook</li>
+<li>sign the <code>.dsc</code>, <code>.changes</code> and <code>.buildinfo</code> files with gpg</li>
+<li>run the <code>done</code> hook</li>
+</ol>
+<p>Ok, we can now install the created binary packages with apt :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo apt install ../hello_2.10-2_amd64.deb
+</span></span></code></pre></div><p>Launch the newly installed <code>hello</code> command to check that it&rsquo;s working properly:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ hello
+</span></span><span style="display:flex;"><span>Hello, world!
+</span></span></code></pre></div><h2 id="make-modifications-and-rebuild-the-package">Make modifications and rebuild the package<a href="#make-modifications-and-rebuild-the-package" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>Let&rsquo;s do some modification to the code. In the <code>hello-2.10/src/hello.c</code>, modify
+the default message on line 60 to greet you by your first name,
+from <code>Hello, world!</code> to <code>Hello, Mathieu!</code> for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ae81ff">59</span> <span style="color:#75715e">/* Having initialized gettext, get the default message. */</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">60</span> greeting_msg <span style="color:#f92672">=</span> <span style="color:#a6e22e">_</span>(<span style="color:#e6db74">&#34;Hello, Mathieu!&#34;</span>);
+</span></span></code></pre></div><p>Also modify the <code>hello-2.10/tests/hello-1</code> test file, line 24, as the tests will
+be run during the build:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ae81ff">23</span> cat <span style="color:#f92672">&lt;&lt;</span>EOF <span style="color:#f92672">&gt;</span> hello<span style="color:#f92672">-</span>test1.ok
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">24</span> Hello, Mathieu<span style="color:#f92672">!</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">25</span> EOF
+</span></span></code></pre></div><p>Now that our modifications are done, let&rsquo;s put them into the <em>debian/changelog</em>
+file and increment the version number of our package. The <code>dch</code>
+command is made for this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cd hello-2.10/
+</span></span><span style="display:flex;"><span>$ dch -i
+</span></span></code></pre></div><p>We&rsquo;re then prompted to edit the message in the changelog. Put a message that
+reflect your changes, for example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>hello (2.10-2.1) UNRELEASED; urgency=medium
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  * Customize the default greeting message
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> -- Mathieu Rollet &lt;mrollet@local&gt;  Wed, 01 Mar 2023 17:41:08 +0100
+</span></span></code></pre></div><p>Notice that the version number has automatically been increased from <code>2.10-2</code>
+to <code>2.10-2.1</code>. If you want to explicitly pass the new version to use you can
+use <code>dch -v &lt;VERSION&gt;</code> instead of <code>dch -i</code>.</p>
+<p>Ok, save that file. We&rsquo;ll now try to build the new version of our package !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dpkg-buildpackage -us -uc
+</span></span></code></pre></div><p>The command produces the following error :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dpkg-source: info: using source format &#39;3.0 (quilt)&#39;
+</span></span><span style="display:flex;"><span>dpkg-source: info: building hello using existing ./hello_2.10.orig.tar.gz
+</span></span><span style="display:flex;"><span>dpkg-source: info: local changes detected, the modified files are:
+</span></span><span style="display:flex;"><span> hello-2.10/src/hello.c
+</span></span><span style="display:flex;"><span> hello-2.10/tests/hello-1
+</span></span><span style="display:flex;"><span>dpkg-source: info: you can integrate the local changes with dpkg-source --commit
+</span></span><span style="display:flex;"><span>dpkg-source: error: aborting due to unexpected upstream changes, see /tmp/hello_2.10-2.1.diff.4RRfd1
+</span></span><span style="display:flex;"><span>dpkg-buildpackage: error: dpkg-source -b . subprocess returned exit status 2
+</span></span></code></pre></div><p>The build process was not expecting the changes that we made (the original
+files are available for comparison in the <code>.orig.tar.gz</code> archive). In order to
+complete the build process, we need to create a <em>patch</em> that will help document
+and keep track of the changes we made. Use <code>dpkg-source</code> to create the patch:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dpkg-source --commit
+</span></span></code></pre></div><p>It will ask you for the name of the patch, you can name it
+&ldquo;customized-greetings&rdquo;. You&rsquo;re then prompted to edit the patch file.
+Once saved, you can find the patch file in the <code>debian/patches</code> directory.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat debian/patches/customized-greetings
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Description: Customize the default greeting message
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span> hello <span style="color:#f92672">(</span>2.10-2.1<span style="color:#f92672">)</span> UNRELEASED; urgency<span style="color:#f92672">=</span>medium
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>   * Customize the default greeting message
+</span></span><span style="display:flex;"><span>   * Display <span style="color:#e6db74">&#34;Hello, &lt;FIRSTNAME&gt;!&#34;</span> instead of <span style="color:#e6db74">&#34;Hello, world!&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Author: Mathieu Rollet &lt;mrollet@local&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>The information above should follow the Patch Tagging Guidelines, please
+</span></span><span style="display:flex;"><span>checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+</span></span><span style="display:flex;"><span>are templates <span style="color:#66d9ef">for</span> supplementary fields that you might want to add:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Origin: &lt;vendor|upstream|other&gt;, &lt;url of original patch&gt;
+</span></span><span style="display:flex;"><span>Bug: &lt;url in upstream bugtracker&gt;
+</span></span><span style="display:flex;"><span>Bug-Debian: https://bugs.debian.org/&lt;bugnumber&gt;
+</span></span><span style="display:flex;"><span>Bug-Ubuntu: https://launchpad.net/bugs/&lt;bugnumber&gt;
+</span></span><span style="display:flex;"><span>Forwarded: &lt;no|not-needed|url proving that it has been forwarded&gt;
+</span></span><span style="display:flex;"><span>Reviewed-By: &lt;name and email of someone who approved the patch&gt;
+</span></span><span style="display:flex;"><span>Last-Update: 2023-03-01
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>--- hello-2.10.orig/src/hello.c
+</span></span><span style="display:flex;"><span>+++ hello-2.10/src/hello.c
+</span></span><span style="display:flex;"><span>@@ -57,7 +57,7 @@ main <span style="color:#f92672">(</span>int argc, char *argv<span style="color:#f92672">[])</span>
+</span></span><span style="display:flex;"><span> <span style="color:#75715e">#endif</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>   /* Having initialized gettext, get the default message. */
+</span></span><span style="display:flex;"><span>-  greeting_msg <span style="color:#f92672">=</span> _<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, world!&#34;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span>+  greeting_msg <span style="color:#f92672">=</span> _<span style="color:#f92672">(</span><span style="color:#e6db74">&#34;Hello, Mathieu!&#34;</span><span style="color:#f92672">)</span>;
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>   /* Even exiting has subtleties.  On exit, <span style="color:#66d9ef">if</span> any writes failed, change
+</span></span><span style="display:flex;"><span>      the exit status.  The /dev/full device on GNU/Linux can be used <span style="color:#66d9ef">for</span>
+</span></span><span style="display:flex;"><span>--- hello-2.10.orig/tests/hello-1
+</span></span><span style="display:flex;"><span>+++ hello-2.10/tests/hello-1
+</span></span><span style="display:flex;"><span>@@ -21,7 +21,7 @@ export LANGUAGE LC_ALL LC_MESSAGES LANG
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> tmpfiles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;hello-test1.ok&#34;</span>
+</span></span><span style="display:flex;"><span> cat <span style="color:#e6db74">&lt;&lt;EOF &gt; hello-test1.ok
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">-Hello, world!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">+Hello, Mathieu!
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74"> EOF</span>
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span> tmpfiles<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span>$tmpfiles<span style="color:#e6db74"> hello-test1.out&#34;</span>
+</span></span></code></pre></div><p>Let&rsquo;s try building the packages again :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ dpkg-buildpackage -us -uc
+</span></span></code></pre></div><p>This time it works and we have additional files in the parent directory :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls ..
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>hello-2.10                       hello-dbgsym_2.10-2_amd64.deb  hello_2.10-2.1.dsc              hello_2.10-2.1_amd64.changes  hello_2.10-2.debian.tar.xz  hello_2.10-2_amd64.buildinfo  hello_2.10-2_amd64.deb
+</span></span><span style="display:flex;"><span>hello-dbgsym_2.10-2.1_amd64.deb  hello_2.10-2.1.debian.tar.xz   hello_2.10-2.1_amd64.buildinfo  hello_2.10-2.1_amd64.deb      hello_2.10-2.dsc            hello_2.10-2_amd64.changes    hello_2.10.orig.tar.gz
+</span></span></code></pre></div><p>The build created new <code>.dsc</code> and <code>.debian.tar.xz</code> source package files for the
+new <em>2.10-2.1</em> version, as well as the new <code>.buildinfo</code>, <code>.changes</code> and <code>.deb</code>
+artefacts for the <em>2.10-2.1</em> version.</p>
+<p>Install and run your new version of <code>hello</code> to see the difference !</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sudo apt install ../hello_2.10-2.1_amd64.deb
+</span></span><span style="display:flex;"><span>$ hello
+</span></span><span style="display:flex;"><span>Hello, Mathieu!
+</span></span></code></pre></div><p>Congratulations ! You just downloaded the source package of a .deb package, modified
+its source code, and rebuilt an upgraded version of it.</p>
+<p>To wrap it up, here is a (simplified) graph summarizing the workflow
+we worked with for packaging :</p>
+<div class="mermaid" style="text-align: center;">graph TB;
+
+subgraph buildpackage[dpkg-buildpackage]
+    direction TB
+    s1(debian/rules clean)--cleaned source directory-->
+    s2(dpkg-source -b)--source package built-->
+    s3(debian/rules build)--artefacts built-->
+    s4(debian/rules binary)--.deb packages built-->
+    s5(dpkg-genbuildinfo)--.buildinfo file created-->
+    s6(dpkg-genchanges)--.changes file created-->
+    s7(debian/rules clean)--build artefacts removed-->
+    s9(gpg)--signed .dsc, .changes and .buildinfo-->
+    s10(done)
+end
+
+A((upstream\nrepository))-->
+a1(dget, apt source)-->
+B((source package\n.dsc, .orig.tar.gz,\n.debian.tar.xz))-->
+b1(dpkg-source -x)-->
+C((source code\n+ debian/))
+C2(dpkg-source --commit)
+D((.deb\nbinary packages))-->
+E(apt install)-->
+F((files installed\non the host))
+G((.buildinfo file))
+H((.changes file))
+
+B-->buildpackage
+C-->buildpackage
+C--make changes to\nthe source code-->C2
+C2--create patches/-->C
+buildpackage-->B
+buildpackage-->D
+buildpackage-->G
+buildpackage-->H
+</div>
+
+
+<h2 id="links">Links<a href="#links" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://debian-handbook.info/browse/stable/sect.source-package-structure.html">Structure of a source package</a></li>
+<li><a href="https://www.debian.org/doc/manuals/maint-guide/index.en.html">Debian New Maintainers&rsquo; Guide</a></li>
+<li><a href="https://www.debian.org/doc/manuals/packaging-tutorial/packaging-tutorial.en.pdf">Introduction to Debian packaging</a></li>
+<li><a href="https://www.debian.org/doc/manuals/debmake-doc/index.en.html">Guide for Debian Maintainers</a></li>
+</ul>
+<p>man pages:</p>
+<ul>
+<li><a href="https://manpages.debian.org/bullseye/dpkg-dev/dpkg-source.1.en.html">dpkg-source</a></li>
+<li><a href="https://manpages.debian.org/bullseye/dpkg-dev/dpkg-buildpackage.1.en.html">dpkg-buildpackage</a></li>
+<li><a href="https://manpages.debian.org/bullseye-backports/devscripts/dget.1.en.html">dget</a></li>
+<li><a href="https://manpages.debian.org/bullseye-backports/devscripts/dscverify.1.en.html">dscverify</a></li>
+<li><a href="https://manpages.debian.org/bullseye/devscripts/dch.1.en.html">dch</a></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="http://wiki.mrollet.com/posts/python/rust-for-python-programmers/">
+                <span class="button__text">Rust for Python Programmers</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+  
+  
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>
+        
+        
+        
+        let mermaidConfig = {
+            
+            theme: 'dark',
+            logLevel: 'fatal',
+            securityLevel: 'strict',
+            startOnLoad: true,
+            arrowMarkerAbsolute: false,
+
+            er: {
+                diagramPadding: 20,
+                layoutDirection: 'TB',
+                minEntityWidth: 100,
+                minEntityHeight: 75,
+                entityPadding: 15,
+                stroke: 'gray',
+                fill: 'honeydew',
+                fontSize: 12,
+                useMaxWidth: true,
+            },
+            flowchart: {
+                diagramPadding: 20,
+                htmlLabels: true,
+                curve: 'basis',
+            },
+            sequence: {
+                diagramMarginX: 50,
+                diagramMarginY: 10,
+                actorMargin: 50,
+                width: 150,
+                height: 65,
+                boxMargin: 10,
+                boxTextMargin: 5,
+                noteMargin: 10,
+                messageMargin: 35,
+                messageAlign: 'center',
+                mirrorActors: true,
+                bottomMarginAdj: 1,
+                useMaxWidth: true,
+                rightAngles: false,
+                showSequenceNumbers: false,
+            },
+            gantt: {
+                titleTopMargin: 25,
+                barHeight: 20,
+                barGap: 4,
+                topPadding: 50,
+                leftPadding: 75,
+                gridLineStartPadding: 35,
+                fontSize: 11,
+                fontFamily: '"Open-Sans", "sans-serif"',
+                numberSectionStyles: 4,
+                axisFormat: '%Y-%m-%d',
+                topAxis: false,
+            },
+        };
+        mermaid.initialize(mermaidConfig);
+    </script>
+  
+  
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

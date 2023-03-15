@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>The Filesystem Hierarchy Standard (FHS) :: My DevOps Notes</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Overview of the FHS" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://wiki.mrollet.com/posts/linux/fhs/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="http://wiki.mrollet.com/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="http://wiki.mrollet.com/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="http://wiki.mrollet.com/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The Filesystem Hierarchy Standard (FHS)">
+<meta property="og:description" content="Overview of the FHS" />
+<meta property="og:url" content="http://wiki.mrollet.com/posts/linux/fhs/" />
+<meta property="og:site_name" content="My DevOps Notes" />
+
+  
+  
+  <meta property="og:image" content="http://wiki.mrollet.com/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2023-02-28 20:30:30 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    My DevOps Notes
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="http://wiki.mrollet.com/posts/linux/fhs/">The Filesystem Hierarchy Standard (FHS)</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2023-02-28 ::
+        
+      </time>
+    
+    
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="http://wiki.mrollet.com/tags/linux/">linux</a>&nbsp;
+      
+      #<a href="http://wiki.mrollet.com/tags/fhs/">fhs</a>&nbsp;
+      
+      #<a href="http://wiki.mrollet.com/tags/filesystem/">filesystem</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Many UNIX systems use a set of standardized directories and files for organizing
+their file system. Maintained by the Linux Foundation, the <strong>Filesystem Hierarchy
+Standard (FHS)</strong> is the reference describing these conventions.</p>
+<h2 id="conventions">Conventions<a href="#conventions" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><strong>/home</strong> : user home directories</li>
+<li><strong>/root</strong> : root user&rsquo;s home directory. Not in /home because /home is often on a
+separate partition or network share and it needs to be accessible in single user mode</li>
+<li><strong>/boot</strong> : boot loader, kernel files</li>
+<li><strong>/etc</strong> : text configuration files</li>
+<li><strong>/opt</strong> : self-contained 3rd party packages</li>
+<li><strong>/media</strong> : content of the removable media</li>
+<li><strong>/mnt</strong> : temporary mounted filesystems</li>
+<li><strong>/tmp</strong> : temporary files, usually deleted on reboot</li>
+<li><strong>/bin</strong> : essential binaries needed before /usr is mounted (eg. during early boot
+stage or in single user mode)</li>
+<li><strong>/sbin</strong> : essential binaries for which superuser privileges (root) are required</li>
+<li><strong>/lib</strong> : library files needed by essential binaries</li>
+<li><strong>/usr</strong> : things not needed for single user mode
+<ul>
+<li><strong>/usr/bin</strong> : general system-wide binaries</li>
+<li><strong>/usr/sbin</strong> : general binaries for system administration</li>
+<li><strong>/usr/lib</strong> : library files needed by general binaries</li>
+<li><strong>/usr/local</strong> : local to this computer. Not managed by the system packages
+<ul>
+<li><strong>/usr/local/bin</strong> : locally installed programs</li>
+<li><strong>/usr/local/sbin</strong> : locally installed programs for system administration</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>/var</strong> : files that change a lot. Often on its own partition to avoid crashing
+the system if it fills up
+<ul>
+<li><strong>/var/log</strong> : log files</li>
+<li><strong>/var/tmp</strong> : temporary files, do persist accross reboots, although they are
+often deleted in a site-specific manner (but less frequently than /tmp).</li>
+<li><strong>/var/spool</strong> : store various type of spooled data. &ldquo;spooling&rdquo; refers to the
+process of temporarily holding data in a queue or buffer while it&rsquo;s being
+processed or transmitted.
+<ul>
+<li><strong>/var/spool/cron</strong> : spool files for the cron job scheduler</li>
+<li><strong>/var/spool/mail</strong> : spool files for local email messages</li>
+<li><strong>/var/spool/cups</strong> : spool files for print jobs</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>/dev</strong> : hardware represented as files</li>
+<li><strong>/dev/shm</strong> : virtual filesystem for in-memory temporary files (shared memory)</li>
+<li><strong>/proc</strong> : virtual filesystem used to expose kernel data structures to user-space
+programs. Mostly read-only and process-centric. Contains one folder per process.
+<ul>
+<li><strong>/proc/cpuinfo</strong> : info about CPU on the system</li>
+<li><strong>/proc/meminfo</strong> : info about memory usage on the system</li>
+<li><strong>/proc/kcore</strong> : displays the actual system memory. Only file in proc with a size</li>
+<li><strong>/proc/modules</strong> : list of kernel loaded modules</li>
+<li><strong>/proc/cmdline</strong> : passed boot parameters</li>
+<li><strong>/proc/version</strong> : kernel version and time of compilation</li>
+<li><strong>/proc/swaps</strong> : status of swap partitions</li>
+</ul>
+</li>
+<li><strong>/sys</strong>: virtual filesystem used to expose device information to user-space
+programs. Read/write filesystem, allows configuration of devices by writing to a file.
+In general, the information provided in /proc is process-centric and relates to the
+system as a whole, while the information provided in /sys is device-centric and
+relates to the hardware and drivers in the system.</li>
+</ul>
+<h2 id="additional-notes">Additional Notes<a href="#additional-notes" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>Nowadays, <code>/bin</code>, <code>/sbin</code> and <code>/lib</code> often are links to <code>/usr/bin</code>, <code>/usr/sbin</code> and
+<code>/usr/lib</code>. This allows improved compatibility with other *NIXes. Historically the
+/bin and /sbin directories were used to mount the usr partition. This job is nowadays
+done by initramfs, and splitting the directories therefore no longer serves any purpose.</li>
+</ul>
+<h2 id="links">Links<a href="#links" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://refspecs.linuxfoundation.org/fhs.shtml">https://refspecs.linuxfoundation.org/fhs.shtml</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard">https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard</a></li>
+<li><a href="https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local">https://askubuntu.com/questions/308045/differences-between-bin-sbin-usr-bin-usr-sbin-usr-local-bin-usr-local</a></li>
+<li><a href="https://unix.stackexchange.com/questions/266517/why-is-bin-a-symbolic-link-to-usr-bin">https://unix.stackexchange.com/questions/266517/why-is-bin-a-symbolic-link-to-usr-bin</a></li>
+<li><a href="https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/">https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/</a></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/">
+                <span class="button__icon">←</span>
+                <span class="button__text">CISCO Routers Configuration Basics</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/">
+                <span class="button__text">Web servers in Python and the WSGI/ASGI protocols</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+  
+  
+  
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

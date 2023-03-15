@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Iterators, Generators and Coroutines :: My DevOps Notes</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Quick overview of these concepts in Python" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="http://wiki.mrollet.com/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="http://wiki.mrollet.com/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="http://wiki.mrollet.com/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Iterators, Generators and Coroutines">
+<meta property="og:description" content="Quick overview of these concepts in Python" />
+<meta property="og:url" content="http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/" />
+<meta property="og:site_name" content="My DevOps Notes" />
+
+  
+  
+  <meta property="og:image" content="http://wiki.mrollet.com/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2022-06-19 14:52:15 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    My DevOps Notes
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/">Iterators, Generators and Coroutines</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2022-06-19 ::
+        
+      </time>
+    
+    
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="http://wiki.mrollet.com/tags/python/">python</a>&nbsp;
+      
+      #<a href="http://wiki.mrollet.com/tags/iterators/">iterators</a>&nbsp;
+      
+      #<a href="http://wiki.mrollet.com/tags/generators/">generators</a>&nbsp;
+      
+      #<a href="http://wiki.mrollet.com/tags/coroutines/">coroutines</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+    <div class="table-of-contents">
+      <h2>
+        Table of Contents
+      </h2>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#iterable">Iterable</a></li>
+    <li><a href="#iterator">Iterator</a></li>
+    <li><a href="#generator">Generator</a>
+      <ul>
+        <li><a href="#special-methods">Special methods</a></li>
+        <li><a href="#subgenerators">Subgenerators</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+  
+
+  <div class="post-content"><div>
+        <h2 id="iterable">Iterable<a href="#iterable" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>An <em>iterable</em> is an object that can produce an <em>iterator</em> by calling the <code>iter()</code> function on it.
+Eg: <code>list</code>, <code>tuple</code>, <code>dict</code>, <code>set</code>, <code>string</code>, etc.
+It must define the <code>__iter__()</code> method:</p>
+<blockquote>
+<p><code>__iter__()</code>: method called on the initialization of an Iterator. (eg. by <code>iter()</code>)
+{.is-info}</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>abcd <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#e6db74">&#34;d&#34;</span>]
+</span></span><span style="display:flex;"><span>type(abcd)  <span style="color:#75715e"># &lt;class &#39;list&#39;&gt;</span>
+</span></span><span style="display:flex;"><span>it <span style="color:#f92672">=</span> iter(abcd)
+</span></span><span style="display:flex;"><span>type(it)  <span style="color:#75715e"># &lt;class &#39;list_iterator&#39;&gt;</span>
+</span></span></code></pre></div><h2 id="iterator">Iterator<a href="#iterator" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>An iterator is a value producer that <em>yields</em> successive values from its associated iterable object. It retains its state internally, so when you call <code>next()</code>,  it knows which values have been obtained already and what value to return next.
+It must define the <code>__next__()</code> method:</p>
+<blockquote>
+<p><code>__next__()</code> : method called to produce the next element of an Iterator. (eg. by <code>next()</code>)
+{.is-info}</p>
+</blockquote>
+<p>The <code>for ... in ...</code> loop makes use of iterators. The two codes below are equivalent :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>abcd <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#e6db74">&#34;d&#34;</span>]
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> letter <span style="color:#f92672">in</span> abcd:
+</span></span><span style="display:flex;"><span>  print(letter)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># a, b, c, d</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>abcd <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;a&#34;</span>, <span style="color:#e6db74">&#34;b&#34;</span>, <span style="color:#e6db74">&#34;c&#34;</span>, <span style="color:#e6db74">&#34;d&#34;</span>]
+</span></span><span style="display:flex;"><span>it <span style="color:#f92672">=</span> iter(abcd)  <span style="color:#75715e"># Create the Iterator</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>    letter <span style="color:#f92672">=</span> next(it)  <span style="color:#75715e"># Get the next element</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">StopIteration</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">break</span>  <span style="color:#75715e"># Stop looping at the end of the iterator</span>
+</span></span><span style="display:flex;"><span>  print(letter)
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># a, b, c, d</span>
+</span></span></code></pre></div><h2 id="generator">Generator<a href="#generator" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>A generator can refers to several concepts: the <em>generator functions</em>, the <em>generator expressions</em> and the <em>generator iterators</em>.</p>
+<ul>
+<li>
+<p><strong>generator iterator</strong> : it’s an object built on top of Iterators. It can be created using a generator function or a generator expression, that greatly reduce the boilerplate necessary to create a pure iterator (by defining a class with <code>__iter__()</code> and <code>__next__()</code>).</p>
+</li>
+<li>
+<p><strong>generator function</strong> : a function that uses the yield keyword. When called, it returns a new generator iterator. Example:</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generator_function</span>(max<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;&#34;&#34;Return a generator that iterates from 1 to max included.&#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  n <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> n <span style="color:#f92672">&lt;=</span> max:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> n
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> generator_function()
+</span></span><span style="display:flex;"><span>type(g)  <span style="color:#75715e"># &lt;class &#39;generator&#39;&gt;</span>
+</span></span><span style="display:flex;"><span>list(g)  <span style="color:#75715e"># [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span>
+</span></span></code></pre></div><ul>
+<li><strong>generator expression</strong> : it’s the same as a list-comprehension except that the brackets are replaced by parentheses and the returned object is a generator iterator instead of a list. Example:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>max <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> (i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, max<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>))
+</span></span><span style="display:flex;"><span>type(g)  <span style="color:#75715e"># &lt;class &#39;generator&#39;&gt;</span>
+</span></span><span style="display:flex;"><span>list(g)  <span style="color:#75715e"># [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</span>
+</span></span></code></pre></div><h3 id="special-methods">Special methods<a href="#special-methods" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Generators come with their own methods that extend the way they can be interacted with: <code>send()</code>, <code>throw()</code> and <code>close()</code>.</p>
+<ul>
+<li><code>send()</code> : the <em>send</em> method allows you to inject a value back into the generator, effectively making it a <em>coroutine</em>. The injected value is returned by the yield statement that stopped the generator when it restarts its execution. It can be retrieved by assigning a value to the yield statement:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>value <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span>
+</span></span></code></pre></div><p>Here is an example of a coroutine jumping from 0 up to <em>max</em> by a dynamically injected step:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">jump_to</span>(max):
+</span></span><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;&#34;&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Yield a value from 0 to max, incrementing by &lt;jump&gt; everytime.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  If a value is sent back to the generator, then set &lt;jump&gt; to this value.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  Otherwise set &lt;jump&gt; to 1.
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  &#34;&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>  i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> i <span style="color:#f92672">&lt;=</span> max:
+</span></span><span style="display:flex;"><span>    jump <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> i
+</span></span><span style="display:flex;"><span>    i <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> jump <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span> <span style="color:#66d9ef">else</span> jump
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>g <span style="color:#f92672">=</span> generator_function(<span style="color:#ae81ff">10</span>)
+</span></span><span style="display:flex;"><span>next(g)    <span style="color:#75715e"># 0</span>
+</span></span><span style="display:flex;"><span>next(g)    <span style="color:#75715e"># 1</span>
+</span></span><span style="display:flex;"><span>g<span style="color:#f92672">.</span>send(<span style="color:#ae81ff">5</span>)  <span style="color:#75715e"># 6</span>
+</span></span><span style="display:flex;"><span>g<span style="color:#f92672">.</span>send(<span style="color:#ae81ff">4</span>)  <span style="color:#75715e"># 10</span>
+</span></span><span style="display:flex;"><span>next(g)    <span style="color:#75715e"># StopIteration</span>
+</span></span></code></pre></div><ul>
+<li><code>throw()</code> : the <em>throw</em> method allows you to throw errors within the generator. The following example creates a generator from a list of numbers and raises an error if the generator yields a non-integer value:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>numbers <span style="color:#f92672">=</span> (i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">0.33</span>, <span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">3</span>])  <span style="color:#75715e"># create generator</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> numbers:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> n <span style="color:#f92672">%</span> <span style="color:#ae81ff">1</span>:
+</span></span><span style="display:flex;"><span>    numbers<span style="color:#f92672">.</span>throw(<span style="color:#a6e22e">ValueError</span>)  <span style="color:#75715e"># throw an error if n is not an interger</span>
+</span></span><span style="display:flex;"><span>  print(n)
+</span></span></code></pre></div><ul>
+<li><code>close()</code> : the <em>close</em> method allows you to stop an iterator. It makes it throw the StopIteration exception. It’s particularly useful with inifinite generators. Let’s look at an example : the code below creates an infinite generator counting from 0. It then uses a function that defines a max number to count to, and when reaching this max number, closes the infinite generator.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">counting</span>():
+</span></span><span style="display:flex;"><span>  n <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> n
+</span></span><span style="display:flex;"><span>    n <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">count_to</span>(max):
+</span></span><span style="display:flex;"><span>  g <span style="color:#f92672">=</span> counting()
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> g:
+</span></span><span style="display:flex;"><span>    print(i)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> i <span style="color:#f92672">&gt;=</span> max:
+</span></span><span style="display:flex;"><span>      g<span style="color:#f92672">.</span>close()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>count_to(<span style="color:#ae81ff">10</span>)  <span style="color:#75715e"># 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+</span></span></code></pre></div><h3 id="subgenerators">Subgenerators<a href="#subgenerators" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<p>Let consider this example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>g1 <span style="color:#f92672">=</span> (i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>))   <span style="color:#75715e"># 1, 2, 3, 4, 5</span>
+</span></span><span style="display:flex;"><span>g2 <span style="color:#f92672">=</span> (i <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>))  <span style="color:#75715e"># 6, 7, 8, 9, 10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_generator</span>():
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> g1:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> i
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> g2:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> i
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> main_generator():
+</span></span><span style="display:flex;"><span>  print(i)  <span style="color:#75715e"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+</span></span></code></pre></div><p>It uses two generators (<em>g1</em> and <em>g2</em>) inside a generator function (<em>main_generator</em>) to create a third generator combining the values yielded by g1 and g2. These two generators are subgenerators of the delegating generator (main_generator). Python 3.3 introduces a new syntax for simplifying the use of subgenerators :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">yield from</span> EXPRESSION
+</span></span></code></pre></div><p>where <code>EXPRESSION</code> is an expression evaluating to an iterable. It can replace:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> EXPRESSION:
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> i
+</span></span></code></pre></div><p>This syntax allows to factor out a portion of a generator inside another generator. It has also the benefit of handling the corner cases and calls to <code>.send()</code>, <code>.throw()</code> and <code>.close()</code>: if these methods are called on the delegating generator, they are propagated to the subgenerators. More details about the <code>yield from syntax</code> in the <a href="https://www.python.org/dev/peps/pep-0380/">PEP 380</a>.
+The previous code can be rewritten as :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>g1 <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">6</span>)   <span style="color:#75715e"># 1, 2, 3, 4, 5</span>
+</span></span><span style="display:flex;"><span>g2 <span style="color:#f92672">=</span> range(<span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">11</span>)  <span style="color:#75715e"># 6, 7, 8, 9, 10</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">main_generator</span>():
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield from</span> g1
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield from</span> g2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> main_generator():
+</span></span><span style="display:flex;"><span>  print(i)  <span style="color:#75715e"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+</span></span></code></pre></div><hr>
+<p><em>Sources</em>:</p>
+<ul>
+<li><a href="https://www.python.org/dev/peps/pep-0380/">https://www.python.org/dev/peps/pep-0380/</a></li>
+<li><a href="https://dbader.org/blog/python-iterators">https://dbader.org/blog/python-iterators</a></li>
+<li><a href="https://www.integralist.co.uk/posts/python-generators/">https://www.integralist.co.uk/posts/python-generators/</a></li>
+<li><a href="https://realpython.com/python-for-loop/">https://realpython.com/python-for-loop/</a></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Web servers in Python and the WSGI/ASGI protocols</span>
+            </a>
+        </span>
+        
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+  
+  
+  
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

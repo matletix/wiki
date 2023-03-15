@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>routers on My DevOps Notes</title>
+    <link>http://wiki.mrollet.com/tags/routers/</link>
+    <description>Recent content in routers on My DevOps Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 28 Feb 2023 20:30:30 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/routers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CISCO Routers Configuration Basics</title>
+      <link>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
+      <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
+      
+      <guid>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
+      <description>Cisco Routers Configuration Basics Enter privileged mode : enable Enter global config mode : configure terminal Set router hostname to R1 : hostname R1 Do a non-config command in config mode : do &amp;lt;COMMAND&amp;gt; Show interfaces : show ip interface brief Show routes : show ip route Show running configuration : show running-config Configure interface g0/1 : interface g0/1 Set interface IP : ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt; Set interface description : description ## DESCRIPTION ## Enable the interface : no shutdown Add a route (in global config mode) : ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt; Remove a route : check routes in the running config : do sh run | include ip route remove the relevant route : no ip route .</description>
+      <content>&lt;h1 id=&#34;cisco-routers-configuration-basics&#34;&gt;Cisco Routers Configuration Basics&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;Enter privileged mode : &lt;code&gt;enable&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Enter global config mode : &lt;code&gt;configure terminal&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Set router hostname to R1 : &lt;code&gt;hostname R1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Do a non-config command in config mode : &lt;code&gt;do &amp;lt;COMMAND&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Show interfaces : &lt;code&gt;show ip interface brief&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Show routes : &lt;code&gt;show ip route&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Show running configuration : &lt;code&gt;show running-config&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Configure interface g0/1 : &lt;code&gt;interface g0/1&lt;/code&gt;
+&lt;ul&gt;
+&lt;li&gt;Set interface IP : &lt;code&gt;ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Set interface description : &lt;code&gt;description ## DESCRIPTION ##&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Enable the interface : &lt;code&gt;no shutdown&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;Add a route (in global config mode) : &lt;code&gt;ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Remove a route :
+&lt;ul&gt;
+&lt;li&gt;check routes in the running config : &lt;code&gt;do sh run | include ip route&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;remove the relevant route : &lt;code&gt;no ip route ...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>
