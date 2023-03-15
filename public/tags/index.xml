@@ -2,187 +2,187 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/tags/</link>
+    <link>https://wiki.mrollet.com/tags/</link>
     <description>Recent content in Tags on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>debian</title>
-      <link>http://wiki.mrollet.com/tags/debian/</link>
+      <link>https://wiki.mrollet.com/tags/debian/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/debian/</guid>
+      <guid>https://wiki.mrollet.com/tags/debian/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>packaging</title>
-      <link>http://wiki.mrollet.com/tags/packaging/</link>
+      <link>https://wiki.mrollet.com/tags/packaging/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/packaging/</guid>
+      <guid>https://wiki.mrollet.com/tags/packaging/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>programming</title>
-      <link>http://wiki.mrollet.com/tags/programming/</link>
+      <link>https://wiki.mrollet.com/tags/programming/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/programming/</guid>
+      <guid>https://wiki.mrollet.com/tags/programming/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>python</title>
-      <link>http://wiki.mrollet.com/tags/python/</link>
+      <link>https://wiki.mrollet.com/tags/python/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/python/</guid>
+      <guid>https://wiki.mrollet.com/tags/python/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>rust</title>
-      <link>http://wiki.mrollet.com/tags/rust/</link>
+      <link>https://wiki.mrollet.com/tags/rust/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/rust/</guid>
+      <guid>https://wiki.mrollet.com/tags/rust/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>asgi</title>
-      <link>http://wiki.mrollet.com/tags/asgi/</link>
+      <link>https://wiki.mrollet.com/tags/asgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/asgi/</guid>
+      <guid>https://wiki.mrollet.com/tags/asgi/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>cisco</title>
-      <link>http://wiki.mrollet.com/tags/cisco/</link>
+      <link>https://wiki.mrollet.com/tags/cisco/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/cisco/</guid>
+      <guid>https://wiki.mrollet.com/tags/cisco/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>fhs</title>
-      <link>http://wiki.mrollet.com/tags/fhs/</link>
+      <link>https://wiki.mrollet.com/tags/fhs/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/fhs/</guid>
+      <guid>https://wiki.mrollet.com/tags/fhs/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>filesystem</title>
-      <link>http://wiki.mrollet.com/tags/filesystem/</link>
+      <link>https://wiki.mrollet.com/tags/filesystem/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/filesystem/</guid>
+      <guid>https://wiki.mrollet.com/tags/filesystem/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>linux</title>
-      <link>http://wiki.mrollet.com/tags/linux/</link>
+      <link>https://wiki.mrollet.com/tags/linux/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/linux/</guid>
+      <guid>https://wiki.mrollet.com/tags/linux/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>networking</title>
-      <link>http://wiki.mrollet.com/tags/networking/</link>
+      <link>https://wiki.mrollet.com/tags/networking/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/networking/</guid>
+      <guid>https://wiki.mrollet.com/tags/networking/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>routers</title>
-      <link>http://wiki.mrollet.com/tags/routers/</link>
+      <link>https://wiki.mrollet.com/tags/routers/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/routers/</guid>
+      <guid>https://wiki.mrollet.com/tags/routers/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>server</title>
-      <link>http://wiki.mrollet.com/tags/server/</link>
+      <link>https://wiki.mrollet.com/tags/server/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/server/</guid>
+      <guid>https://wiki.mrollet.com/tags/server/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>web</title>
-      <link>http://wiki.mrollet.com/tags/web/</link>
+      <link>https://wiki.mrollet.com/tags/web/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/web/</guid>
+      <guid>https://wiki.mrollet.com/tags/web/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>wsgi</title>
-      <link>http://wiki.mrollet.com/tags/wsgi/</link>
+      <link>https://wiki.mrollet.com/tags/wsgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/wsgi/</guid>
+      <guid>https://wiki.mrollet.com/tags/wsgi/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>coroutines</title>
-      <link>http://wiki.mrollet.com/tags/coroutines/</link>
+      <link>https://wiki.mrollet.com/tags/coroutines/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/coroutines/</guid>
+      <guid>https://wiki.mrollet.com/tags/coroutines/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>generators</title>
-      <link>http://wiki.mrollet.com/tags/generators/</link>
+      <link>https://wiki.mrollet.com/tags/generators/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/generators/</guid>
+      <guid>https://wiki.mrollet.com/tags/generators/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
       <title>iterators</title>
-      <link>http://wiki.mrollet.com/tags/iterators/</link>
+      <link>https://wiki.mrollet.com/tags/iterators/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/tags/iterators/</guid>
+      <guid>https://wiki.mrollet.com/tags/iterators/</guid>
       <description></description>
       <content></content>
     </item>

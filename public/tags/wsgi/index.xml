@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>wsgi on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/tags/wsgi/</link>
+    <link>https://wiki.mrollet.com/tags/wsgi/</link>
     <description>Recent content in wsgi on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2023 20:30:30 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/wsgi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Feb 2023 20:30:30 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/wsgi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Web servers in Python and the WSGI/ASGI protocols</title>
-      <link>http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</link>
+      <link>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</guid>
+      <guid>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</guid>
       <description>Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate with the HTTP protocol ? And what exactly was the additional component like uWSGI/werkzeug/uvicorn doing to serve your app ?
 Then I encourage you to read the following, a step-by-step and in-depth blog series on understanding web servers in Python and the WSGI and ASGI protocols : https://mleue.com/posts/lets-build-our-own-fastapi/</description>
       <content>&lt;p&gt;Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>routers on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/tags/routers/</link>
+    <link>https://wiki.mrollet.com/tags/routers/</link>
     <description>Recent content in routers on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2023 20:30:30 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/routers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Feb 2023 20:30:30 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/routers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>CISCO Routers Configuration Basics</title>
-      <link>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
+      <link>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
+      <guid>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
       <description>Cisco Routers Configuration Basics Enter privileged mode : enable Enter global config mode : configure terminal Set router hostname to R1 : hostname R1 Do a non-config command in config mode : do &amp;lt;COMMAND&amp;gt; Show interfaces : show ip interface brief Show routes : show ip route Show running configuration : show running-config Configure interface g0/1 : interface g0/1 Set interface IP : ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt; Set interface description : description ## DESCRIPTION ## Enable the interface : no shutdown Add a route (in global config mode) : ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt; Remove a route : check routes in the running config : do sh run | include ip route remove the relevant route : no ip route .</description>
       <content>&lt;h1 id=&#34;cisco-routers-configuration-basics&#34;&gt;Cisco Routers Configuration Basics&lt;/h1&gt;
 &lt;ul&gt;

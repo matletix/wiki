@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>packaging on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/tags/packaging/</link>
+    <link>https://wiki.mrollet.com/tags/packaging/</link>
     <description>Recent content in packaging on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/packaging/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/packaging/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Debian Packaging</title>
-      <link>http://wiki.mrollet.com/posts/linux/debian-packaging/</link>
+      <link>https://wiki.mrollet.com/posts/linux/debian-packaging/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
+      <guid>https://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
       <description>How do you create the .deb packages that you use on your system to install software ? Let&amp;rsquo;s walk through a simple example with the hello package, a package that installs an executable to display &amp;ldquo;Hello World!&amp;rdquo;. We&amp;rsquo;ll modify it to display a personalized message with your first name and repackage it.
 $ apt show hello Package: hello Version: 2.10-2 Priority: optional Section: devel Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt; Installed-Size: 287 kB Depends: libc6 (&amp;gt;= 2.</description>
       <content>&lt;p&gt;How do you create the &lt;code&gt;.deb&lt;/code&gt; packages that you use on your system to install

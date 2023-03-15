@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>generators on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/tags/generators/</link>
+    <link>https://wiki.mrollet.com/tags/generators/</link>
     <description>Recent content in generators on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 19 Jun 2022 14:52:15 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/generators/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 19 Jun 2022 14:52:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/generators/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Iterators, Generators and Coroutines</title>
-      <link>http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</link>
+      <link>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</guid>
+      <guid>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</guid>
       <description>Iterable An iterable is an object that can produce an iterator by calling the iter() function on it. Eg: list, tuple, dict, set, string, etc. It must define the __iter__() method:
 __iter__(): method called on the initialization of an Iterator. (eg. by iter()) {.is-info}
 abcd = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;, &amp;#34;d&amp;#34;] type(abcd) # &amp;lt;class &amp;#39;list&amp;#39;&amp;gt; it = iter(abcd) type(it) # &amp;lt;class &amp;#39;list_iterator&amp;#39;&amp;gt; Iterator An iterator is a value producer that yields successive values from its associated iterable object.</description>

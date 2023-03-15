@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>programming on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/tags/programming/</link>
+    <link>https://wiki.mrollet.com/tags/programming/</link>
     <description>Recent content in programming on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Feb 2023 22:46:19 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/tags/programming/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Feb 2023 22:46:19 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/programming/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Rust for Python Programmers</title>
-      <link>http://wiki.mrollet.com/posts/python/rust-for-python-programmers/</link>
+      <link>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/python/rust-for-python-programmers/</guid>
+      <guid>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</guid>
       <description>Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language from the perspective of a Python programmer.
 Carefully exploring Rust as a Python developer Rust for Python Programmers From Python to Rust, a video series by &amp;ldquo;Bedroom Builds&amp;rdquo; </description>
       <content>&lt;p&gt;Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My DevOps Notes</title>
-    <link>http://wiki.mrollet.com/posts/</link>
+    <link>https://wiki.mrollet.com/posts/</link>
     <description>Recent content in Posts on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="http://wiki.mrollet.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Debian Packaging</title>
-      <link>http://wiki.mrollet.com/posts/linux/debian-packaging/</link>
+      <link>https://wiki.mrollet.com/posts/linux/debian-packaging/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
+      <guid>https://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
       <description>How do you create the .deb packages that you use on your system to install software ? Let&amp;rsquo;s walk through a simple example with the hello package, a package that installs an executable to display &amp;ldquo;Hello World!&amp;rdquo;. We&amp;rsquo;ll modify it to display a personalized message with your first name and repackage it.
 $ apt show hello Package: hello Version: 2.10-2 Priority: optional Section: devel Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt; Installed-Size: 287 kB Depends: libc6 (&amp;gt;= 2.</description>
       <content>&lt;p&gt;How do you create the &lt;code&gt;.deb&lt;/code&gt; packages that you use on your system to install
@@ -472,10 +472,10 @@ buildpackage--&gt;H
     
     <item>
       <title>Rust for Python Programmers</title>
-      <link>http://wiki.mrollet.com/posts/python/rust-for-python-programmers/</link>
+      <link>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/python/rust-for-python-programmers/</guid>
+      <guid>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</guid>
       <description>Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language from the perspective of a Python programmer.
 Carefully exploring Rust as a Python developer Rust for Python Programmers From Python to Rust, a video series by &amp;ldquo;Bedroom Builds&amp;rdquo; </description>
       <content>&lt;p&gt;Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language
@@ -490,10 +490,10 @@ from the perspective of a Python programmer.&lt;/p&gt;
     
     <item>
       <title>CISCO Routers Configuration Basics</title>
-      <link>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
+      <link>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
+      <guid>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
       <description>Cisco Routers Configuration Basics Enter privileged mode : enable Enter global config mode : configure terminal Set router hostname to R1 : hostname R1 Do a non-config command in config mode : do &amp;lt;COMMAND&amp;gt; Show interfaces : show ip interface brief Show routes : show ip route Show running configuration : show running-config Configure interface g0/1 : interface g0/1 Set interface IP : ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt; Set interface description : description ## DESCRIPTION ## Enable the interface : no shutdown Add a route (in global config mode) : ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt; Remove a route : check routes in the running config : do sh run | include ip route remove the relevant route : no ip route .</description>
       <content>&lt;h1 id=&#34;cisco-routers-configuration-basics&#34;&gt;Cisco Routers Configuration Basics&lt;/h1&gt;
 &lt;ul&gt;
@@ -524,10 +524,10 @@ from the perspective of a Python programmer.&lt;/p&gt;
     
     <item>
       <title>The Filesystem Hierarchy Standard (FHS)</title>
-      <link>http://wiki.mrollet.com/posts/linux/fhs/</link>
+      <link>https://wiki.mrollet.com/posts/linux/fhs/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/linux/fhs/</guid>
+      <guid>https://wiki.mrollet.com/posts/linux/fhs/</guid>
       <description>Many UNIX systems use a set of standardized directories and files for organizing their file system. Maintained by the Linux Foundation, the Filesystem Hierarchy Standard (FHS) is the reference describing these conventions.
 Conventions /home : user home directories /root : root user&amp;rsquo;s home directory. Not in /home because /home is often on a separate partition or network share and it needs to be accessible in single user mode /boot : boot loader, kernel files /etc : text configuration files /opt : self-contained 3rd party packages /media : content of the removable media /mnt : temporary mounted filesystems /tmp : temporary files, usually deleted on reboot /bin : essential binaries needed before /usr is mounted (eg.</description>
       <content>&lt;p&gt;Many UNIX systems use a set of standardized directories and files for organizing
@@ -618,10 +618,10 @@ done by initramfs, and splitting the directories therefore no longer serves any 
     
     <item>
       <title>Web servers in Python and the WSGI/ASGI protocols</title>
-      <link>http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</link>
+      <link>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</guid>
+      <guid>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</guid>
       <description>Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate with the HTTP protocol ? And what exactly was the additional component like uWSGI/werkzeug/uvicorn doing to serve your app ?
 Then I encourage you to read the following, a step-by-step and in-depth blog series on understanding web servers in Python and the WSGI and ASGI protocols : https://mleue.com/posts/lets-build-our-own-fastapi/</description>
       <content>&lt;p&gt;Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate
@@ -635,10 +635,10 @@ understanding web servers in Python and the &lt;em&gt;WSGI&lt;/em&gt; and &lt;em
     
     <item>
       <title>Iterators, Generators and Coroutines</title>
-      <link>http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</link>
+      <link>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>http://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</guid>
+      <guid>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</guid>
       <description>Iterable An iterable is an object that can produce an iterator by calling the iter() function on it. Eg: list, tuple, dict, set, string, etc. It must define the __iter__() method:
 __iter__(): method called on the initialization of an Iterator. (eg. by iter()) {.is-info}
 abcd = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;, &amp;#34;d&amp;#34;] type(abcd) # &amp;lt;class &amp;#39;list&amp;#39;&amp;gt; it = iter(abcd) type(it) # &amp;lt;class &amp;#39;list_iterator&amp;#39;&amp;gt; Iterator An iterator is a value producer that yields successive values from its associated iterable object.</description>
