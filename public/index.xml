@@ -799,10 +799,14 @@ The previous code can be rewritten as :&lt;/p&gt;
       
       <guid>https://wiki.mrollet.com/about/</guid>
       <description>You can find me on Github and LinkedIn.
-Contact me at &amp;lt;contact at mrollet dot com&amp;gt;.</description>
+Find my publicly-auditable identity on Keybase.io
+Contact me at &amp;lt;contact at mrollet dot com&amp;gt; or via keybase.io</description>
       <content>&lt;p&gt;You can find me on &lt;a href=&#34;https://github.com/matletix/&#34;&gt;Github&lt;/a&gt; and
 &lt;a href=&#34;https://linkedin.com/in/mrollet/&#34;&gt;LinkedIn&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Contact me at &lt;em&gt;&amp;lt;contact at mrollet dot com&amp;gt;&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Find my publicly-auditable identity on
+&lt;a href=&#34;https://keybase.io/matletix&#34;&gt;Keybase.io&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Contact me at &lt;em&gt;&amp;lt;contact at mrollet dot com&amp;gt;&lt;/em&gt; or via
+&lt;a href=&#34;https://keybase.io/matletix&#34;&gt;keybase.io&lt;/a&gt;&lt;/p&gt;
 </content>
     </item>
     
