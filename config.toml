@@ -1,4 +1,4 @@
-baseURL = 'http://wiki.mathieurollet.com/'
+baseURL = 'http://wiki.mrollet.com/'
 languageCode = 'en-us'
 title = 'My DevOps Notes'
 theme="terminal"
