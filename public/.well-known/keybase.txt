@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/matletix
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://wiki.mrollet.com
+  * I am matletix (https://keybase.io/matletix) on keybase.
+  * I have a public key ASAxoSHcfheN3uT1oVcVaxwjGIw32QAmf9VenJJJsit_0Ao
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "012010d8b4d383c98dc827c7602a79fa8a034907b859657a11afb68a1096f44165af0a",
+      "host": "keybase.io",
+      "kid": "012031a121dc7e178ddee4f5a157156b1c23188c37d900267fd55e9c9249b22b7fd00a",
+      "uid": "aa8a6bf136cd3d612c3eac3a141f3519",
+      "username": "matletix"
+    },
+    "merkle_root": {
+      "ctime": 1678840690,
+      "hash": "b91da6349332919c0876e623696e38502345bfd1dd1c647e905accca7739731fb1e98f4776528a1075b57e97a9ee7a870124665f07008b7d101a0bf56bd004bb",
+      "hash_meta": "8307448b2087763e6bf887c2edd7c1c321bcada86f36b134cf8ff03771ecfac3",
+      "seqno": 24195912
+    },
+    "service": {
+      "entropy": "ov6moT/4PYmV2vQik21U8Zz/",
+      "hostname": "wiki.mrollet.com",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "6.0.2"
+  },
+  "ctime": 1678840737,
+  "expire_in": 504576000,
+  "prev": "8090bbdabce5cdff105e464322833e48dce266dfbe7b00c9d94ea55661851d8a",
+  "seqno": 17,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEgMaEh3H4Xjd7k9aFXFWscIxiMN9kAJn/VXpySSbIrf9AKp3BheWxvYWTESpcCEcQggJC72rzlzf8QXkZDIoM+SNziZt++ewDJ2U6lVmGFHYrEIAv3NMfR5hrCoVHQ2CAjvb+FmDky7QBTUUOMnXfLIR8kAgHCo3NpZ8RAPNgdsn+YrnZ09ZCnQ6SqpUFUqluG0ewqJP2nxfdgYjtgtpHgK3EqZUo6VO6JMo2btlHxDZ1fBCJfn/UfZp37B6hzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIJaTqVCpHefYjY4NMfeC4vKDSP7ROCzvUHscW+Ho3CxSo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/matletix
+
+==================================================================
