@@ -49,9 +49,8 @@ between a public key and its owner is made using a decentralized trust model whe
 OpenPGP identity certificates (which include one or more public keys along with owner
 information) can be digitally signed by other users who, by that act, endorse the association
 of that public key with the person or entity listed in the certificate.
- 
 
-Resources : 
+## Links
  - [How does S/MIME differs from OpenPGP](https://superuser.com/questions/274169/how-does-s-mime-differ-from-pgp-gpg-for-the-purpose-of-signing-and-or-encryptin)
  - [Actalis free S/MIME certificates](https://www.actalis.it/products/certificates-for-secure-electronic-mail.aspx)
 
