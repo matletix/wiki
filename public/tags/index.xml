@@ -6,7 +6,47 @@
     <description>Recent content in Tags on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>access</title>
+      <link>https://wiki.mrollet.com/tags/access/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/access/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>control</title>
+      <link>https://wiki.mrollet.com/tags/control/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/control/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>linux</title>
+      <link>https://wiki.mrollet.com/tags/linux/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/linux/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>permission</title>
+      <link>https://wiki.mrollet.com/tags/permission/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/permission/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
     <item>
       <title>debian</title>
       <link>https://wiki.mrollet.com/tags/debian/</link>
@@ -98,16 +138,6 @@
     </item>
     
     <item>
-      <title>linux</title>
-      <link>https://wiki.mrollet.com/tags/linux/</link>
-      <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
-      
-      <guid>https://wiki.mrollet.com/tags/linux/</guid>
-      <description></description>
-      <content></content>
-    </item>
-    
-    <item>
       <title>networking</title>
       <link>https://wiki.mrollet.com/tags/networking/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
@@ -183,6 +213,66 @@
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
       <guid>https://wiki.mrollet.com/tags/iterators/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>setuptools</title>
+      <link>https://wiki.mrollet.com/tags/setuptools/</link>
+      <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/setuptools/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>certificate</title>
+      <link>https://wiki.mrollet.com/tags/certificate/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/certificate/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>email</title>
+      <link>https://wiki.mrollet.com/tags/email/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/email/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>keys</title>
+      <link>https://wiki.mrollet.com/tags/keys/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/keys/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>pki</title>
+      <link>https://wiki.mrollet.com/tags/pki/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/pki/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>signature</title>
+      <link>https://wiki.mrollet.com/tags/signature/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/tags/signature/</guid>
       <description></description>
       <content></content>
     </item>

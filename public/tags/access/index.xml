@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>access on My DevOps Notes</title>
+    <link>https://wiki.mrollet.com/tags/access/</link>
+    <description>Recent content in access on My DevOps Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/access/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>File Permissions in Linux</title>
+      <link>https://wiki.mrollet.com/posts/linux/file-permissions/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/posts/linux/file-permissions/</guid>
+      <description>File systems often implement a way to manage permissions on their files. In Linux, most of the supported filesystems like ext2/3/4 or Btrfs implement both the POSIX file system permissions and the more granular Access Control Lists (ACLs). Additional File attribute flags also are available, although their support varies. And to complicate matters further, Linux Security Modules (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of access control.</description>
+      <content>&lt;p&gt;File systems often implement a way to manage permissions on their files. In Linux, most of
+the supported filesystems like ext2/3/4 or Btrfs implement both the &lt;em&gt;POSIX file system permissions&lt;/em&gt;
+and the more granular &lt;em&gt;Access Control Lists&lt;/em&gt; (ACLs). Additional &lt;em&gt;File attribute flags&lt;/em&gt;
+also are available, although their support varies. And to complicate matters further, &lt;em&gt;Linux
+Security Modules&lt;/em&gt; (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of
+access control.&lt;/p&gt;
+&lt;h2 id=&#34;the-posix-file-system-permissions&#34;&gt;The POSIX file system permissions&lt;/h2&gt;
+&lt;p&gt;Files in this system possess 3 types of permissions :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;read&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;write&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;execute&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These 3 permissions are applied for each class of users :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the &lt;em&gt;owner&lt;/em&gt; of the file&lt;/li&gt;
+&lt;li&gt;users that are part of the &lt;em&gt;group&lt;/em&gt; of the file&lt;/li&gt;
+&lt;li&gt;other users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additionally, three modes can be applied globally (not for each class of users) on each file :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;setuid&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setgid&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;sticky&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;effects-of-permissions-and-modes&#34;&gt;Effects of permissions and modes&lt;/h3&gt;
+&lt;p&gt;In Unix, everything is a file, but the permissions do not mean the same thing if the file
+is a regular file or if it&amp;rsquo;s a directory.&lt;/p&gt;
+&lt;p&gt;For a &lt;em&gt;regular file&lt;/em&gt; :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;read&lt;/em&gt; : access the file&amp;rsquo;s content&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;write&lt;/em&gt; : truncate or modify the file&amp;rsquo;s content&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;execute&lt;/em&gt; : execute the file by the system&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setuid&lt;/em&gt; : only has an effect if the &lt;em&gt;execute&lt;/em&gt; permission is also set, and, on most systems,
+if the executable is a binary file (ignored if the executable is a &lt;em&gt;shell script&lt;/em&gt;). Then, the
+executable is run with the privileges of the file&amp;rsquo;s owner.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setgid&lt;/em&gt; : same as &lt;em&gt;setuid&lt;/em&gt;, but the executable is run with the privileges of the
+file&amp;rsquo;s &lt;em&gt;group&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;sticky&lt;/em&gt; : ignored on most system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a &lt;em&gt;directory&lt;/em&gt; :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;read&lt;/em&gt; : list the &lt;em&gt;names&lt;/em&gt; (only) of the files in the directory&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;write&lt;/em&gt; : modify entries in the directory (create/delete/rename its files). To be effectively
+realized, these operations also need the &lt;em&gt;execute&lt;/em&gt; bit to be set. The &lt;em&gt;write&lt;/em&gt; permission
+bit alone is meaningless otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;execute&lt;/em&gt; : access the content and metadata of a given file it the directory, enter the directory
+(with &lt;code&gt;cd&lt;/code&gt;) or pass through it to access subfolders.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setuid&lt;/em&gt; : ignored on most systems&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setgid&lt;/em&gt; : files created inside it inherit its group ownership, rather than the primary
+group of the processes creating the files.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;sticky&lt;/em&gt; : restrict deleting or renaming a file inside the directory to its owner, to the
+owner of the directory and to the root user. &lt;em&gt;write&lt;/em&gt; permission for other users is not
+sufficient.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;representation-of-permissions&#34;&gt;Representation of permissions&lt;/h3&gt;
+&lt;p&gt;Permissions on a given file can be viewed with the &lt;code&gt;ls&lt;/code&gt; command :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ls -l /path/to/a/file
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-rw-r--r-- &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; mrollet mrollet &lt;span style=&#34;color:#ae81ff&#34;&gt;31154&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; oct.  15:09 file
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;umask&#34;&gt;Umask&lt;/h3&gt;
+&lt;h2 id=&#34;file-attribute-flags&#34;&gt;File attribute flags&lt;/h2&gt;
+&lt;p&gt;TODO: representation with &lt;code&gt;ls&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;access-control-lists-acls&#34;&gt;Access Control Lists (ACLs)&lt;/h2&gt;
+&lt;p&gt;TODO: representation with &lt;code&gt;ls&lt;/code&gt; (&lt;code&gt;+&lt;/code&gt;)&lt;/p&gt;
+&lt;h2 id=&#34;linux-security-modules-lsm&#34;&gt;Linux Security Modules (LSM)&lt;/h2&gt;
+&lt;p&gt;TODO: representation with &lt;code&gt;ls&lt;/code&gt; (&lt;code&gt;.&lt;/code&gt;)&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/File-system_permissions&#34;&gt;File-system permissions on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Setuid&#34;&gt;Setuid/setgid on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Sticky_bit&#34;&gt;Sticky bit on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

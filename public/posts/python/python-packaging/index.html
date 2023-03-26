@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Python Packaging :: My DevOps Notes</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path." />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://wiki.mrollet.com/posts/python/python-packaging/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://wiki.mrollet.com/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://wiki.mrollet.com/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="https://wiki.mrollet.com/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Python Packaging">
+<meta property="og:description" content="Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path." />
+<meta property="og:url" content="https://wiki.mrollet.com/posts/python/python-packaging/" />
+<meta property="og:site_name" content="My DevOps Notes" />
+
+  
+  
+  <meta property="og:image" content="https://wiki.mrollet.com/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2020-06-01 22:51:08 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    My DevOps Notes
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://wiki.mrollet.com/posts/python/python-packaging/">Python Packaging</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2020-06-01 ::
+        
+      </time>
+    
+    
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://wiki.mrollet.com/tags/python/">python</a>&nbsp;
+      
+      #<a href="https://wiki.mrollet.com/tags/packaging/">packaging</a>&nbsp;
+      
+      #<a href="https://wiki.mrollet.com/tags/setuptools/">setuptools</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Installing the python package you’re developing allows you to import it by name,
+without using relative imports (in your tests for example),
+as it’ll be in the python path.</p>
+<p>You can do so by creating a setup.py file at the root of your package and running
+the following from the package’s root :</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>pip install -e .
+</span></span></code></pre></div><p>This will create an <code>egg-info</code> folder in your package and an <code>.egg-link</code> file pointing to
+your package code in the site-packages folder of your environment.
+It will also add the path to your package in the <code>site-packages/easy-install.pth</code> file,
+making it discoverable by the python interpreter.</p>
+<p>Another way to modify Python’s search path is to add a path configuration file to a
+directory that’s already on Python’s path, usually to the <code>site-packages/</code> directory.
+Path configuration files have an extension of <code>.pth</code>, and each line must contain a
+single path that will be appended to <code>sys.path</code>. Because the new paths are appended
+to <code>sys.path</code>, modules in the added directories will not override standard modules.
+Paths can be absolute or relative, in which case they’re relative to the directory
+containing the <code>.pth</code> file.</p>
+<p>A pytest-specific approach to modifying <code>sys.path</code> is to add an empty file, <code>conftest.py</code>,
+to your project’s root directory. Pytest looks for files of that name and, on detecting
+their presence, marks the containing directory as a project to be tested and adds the
+directory to the Python path during the test run.</p>
+<h2 id="links">Links<a href="#links" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://www.tjelvarolsson.com/blog/begginers-guide-creating-clean-python-development-environments/">https://www.tjelvarolsson.com/blog/begginers-guide-creating-clean-python-development-environments/</a></li>
+<li><a href="https://packaging.python.org/tutorials/packaging-projects/">https://packaging.python.org/tutorials/packaging-projects/</a></li>
+<li><a href="https://docs.python.org/3/install/index.html#inst-search-path">https://docs.python.org/3/install/index.html#inst-search-path</a></li>
+<li><a href="https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files">https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files</a></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Iterators, Generators and Coroutines</span>
+            </a>
+        </span>
+        
+        
+        <span class="button next">
+            <a href="https://wiki.mrollet.com/posts/security/email-digital-signature/">
+                <span class="button__text">Email digital signature</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+  
+  
+  
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

@@ -3,8 +3,29 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://wiki.mrollet.com/</loc>
-    <lastmod>2023-03-01T23:55:28+01:00</lastmod>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
     <priority>0</priority>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/access/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/control/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/posts/linux/file-permissions/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/linux/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/permission/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/posts/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/</loc>
+    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
   </url><url>
     <loc>https://wiki.mrollet.com/tags/debian/</loc>
     <lastmod>2023-03-01T23:55:28+01:00</lastmod>
@@ -13,12 +34,6 @@
     <lastmod>2023-03-01T23:55:28+01:00</lastmod>
   </url><url>
     <loc>https://wiki.mrollet.com/tags/packaging/</loc>
-    <lastmod>2023-03-01T23:55:28+01:00</lastmod>
-  </url><url>
-    <loc>https://wiki.mrollet.com/posts/</loc>
-    <lastmod>2023-03-01T23:55:28+01:00</lastmod>
-  </url><url>
-    <loc>https://wiki.mrollet.com/tags/</loc>
     <lastmod>2023-03-01T23:55:28+01:00</lastmod>
   </url><url>
     <loc>https://wiki.mrollet.com/tags/programming/</loc>
@@ -46,9 +61,6 @@
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
     <loc>https://wiki.mrollet.com/tags/filesystem/</loc>
-    <lastmod>2023-02-28T20:30:30+01:00</lastmod>
-  </url><url>
-    <loc>https://wiki.mrollet.com/tags/linux/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
     <loc>https://wiki.mrollet.com/tags/networking/</loc>
@@ -83,6 +95,30 @@
   </url><url>
     <loc>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</loc>
     <lastmod>2022-06-19T14:52:15+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/posts/python/python-packaging/</loc>
+    <lastmod>2020-06-01T22:51:08+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/setuptools/</loc>
+    <lastmod>2020-06-01T22:51:08+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/certificate/</loc>
+    <lastmod>2020-05-30T18:49:27+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/email/</loc>
+    <lastmod>2020-05-30T18:49:27+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/posts/security/email-digital-signature/</loc>
+    <lastmod>2020-05-30T18:49:27+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/keys/</loc>
+    <lastmod>2020-05-30T18:49:27+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/pki/</loc>
+    <lastmod>2020-05-30T18:49:27+01:00</lastmod>
+  </url><url>
+    <loc>https://wiki.mrollet.com/tags/signature/</loc>
+    <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
     <loc>https://wiki.mrollet.com/about/</loc>
   </url><url>

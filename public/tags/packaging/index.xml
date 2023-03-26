@@ -470,5 +470,45 @@ buildpackage--&gt;H
 </content>
     </item>
     
+    <item>
+      <title>Python Packaging</title>
+      <link>https://wiki.mrollet.com/posts/python/python-packaging/</link>
+      <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/posts/python/python-packaging/</guid>
+      <description>Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path.
+You can do so by creating a setup.py file at the root of your package and running the following from the package’s root :
+pip install -e . This will create an egg-info folder in your package and an .egg-link file pointing to your package code in the site-packages folder of your environment.</description>
+      <content>&lt;p&gt;Installing the python package you’re developing allows you to import it by name,
+without using relative imports (in your tests for example),
+as it’ll be in the python path.&lt;/p&gt;
+&lt;p&gt;You can do so by creating a setup.py file at the root of your package and running
+the following from the package’s root :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -e .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will create an &lt;code&gt;egg-info&lt;/code&gt; folder in your package and an &lt;code&gt;.egg-link&lt;/code&gt; file pointing to
+your package code in the site-packages folder of your environment.
+It will also add the path to your package in the &lt;code&gt;site-packages/easy-install.pth&lt;/code&gt; file,
+making it discoverable by the python interpreter.&lt;/p&gt;
+&lt;p&gt;Another way to modify Python’s search path is to add a path configuration file to a
+directory that’s already on Python’s path, usually to the &lt;code&gt;site-packages/&lt;/code&gt; directory.
+Path configuration files have an extension of &lt;code&gt;.pth&lt;/code&gt;, and each line must contain a
+single path that will be appended to &lt;code&gt;sys.path&lt;/code&gt;. Because the new paths are appended
+to &lt;code&gt;sys.path&lt;/code&gt;, modules in the added directories will not override standard modules.
+Paths can be absolute or relative, in which case they’re relative to the directory
+containing the &lt;code&gt;.pth&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;A pytest-specific approach to modifying &lt;code&gt;sys.path&lt;/code&gt; is to add an empty file, &lt;code&gt;conftest.py&lt;/code&gt;,
+to your project’s root directory. Pytest looks for files of that name and, on detecting
+their presence, marks the containing directory as a project to be tested and adds the
+directory to the Python path during the test run.&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tjelvarolsson.com/blog/begginers-guide-creating-clean-python-development-environments/&#34;&gt;https://www.tjelvarolsson.com/blog/begginers-guide-creating-clean-python-development-environments/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packaging.python.org/tutorials/packaging-projects/&#34;&gt;https://packaging.python.org/tutorials/packaging-projects/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.python.org/3/install/index.html#inst-search-path&#34;&gt;https://docs.python.org/3/install/index.html#inst-search-path&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files&#34;&gt;https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
   </channel>
 </rss>

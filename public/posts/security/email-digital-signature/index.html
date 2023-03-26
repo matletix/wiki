@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+    <title>Email digital signature :: My DevOps Notes</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Here are some notions necessary to work with email digital signature" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+
+<link rel="canonical" href="https://wiki.mrollet.com/posts/security/email-digital-signature/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://wiki.mrollet.com/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="https://wiki.mrollet.com/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="https://wiki.mrollet.com/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Email digital signature">
+<meta property="og:description" content="Here are some notions necessary to work with email digital signature" />
+<meta property="og:url" content="https://wiki.mrollet.com/posts/security/email-digital-signature/" />
+<meta property="og:site_name" content="My DevOps Notes" />
+
+  
+  
+  <meta property="og:image" content="https://wiki.mrollet.com/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2020-05-30 18:49:27 &#43;0100 &#43;0100" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    My DevOps Notes
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://wiki.mrollet.com/posts/security/email-digital-signature/">Email digital signature</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2020-05-30 ::
+        
+      </time>
+    
+    
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="https://wiki.mrollet.com/tags/certificate/">certificate</a>&nbsp;
+      
+      #<a href="https://wiki.mrollet.com/tags/pki/">pki</a>&nbsp;
+      
+      #<a href="https://wiki.mrollet.com/tags/email/">email</a>&nbsp;
+      
+      #<a href="https://wiki.mrollet.com/tags/signature/">signature</a>&nbsp;
+      
+      #<a href="https://wiki.mrollet.com/tags/keys/">keys</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>Here are some notions necessary to work with email digital signature.</p>
+<h2 id="digital-signature">Digital signature<a href="#digital-signature" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>A <a href="https://en.wikipedia.org/wiki/Digital_signature">digital signature</a> ensures
+authentication and integrity of a message. The message is hashed by the sender
+and the hash is encrypted by his private key and sent along with the clear
+message to the receiver. The receiver then decrypt the encrypted hash with
+the public key of the sender (ensures authentication), compute the hash of the
+clear message, and compare it to the decrypted hash. If they match, then it
+ensures the integrity of the message.</p>
+<h2 id="digital-certificate">Digital Certificate<a href="#digital-certificate" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>A <a href="https://en.wikipedia.org/wiki/Public_key_certificate">public key certificate</a>,
+aka Digital Certificate, is an electronic document used to prove ownership of a
+public key. It contains :</p>
+<ul>
+<li>information about the public key</li>
+<li>information about the owner</li>
+<li>the digital signature of the issuer, an entity that has verified the certificate
+content (ex: a Certificate Authority)</li>
+</ul>
+<p>There are two major types of digital certificates :</p>
+<ul>
+<li>S/MIME certificates, based on the x.509 protocol, that relies on a Public Key Infrastructure (PKI)</li>
+<li>OpenPGP certificates that relies on a Web of Trust</li>
+</ul>
+<h2 id="public-key-infrastructure-pki">Public Key Infrastructure (PKI)<a href="#public-key-infrastructure-pki" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>A [public key infrastructure (PKI)](Public Key Infrastructure) is a centralized system that manages
+digital certificates and binds <em>public keys</em> with <em>identities</em> (like people or organizations).
+The binding is established through a process of registration and issuance of certificates
+at and by a certificate authority (CA).</p>
+<h2 id="web-of-trust">Web of Trust<a href="#web-of-trust" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>In the <a href="https://en.wikipedia.org/wiki/Web_of_trust">Web of Trust</a> model, the binding
+between a public key and its owner is made using a decentralized trust model where
+OpenPGP identity certificates (which include one or more public keys along with owner
+information) can be digitally signed by other users who, by that act, endorse the association
+of that public key with the person or entity listed in the certificate.</p>
+<h2 id="links">Links<a href="#links" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://superuser.com/questions/274169/how-does-s-mime-differ-from-pgp-gpg-for-the-purpose-of-signing-and-or-encryptin">How does S/MIME differs from OpenPGP</a></li>
+<li><a href="https://www.actalis.it/products/certificates-for-secure-electronic-mail.aspx">Actalis free S/MIME certificates</a></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        <span class="button previous">
+            <a href="https://wiki.mrollet.com/posts/python/python-packaging/">
+                <span class="button__icon">←</span>
+                <span class="button__text">Python Packaging</span>
+            </a>
+        </span>
+        
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+  
+  
+  
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2023 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

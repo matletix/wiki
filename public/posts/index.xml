@@ -6,7 +6,89 @@
     <description>Recent content in Posts on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>File Permissions in Linux</title>
+      <link>https://wiki.mrollet.com/posts/linux/file-permissions/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/posts/linux/file-permissions/</guid>
+      <description>File systems often implement a way to manage permissions on their files. In Linux, most of the supported filesystems like ext2/3/4 or Btrfs implement both the POSIX file system permissions and the more granular Access Control Lists (ACLs). Additional File attribute flags also are available, although their support varies. And to complicate matters further, Linux Security Modules (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of access control.</description>
+      <content>&lt;p&gt;File systems often implement a way to manage permissions on their files. In Linux, most of
+the supported filesystems like ext2/3/4 or Btrfs implement both the &lt;em&gt;POSIX file system permissions&lt;/em&gt;
+and the more granular &lt;em&gt;Access Control Lists&lt;/em&gt; (ACLs). Additional &lt;em&gt;File attribute flags&lt;/em&gt;
+also are available, although their support varies. And to complicate matters further, &lt;em&gt;Linux
+Security Modules&lt;/em&gt; (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of
+access control.&lt;/p&gt;
+&lt;h2 id=&#34;the-posix-file-system-permissions&#34;&gt;The POSIX file system permissions&lt;/h2&gt;
+&lt;p&gt;Files in this system possess 3 types of permissions :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;read&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;write&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;execute&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These 3 permissions are applied for each class of users :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;the &lt;em&gt;owner&lt;/em&gt; of the file&lt;/li&gt;
+&lt;li&gt;users that are part of the &lt;em&gt;group&lt;/em&gt; of the file&lt;/li&gt;
+&lt;li&gt;other users&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Additionally, three modes can be applied globally (not for each class of users) on each file :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;setuid&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setgid&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;sticky&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;effects-of-permissions-and-modes&#34;&gt;Effects of permissions and modes&lt;/h3&gt;
+&lt;p&gt;In Unix, everything is a file, but the permissions do not mean the same thing if the file
+is a regular file or if it&amp;rsquo;s a directory.&lt;/p&gt;
+&lt;p&gt;For a &lt;em&gt;regular file&lt;/em&gt; :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;read&lt;/em&gt; : access the file&amp;rsquo;s content&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;write&lt;/em&gt; : truncate or modify the file&amp;rsquo;s content&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;execute&lt;/em&gt; : execute the file by the system&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setuid&lt;/em&gt; : only has an effect if the &lt;em&gt;execute&lt;/em&gt; permission is also set, and, on most systems,
+if the executable is a binary file (ignored if the executable is a &lt;em&gt;shell script&lt;/em&gt;). Then, the
+executable is run with the privileges of the file&amp;rsquo;s owner.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setgid&lt;/em&gt; : same as &lt;em&gt;setuid&lt;/em&gt;, but the executable is run with the privileges of the
+file&amp;rsquo;s &lt;em&gt;group&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;sticky&lt;/em&gt; : ignored on most system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For a &lt;em&gt;directory&lt;/em&gt; :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;read&lt;/em&gt; : list the &lt;em&gt;names&lt;/em&gt; (only) of the files in the directory&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;write&lt;/em&gt; : modify entries in the directory (create/delete/rename its files). To be effectively
+realized, these operations also need the &lt;em&gt;execute&lt;/em&gt; bit to be set. The &lt;em&gt;write&lt;/em&gt; permission
+bit alone is meaningless otherwise.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;execute&lt;/em&gt; : access the content and metadata of a given file it the directory, enter the directory
+(with &lt;code&gt;cd&lt;/code&gt;) or pass through it to access subfolders.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setuid&lt;/em&gt; : ignored on most systems&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;setgid&lt;/em&gt; : files created inside it inherit its group ownership, rather than the primary
+group of the processes creating the files.&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;sticky&lt;/em&gt; : restrict deleting or renaming a file inside the directory to its owner, to the
+owner of the directory and to the root user. &lt;em&gt;write&lt;/em&gt; permission for other users is not
+sufficient.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;representation-of-permissions&#34;&gt;Representation of permissions&lt;/h3&gt;
+&lt;p&gt;Permissions on a given file can be viewed with the &lt;code&gt;ls&lt;/code&gt; command :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ ls -l /path/to/a/file
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-rw-r--r-- &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; mrollet mrollet &lt;span style=&#34;color:#ae81ff&#34;&gt;31154&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;14&lt;/span&gt; oct.  15:09 file
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;umask&#34;&gt;Umask&lt;/h3&gt;
+&lt;h2 id=&#34;file-attribute-flags&#34;&gt;File attribute flags&lt;/h2&gt;
+&lt;p&gt;TODO: representation with &lt;code&gt;ls&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;access-control-lists-acls&#34;&gt;Access Control Lists (ACLs)&lt;/h2&gt;
+&lt;p&gt;TODO: representation with &lt;code&gt;ls&lt;/code&gt; (&lt;code&gt;+&lt;/code&gt;)&lt;/p&gt;
+&lt;h2 id=&#34;linux-security-modules-lsm&#34;&gt;Linux Security Modules (LSM)&lt;/h2&gt;
+&lt;p&gt;TODO: representation with &lt;code&gt;ls&lt;/code&gt; (&lt;code&gt;.&lt;/code&gt;)&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/File-system_permissions&#34;&gt;File-system permissions on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Setuid&#34;&gt;Setuid/setgid on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/Sticky_bit&#34;&gt;Sticky bit on Wikipedia&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
     <item>
       <title>Debian Packaging</title>
       <link>https://wiki.mrollet.com/posts/linux/debian-packaging/</link>
@@ -788,6 +870,97 @@ The previous code can be rewritten as :&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;https://dbader.org/blog/python-iterators&#34;&gt;https://dbader.org/blog/python-iterators&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.integralist.co.uk/posts/python-generators/&#34;&gt;https://www.integralist.co.uk/posts/python-generators/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://realpython.com/python-for-loop/&#34;&gt;https://realpython.com/python-for-loop/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Python Packaging</title>
+      <link>https://wiki.mrollet.com/posts/python/python-packaging/</link>
+      <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/posts/python/python-packaging/</guid>
+      <description>Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path.
+You can do so by creating a setup.py file at the root of your package and running the following from the package’s root :
+pip install -e . This will create an egg-info folder in your package and an .egg-link file pointing to your package code in the site-packages folder of your environment.</description>
+      <content>&lt;p&gt;Installing the python package you’re developing allows you to import it by name,
+without using relative imports (in your tests for example),
+as it’ll be in the python path.&lt;/p&gt;
+&lt;p&gt;You can do so by creating a setup.py file at the root of your package and running
+the following from the package’s root :&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;pip install -e .
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;This will create an &lt;code&gt;egg-info&lt;/code&gt; folder in your package and an &lt;code&gt;.egg-link&lt;/code&gt; file pointing to
+your package code in the site-packages folder of your environment.
+It will also add the path to your package in the &lt;code&gt;site-packages/easy-install.pth&lt;/code&gt; file,
+making it discoverable by the python interpreter.&lt;/p&gt;
+&lt;p&gt;Another way to modify Python’s search path is to add a path configuration file to a
+directory that’s already on Python’s path, usually to the &lt;code&gt;site-packages/&lt;/code&gt; directory.
+Path configuration files have an extension of &lt;code&gt;.pth&lt;/code&gt;, and each line must contain a
+single path that will be appended to &lt;code&gt;sys.path&lt;/code&gt;. Because the new paths are appended
+to &lt;code&gt;sys.path&lt;/code&gt;, modules in the added directories will not override standard modules.
+Paths can be absolute or relative, in which case they’re relative to the directory
+containing the &lt;code&gt;.pth&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;A pytest-specific approach to modifying &lt;code&gt;sys.path&lt;/code&gt; is to add an empty file, &lt;code&gt;conftest.py&lt;/code&gt;,
+to your project’s root directory. Pytest looks for files of that name and, on detecting
+their presence, marks the containing directory as a project to be tested and adds the
+directory to the Python path during the test run.&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tjelvarolsson.com/blog/begginers-guide-creating-clean-python-development-environments/&#34;&gt;https://www.tjelvarolsson.com/blog/begginers-guide-creating-clean-python-development-environments/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packaging.python.org/tutorials/packaging-projects/&#34;&gt;https://packaging.python.org/tutorials/packaging-projects/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://docs.python.org/3/install/index.html#inst-search-path&#34;&gt;https://docs.python.org/3/install/index.html#inst-search-path&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files&#34;&gt;https://stackoverflow.com/questions/34466027/in-pytest-what-is-the-use-of-conftest-py-files&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+    <item>
+      <title>Email digital signature</title>
+      <link>https://wiki.mrollet.com/posts/security/email-digital-signature/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/posts/security/email-digital-signature/</guid>
+      <description>Here are some notions necessary to work with email digital signature.
+Digital signature A digital signature ensures authentication and integrity of a message. The message is hashed by the sender and the hash is encrypted by his private key and sent along with the clear message to the receiver. The receiver then decrypt the encrypted hash with the public key of the sender (ensures authentication), compute the hash of the clear message, and compare it to the decrypted hash.</description>
+      <content>&lt;p&gt;Here are some notions necessary to work with email digital signature.&lt;/p&gt;
+&lt;h2 id=&#34;digital-signature&#34;&gt;Digital signature&lt;/h2&gt;
+&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Digital_signature&#34;&gt;digital signature&lt;/a&gt; ensures
+authentication and integrity of a message. The message is hashed by the sender
+and the hash is encrypted by his private key and sent along with the clear
+message to the receiver. The receiver then decrypt the encrypted hash with
+the public key of the sender (ensures authentication), compute the hash of the
+clear message, and compare it to the decrypted hash. If they match, then it
+ensures the integrity of the message.&lt;/p&gt;
+&lt;h2 id=&#34;digital-certificate&#34;&gt;Digital Certificate&lt;/h2&gt;
+&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Public_key_certificate&#34;&gt;public key certificate&lt;/a&gt;,
+aka Digital Certificate, is an electronic document used to prove ownership of a
+public key. It contains :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;information about the public key&lt;/li&gt;
+&lt;li&gt;information about the owner&lt;/li&gt;
+&lt;li&gt;the digital signature of the issuer, an entity that has verified the certificate
+content (ex: a Certificate Authority)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are two major types of digital certificates :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;S/MIME certificates, based on the x.509 protocol, that relies on a Public Key Infrastructure (PKI)&lt;/li&gt;
+&lt;li&gt;OpenPGP certificates that relies on a Web of Trust&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;public-key-infrastructure-pki&#34;&gt;Public Key Infrastructure (PKI)&lt;/h2&gt;
+&lt;p&gt;A [public key infrastructure (PKI)](Public Key Infrastructure) is a centralized system that manages
+digital certificates and binds &lt;em&gt;public keys&lt;/em&gt; with &lt;em&gt;identities&lt;/em&gt; (like people or organizations).
+The binding is established through a process of registration and issuance of certificates
+at and by a certificate authority (CA).&lt;/p&gt;
+&lt;h2 id=&#34;web-of-trust&#34;&gt;Web of Trust&lt;/h2&gt;
+&lt;p&gt;In the &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_of_trust&#34;&gt;Web of Trust&lt;/a&gt; model, the binding
+between a public key and its owner is made using a decentralized trust model where
+OpenPGP identity certificates (which include one or more public keys along with owner
+information) can be digitally signed by other users who, by that act, endorse the association
+of that public key with the person or entity listed in the certificate.&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://superuser.com/questions/274169/how-does-s-mime-differ-from-pgp-gpg-for-the-purpose-of-signing-and-or-encryptin&#34;&gt;How does S/MIME differs from OpenPGP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.actalis.it/products/certificates-for-secure-electronic-mail.aspx&#34;&gt;Actalis free S/MIME certificates&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </content>
     </item>

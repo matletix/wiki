@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>signature on My DevOps Notes</title>
+    <link>https://wiki.mrollet.com/tags/signature/</link>
+    <description>Recent content in signature on My DevOps Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 30 May 2020 18:49:27 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/signature/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Email digital signature</title>
+      <link>https://wiki.mrollet.com/posts/security/email-digital-signature/</link>
+      <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
+      
+      <guid>https://wiki.mrollet.com/posts/security/email-digital-signature/</guid>
+      <description>Here are some notions necessary to work with email digital signature.
+Digital signature A digital signature ensures authentication and integrity of a message. The message is hashed by the sender and the hash is encrypted by his private key and sent along with the clear message to the receiver. The receiver then decrypt the encrypted hash with the public key of the sender (ensures authentication), compute the hash of the clear message, and compare it to the decrypted hash.</description>
+      <content>&lt;p&gt;Here are some notions necessary to work with email digital signature.&lt;/p&gt;
+&lt;h2 id=&#34;digital-signature&#34;&gt;Digital signature&lt;/h2&gt;
+&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Digital_signature&#34;&gt;digital signature&lt;/a&gt; ensures
+authentication and integrity of a message. The message is hashed by the sender
+and the hash is encrypted by his private key and sent along with the clear
+message to the receiver. The receiver then decrypt the encrypted hash with
+the public key of the sender (ensures authentication), compute the hash of the
+clear message, and compare it to the decrypted hash. If they match, then it
+ensures the integrity of the message.&lt;/p&gt;
+&lt;h2 id=&#34;digital-certificate&#34;&gt;Digital Certificate&lt;/h2&gt;
+&lt;p&gt;A &lt;a href=&#34;https://en.wikipedia.org/wiki/Public_key_certificate&#34;&gt;public key certificate&lt;/a&gt;,
+aka Digital Certificate, is an electronic document used to prove ownership of a
+public key. It contains :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;information about the public key&lt;/li&gt;
+&lt;li&gt;information about the owner&lt;/li&gt;
+&lt;li&gt;the digital signature of the issuer, an entity that has verified the certificate
+content (ex: a Certificate Authority)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;There are two major types of digital certificates :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;S/MIME certificates, based on the x.509 protocol, that relies on a Public Key Infrastructure (PKI)&lt;/li&gt;
+&lt;li&gt;OpenPGP certificates that relies on a Web of Trust&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;public-key-infrastructure-pki&#34;&gt;Public Key Infrastructure (PKI)&lt;/h2&gt;
+&lt;p&gt;A [public key infrastructure (PKI)](Public Key Infrastructure) is a centralized system that manages
+digital certificates and binds &lt;em&gt;public keys&lt;/em&gt; with &lt;em&gt;identities&lt;/em&gt; (like people or organizations).
+The binding is established through a process of registration and issuance of certificates
+at and by a certificate authority (CA).&lt;/p&gt;
+&lt;h2 id=&#34;web-of-trust&#34;&gt;Web of Trust&lt;/h2&gt;
+&lt;p&gt;In the &lt;a href=&#34;https://en.wikipedia.org/wiki/Web_of_trust&#34;&gt;Web of Trust&lt;/a&gt; model, the binding
+between a public key and its owner is made using a decentralized trust model where
+OpenPGP identity certificates (which include one or more public keys along with owner
+information) can be digitally signed by other users who, by that act, endorse the association
+of that public key with the person or entity listed in the certificate.&lt;/p&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://superuser.com/questions/274169/how-does-s-mime-differ-from-pgp-gpg-for-the-purpose-of-signing-and-or-encryptin&#34;&gt;How does S/MIME differs from OpenPGP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.actalis.it/products/certificates-for-secure-electronic-mail.aspx&#34;&gt;Actalis free S/MIME certificates&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

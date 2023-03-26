@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.110.0">
+	<meta name="generator" content="Hugo 0.111.3">
   
     <title>My DevOps Notes</title>
   
@@ -171,6 +171,50 @@ reference.</p>
     
       <article class="post on-list">
         <h1 class="post-title">
+          <a href="https://wiki.mrollet.com/posts/linux/file-permissions/">File Permissions in Linux</a>
+        </h1>
+
+        <div class="post-meta">
+          
+            <time class="post-date">
+              2023-03-18 ::
+            </time>
+          
+          
+        </div>
+
+        
+          <span class="post-tags">
+            
+            #<a href="https://wiki.mrollet.com/tags/linux/">linux</a>&nbsp;
+            
+            #<a href="https://wiki.mrollet.com/tags/permission/">permission</a>&nbsp;
+            
+            #<a href="https://wiki.mrollet.com/tags/access/">access</a>&nbsp;
+            
+            #<a href="https://wiki.mrollet.com/tags/control/">control</a>&nbsp;
+            
+          </span>
+        
+
+        
+
+
+        <div class="post-content">
+          
+            File systems often implement a way to manage permissions on their files. In Linux, most of the supported filesystems like ext2/3/4 or Btrfs implement both the <em>POSIX file system permissions</em> and the more granular <em>Access Control Lists</em> (ACLs). Additional <em>File attribute flags</em> also are available, although their support varies. And to complicate matters further, <em>Linux Security Modules</em> (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of access control.
+          
+        </div>
+
+        
+          <div>
+            <a class="read-more button" href="/posts/linux/file-permissions/">Read more →</a>
+          </div>
+        
+      </article>
+    
+      <article class="post on-list">
+        <h1 class="post-title">
           <a href="https://wiki.mrollet.com/posts/linux/debian-packaging/">Debian Packaging</a>
         </h1>
 
@@ -186,6 +230,8 @@ reference.</p>
         
           <span class="post-tags">
             
+            #<a href="https://wiki.mrollet.com/tags/linux/">linux</a>&nbsp;
+            
             #<a href="https://wiki.mrollet.com/tags/debian/">debian</a>&nbsp;
             
             #<a href="https://wiki.mrollet.com/tags/packaging/">packaging</a>&nbsp;
@@ -198,7 +244,7 @@ reference.</p>
 
         <div class="post-content">
           
-            A Debian packaging guide
+            How do you create the <code>.deb</code> packages that you use on your system to install software ? Let&rsquo;s walk through a simple example with the <code>hello</code> package, a package that installs an executable to display &lsquo;Hello World!&rsquo;. We&rsquo;ll modify it to display a personalized message with your first name and repackage it.
           
         </div>
 
@@ -325,60 +371,13 @@ Carefully exploring Rust as a Python developer Rust for Python Programmers From 
 
         <div class="post-content">
           
-            Overview of the FHS
+            Many UNIX systems use a set of standardized directories and files for organizing their file system. Maintained by the Linux Foundation, the <strong>Filesystem Hierarchy Standard (FHS)</strong> is the reference describing these conventions.
           
         </div>
 
         
           <div>
             <a class="read-more button" href="/posts/linux/fhs/">Read more →</a>
-          </div>
-        
-      </article>
-    
-      <article class="post on-list">
-        <h1 class="post-title">
-          <a href="https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/">Web servers in Python and the WSGI/ASGI protocols</a>
-        </h1>
-
-        <div class="post-meta">
-          
-            <time class="post-date">
-              2023-02-28 ::
-            </time>
-          
-          
-        </div>
-
-        
-          <span class="post-tags">
-            
-            #<a href="https://wiki.mrollet.com/tags/python/">python</a>&nbsp;
-            
-            #<a href="https://wiki.mrollet.com/tags/web/">web</a>&nbsp;
-            
-            #<a href="https://wiki.mrollet.com/tags/server/">server</a>&nbsp;
-            
-            #<a href="https://wiki.mrollet.com/tags/asgi/">asgi</a>&nbsp;
-            
-            #<a href="https://wiki.mrollet.com/tags/wsgi/">wsgi</a>&nbsp;
-            
-          </span>
-        
-
-        
-
-
-        <div class="post-content">
-          
-            Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate with the HTTP protocol ? And what exactly was the additional component like uWSGI/werkzeug/uvicorn doing to serve your app ?
-Then I encourage you to read the following, a step-by-step and in-depth blog series on understanding web servers in Python and the WSGI and ASGI protocols : https://mleue.com/posts/lets-build-our-own-fastapi/
-          
-        </div>
-
-        
-          <div>
-            <a class="read-more button" href="/posts/python/web-servers-wsgi-asgi/">Read more →</a>
           </div>
         
       </article>
