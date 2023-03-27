@@ -192,6 +192,8 @@
       <ul>
         <li><a href="#effects-of-permissions-and-modes">Effects of permissions and modes</a></li>
         <li><a href="#representation-of-permissions">Representation of permissions</a></li>
+        <li><a href="#chmod">Chmod</a></li>
+        <li><a href="#chown">Chown</a></li>
         <li><a href="#umask">Umask</a></li>
       </ul>
     </li>
@@ -264,7 +266,110 @@ sufficient.</li>
 <p>Permissions on a given file can be viewed with the <code>ls</code> command :</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ls -l /path/to/a/file
 </span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> mrollet mrollet <span style="color:#ae81ff">31154</span> <span style="color:#ae81ff">14</span> oct.  15:09 file
-</span></span></code></pre></div><h3 id="umask">Umask<a href="#umask" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+</span></span></code></pre></div><p>The first character indicates the nature of the file:</p>
+<ul>
+<li><code>-</code> for a regular file</li>
+<li><code>d</code> for a directory</li>
+<li><code>l</code> for a symbolic link</li>
+<li><code>c</code> for a character device</li>
+<li><code>b</code> for a bloc device</li>
+<li>etc.</li>
+</ul>
+<p>The 9 following characters represent, in this order:</p>
+<ul>
+<li>the read/write/execute (<code>rwx</code>) permissions for the owner of the file</li>
+<li>the read/write/execute (<code>rwx</code>) permissions for users that are part of the group of the file</li>
+<li>and the read/write/execute (<code>rwx</code>) permissions for other users</li>
+</ul>
+<p>with 3 characters per group of users (<code>r</code> for <em>read</em>, <code>w</code> for <em>write</em> and <code>x</code> for <em>execute</em>).
+Example :</p>
+<ul>
+<li><code>r--r--r--</code> : read permission for owner, members of the group, and others</li>
+<li><code>rwx------</code> : read/write/execute permissions for the owner, no permissions for members of the
+group or other users.</li>
+</ul>
+<p>When they are active, the setuid, setgid, and sticky modes are also represented, in that order,
+on the 3rd character (the <em>execute</em> character) of the permissions for each group of users in the
+following way :</p>
+<ul>
+<li>owner permissions:
+<ul>
+<li><code>s</code> instead of <code>x</code> if both the <em>setuid</em> and <em>execute</em> bits are set</li>
+<li><code>S</code> instead of <code>-</code> if the <em>setuid</em> is set but not the <em>execute</em> bit. This points to an
+inconsistency as the <em>setuid</em> bit without the <em>execute</em> bit is useless.</li>
+</ul>
+</li>
+<li>group permissions:
+<ul>
+<li><code>s</code> instead of <code>x</code> if both the <em>setgid</em> and <em>execute</em> bits are set</li>
+<li><code>S</code> instead of <code>-</code> if the <em>setgid</em> is set but not the <em>execute</em> bit</li>
+</ul>
+</li>
+<li>others permissions:
+<ul>
+<li><code>t</code> instead of <code>x</code> if both the <em>sticky</em> and the <em>execute</em> bits are set</li>
+<li><code>T</code> instead of <code>-</code> if the <em>sticky</em> bit is set but not the <em>execute</em> bit.</li>
+</ul>
+</li>
+</ul>
+<p>Here is a table of common permissions combinations and their meaning:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">type of file</th>
+<th style="text-align:center">literal representation</th>
+<th style="text-align:center">octal form</th>
+<th style="text-align:left">meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">regular file</td>
+<td style="text-align:center"><code>rw-r--r--</code></td>
+<td style="text-align:center">0644</td>
+<td style="text-align:left">read/write for owner, read for group members and others<br><br>Example: <code>/etc/passwd</code></td>
+</tr>
+<tr>
+<td style="text-align:left">executable, directory</td>
+<td style="text-align:center"><code>rwxr-xr-x</code></td>
+<td style="text-align:center">0755</td>
+<td style="text-align:left">read/write/execute for owner, read and execute for group members and others<br><br>Example: <code>/usr/bin/cat</code>, <code>/</code></td>
+</tr>
+<tr>
+<td style="text-align:left">private file</td>
+<td style="text-align:center"><code>rw-------</code></td>
+<td style="text-align:center">0600</td>
+<td style="text-align:left">read/write for owner, no permissions for group members or others<br><br>Example: <code>/etc/ssh/ssh_host_rsa_key</code></td>
+</tr>
+<tr>
+<td style="text-align:left">symbolic link</td>
+<td style="text-align:center"><code>rwxrwxrwx</code></td>
+<td style="text-align:center">0777</td>
+<td style="text-align:left">read/write/execute for all. Note: on symlinks, permissions cannot be changed and have no meaning. Only the permissions of the file they point to matter.<br><br>Example: <code>/dev/stdout</code></td>
+</tr>
+<tr>
+<td style="text-align:left">executable with setuid</td>
+<td style="text-align:center"><code>rwsr-xr-x</code></td>
+<td style="text-align:center">4755</td>
+<td style="text-align:left">read/write/execute for owner, read and execute for group members and others, setuid set<br><br>Example: <code>/usr/bin/sudo</code></td>
+</tr>
+<tr>
+<td style="text-align:left">executable with setgid</td>
+<td style="text-align:center"><code>rwxr-sr-x</code></td>
+<td style="text-align:center">2755</td>
+<td style="text-align:left">read/write/execute for owner, read and execute for group members and others, setgid set<br><br>Example: <code>/usr/bin/ssh-agent</code></td>
+</tr>
+<tr>
+<td style="text-align:left">directory with sticky</td>
+<td style="text-align:center"><code>rwxrwxrwt</code></td>
+<td style="text-align:center">1777</td>
+<td style="text-align:left">read/write/execute for all, sticky bit set<br><br>Example: <code>/tmp</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="chmod">Chmod<a href="#chmod" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h3 id="chown">Chown<a href="#chown" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
+<h3 id="umask">Umask<a href="#umask" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h3>
 <h2 id="file-attribute-flags">File attribute flags<a href="#file-attribute-flags" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
 <p>TODO: representation with <code>ls</code></p>
 <h2 id="access-control-lists-acls">Access Control Lists (ACLs)<a href="#access-control-lists-acls" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>

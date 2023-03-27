@@ -73,6 +73,53 @@ $ ls -l /path/to/a/file
 -rw-r--r-- 1 mrollet mrollet 31154 14 oct.  15:09 file
 ```
 
+The first character indicates the nature of the file:
+ - `-` for a regular file
+ - `d` for a directory
+ - `l` for a symbolic link
+ - `c` for a character device
+ - `b` for a bloc device
+ - etc.
+
+The 9 following characters represent, in this order:
+ - the read/write/execute (`rwx`) permissions for the owner of the file
+ - the read/write/execute (`rwx`) permissions for users that are part of the group of the file
+ - and the read/write/execute (`rwx`) permissions for other users
+
+with 3 characters per group of users (`r` for *read*, `w` for *write* and `x` for *execute*).
+Example :
+ - `r--r--r--` : read permission for owner, members of the group, and others
+ - `rwx------` : read/write/execute permissions for the owner, no permissions for members of the
+   group or other users.
+
+When they are active, the setuid, setgid, and sticky modes are also represented, in that order,
+on the 3rd character (the *execute* character) of the permissions for each group of users in the
+following way :
+ - owner permissions:
+   - `s` instead of `x` if both the *setuid* and *execute* bits are set
+   - `S` instead of `-` if the *setuid* is set but not the *execute* bit. This points to an
+     inconsistency as the *setuid* bit without the *execute* bit is useless.
+ - group permissions:
+   - `s` instead of `x` if both the *setgid* and *execute* bits are set
+   - `S` instead of `-` if the *setgid* is set but not the *execute* bit
+ - others permissions:
+   - `t` instead of `x` if both the *sticky* and the *execute* bits are set
+   - `T` instead of `-` if the *sticky* bit is set but not the *execute* bit.
+
+Here is a table of common permissions combinations and their meaning:
+
+| type of file | literal representation | octal form | meaning |
+| :----------- | :--------------------: | :--------: | :------ |
+| regular file | `rw-r--r--` | 0644 | read/write for owner, read for group members and others<br><br>Example: `/etc/passwd` |
+| executable, directory | `rwxr-xr-x` | 0755 | read/write/execute for owner, read and execute for group members and others<br><br>Example: `/usr/bin/cat`, `/` |
+| private file | `rw-------` | 0600 | read/write for owner, no permissions for group members or others<br><br>Example: `/etc/ssh/ssh_host_rsa_key` |
+| symbolic link | `rwxrwxrwx` | 0777 | read/write/execute for all. Note: on symlinks, permissions cannot be changed and have no meaning. Only the permissions of the file they point to matter.<br><br>Example: `/dev/stdout` |
+| executable with setuid | `rwsr-xr-x`| 4755 | read/write/execute for owner, read and execute for group members and others, setuid set<br><br>Example: `/usr/bin/sudo` |
+| executable with setgid | `rwxr-sr-x`| 2755 | read/write/execute for owner, read and execute for group members and others, setgid set<br><br>Example: `/usr/bin/ssh-agent` |
+| directory with sticky | `rwxrwxrwt` | 1777 | read/write/execute for all, sticky bit set<br><br>Example: `/tmp` |
+
+### Chmod
+### Chown
 ### Umask
 
 ## File attribute flags
