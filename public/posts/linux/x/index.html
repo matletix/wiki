@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  
+    <title>The X Window System :: My DevOps Notes</title>
+  
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="An overview of the X Window System" />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+
+<link rel="canonical" href="http://localhost:1313/posts/linux/x/" />
+
+
+
+
+
+
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="http://localhost:1313/styles.css">
+
+
+
+
+
+
+
+  <link rel="shortcut icon" href="http://localhost:1313/img/theme-colors/green.png">
+  <link rel="apple-touch-icon" href="http://localhost:1313/img/theme-colors/green.png">
+
+
+
+<meta name="twitter:card" content="summary" />
+
+  
+    <meta name="twitter:site" content="" />
+  
+    <meta name="twitter:creator" content="" />
+
+
+
+<meta property="og:locale" content="en" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="The X Window System">
+<meta property="og:description" content="An overview of the X Window System" />
+<meta property="og:url" content="http://localhost:1313/posts/linux/x/" />
+<meta property="og:site_name" content="My DevOps Notes" />
+
+  
+  
+  <meta property="og:image" content="http://localhost:1313/">
+
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="627">
+
+
+  <meta property="article:published_time" content="2024-03-02 17:27:30 &#43;0100 CET" />
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+<body class="green">
+
+
+<div class="container center headings--one-size">
+
+  <header class="header">
+  <div class="header__inner">
+    <div class="header__logo">
+      <a href="/">
+  <div class="logo">
+    My DevOps Notes
+  </div>
+</a>
+
+    </div>
+    
+      <ul class="menu menu--mobile">
+  <li class="menu__trigger">Menu&nbsp;▾</li>
+  <li>
+    <ul class="menu__dropdown">
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    </ul>
+  </li>
+</ul>
+
+    
+    
+  </div>
+  
+    <nav class="navigation-menu">
+  <ul class="navigation-menu__inner menu--desktop">
+    
+      
+        
+          <li><a href="/about">About</a></li>
+        
+      
+        
+          <li><a href="/categories">Categories</a></li>
+        
+      
+        
+          <li><a href="/posts">Posts</a></li>
+        
+      
+        
+          <li><a href="/tags">Tags</a></li>
+        
+      
+      
+    
+  </ul>
+</nav>
+
+  
+</header>
+
+
+  <div class="content">
+    
+<article class="post">
+  <h1 class="post-title">
+    <a href="http://localhost:1313/posts/linux/x/">The X Window System</a>
+  </h1>
+  <div class="post-meta">
+    
+      <time class="post-date">
+        2024-03-02 ::
+        
+      </time>
+    
+    
+    
+  </div>
+
+  
+    <span class="post-tags">
+      
+      #<a href="http://localhost:1313/tags/linux/">linux</a>&nbsp;
+      
+      #<a href="http://localhost:1313/tags/x/">x</a>&nbsp;
+      
+      #<a href="http://localhost:1313/tags/gui/">gui</a>&nbsp;
+      
+    </span>
+  
+  
+
+
+  
+
+  <div class="post-content"><div>
+        <p>The X Window System is a framework for creating and managing graphical user interfaces in Unix-like systems.</p>
+<h2 id="nomenclature">Nomenclature<a href="#nomenclature" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li>The <strong>X Window System</strong> is a network-transparent, client/server system. It is composed of an <em>X server</em> and of <em>X clients</em>.</li>
+<li>An <strong>X Server</strong> is an application that runs on a system with inputs (e.g. mouse, keyboard) and outputs (e.g. screen). It interfaces with the kernel to process inputs from the input devices, render graphics via video drivers and push bitmaps on the output devices.</li>
+<li>An <strong>X client</strong> is any application which requests rendering of graphics to an X server and receive events from this server (e.g. from input devices). It can run locally or anywhere on the network.</li>
+<li>The <strong>X11</strong> protocol is the network protocol that X servers and X clients use to talk.</li>
+<li>The Xorg server is the most popular implementation of an X server.</li>
+<li><strong>Xlib</strong> and <strong>xcb</strong> are client libraries that implement X11.</li>
+</ul>
+<p>The X Window System having a client/server implementation means that you can have an heavy cpu consuming application (e.g. matlab) acting as an X client on a buffy remote server and display it on a light laptop running an X server. This can be done for example via ssh, using XForwarding. <code>ssh</code> into the remote server with the <code>-X</code> flag, then run the <code>matlab</code> command, and the matlab gui appears on your laptop for you to use with the server&rsquo;s cpu cores.</p>
+<h2 id="configuration">Configuration<a href="#configuration" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<p>The Xorg server is configured through the <code>/etc/X11/xorg.conf</code> file and the <code>/etc/X11/xorg.conf.d/</code> directory.</p>
+<p>The <code>startx</code> script start up the X server. It&rsquo;s installed by xinit. It runs the X server and execute the <code>~/.xinitrc</code> file or read the value of the <code>$XSESSION</code> variable.</p>
+<p><code>Ctrl</code>+<code>Alt</code>+<code>Backspace</code> will terminate the session and restart X in case something goes wrong.</p>
+<p>To install an appropriate video driver for your hardware, identify your graphic card(s) with:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>lspci -v | grep -A1 -e VGA -e 3D
+</span></span></code></pre></div><p>and install the appropriate video driver.</p>
+<h2 id="tools">Tools<a href="#tools" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><code>xrand</code> is a CLI tool used to manage screen resolutions, rotation and placement. Example:</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># List detected screens</span>
+</span></span><span style="display:flex;"><span>xrandr
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Change resolution</span>
+</span></span><span style="display:flex;"><span>xrandr --output DP-3 --mode 1920x1080
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Change frequency</span>
+</span></span><span style="display:flex;"><span>xrandr --output DP-3 --rate <span style="color:#ae81ff">75</span>
+</span></span></code></pre></div><p>An xrandr script/command can be added to the <code>.xinitrc</code> file to be executed on every X startup.</p>
+<ul>
+<li><code>xtruss</code> is the equivalent of <code>strace</code> for logging interactions between a GUI application and the X Server.</li>
+<li><code>xprop</code> is a tool for displaying window and font properties in an X server, like <code>WM_NAME</code> (title of the window) or <code>_NET_WM_ICON</code> (its icon).</li>
+</ul>
+<h2 id="links">Links<a href="#links" class="hanchor" ariaLabel="Anchor">&#8983;</a> </h2>
+<ul>
+<li><a href="https://wiki.archlinux.org/title/xorg">Xorg</a></li>
+<li><a href="https://wiki.archlinux.org/title/OpenSSH#X11_forwarding">X11 Forwarding</a></li>
+<li><a href="https://en.wikipedia.org/wiki/X_Window_System_protocols_and_architecture">X Window System</a></li>
+<li><a href="https://www.chiark.greenend.org.uk/~sgtatham/xtruss/">xtruss</a></li>
+<li><a href="https://www.x.org/releases/X11R7.5/doc/man/man1/xprop.1.html">xprop</a></li>
+<li><a href="https://wiki.archlinux.org/title/Display_manager">Display Manager</a></li>
+</ul>
+
+      </div></div>
+
+  
+    
+<div class="pagination">
+    <div class="pagination__title">
+        <span class="pagination__title-h">Read other posts</span>
+        <hr />
+    </div>
+    <div class="pagination__buttons">
+        
+        
+        <span class="button next">
+            <a href="http://localhost:1313/posts/linux/file-permissions/">
+                <span class="button__text">File Permissions in Linux</span>
+                <span class="button__icon">→</span>
+            </a>
+        </span>
+        
+    </div>
+</div>
+
+  
+
+  
+    
+
+  
+</article>
+
+  </div>
+  
+  
+  
+  
+    <footer class="footer">
+  <div class="footer__inner">
+    
+      <div class="copyright">
+        <span>© 2024 Powered by <a href="http://gohugo.io">Hugo</a></span>
+    
+      <span>:: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank">Theme</a> made by <a href="https://github.com/panr" target="_blank">panr</a></span>
+      </div>
+  </div>
+</footer>
+
+
+
+
+
+
+<script type="text/javascript" src="/bundle.min.js"></script>
+
+
+
+
+
+  
+</div>
+
+</body>
+</html>

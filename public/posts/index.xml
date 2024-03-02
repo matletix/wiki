@@ -2,17 +2,70 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on My DevOps Notes</title>
-    <link>https://wiki.mrollet.com/posts/</link>
+    <link>http://localhost:1313/posts/</link>
     <description>Recent content in Posts on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sat, 02 Mar 2024 17:27:30 +0100</lastBuildDate><atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The X Window System</title>
+      <link>http://localhost:1313/posts/linux/x/</link>
+      <pubDate>Sat, 02 Mar 2024 17:27:30 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/x/</guid>
+      <description>The X Window System is a framework for creating and managing graphical user interfaces in Unix-like systems.
+Nomenclature The X Window System is a network-transparent, client/server system. It is composed of an X server and of X clients. An X Server is an application that runs on a system with inputs (e.g. mouse, keyboard) and outputs (e.g. screen). It interfaces with the kernel to process inputs from the input devices, render graphics via video drivers and push bitmaps on the output devices.</description>
+      <content>&lt;p&gt;The X Window System is a framework for creating and managing graphical user interfaces in Unix-like systems.&lt;/p&gt;
+&lt;h2 id=&#34;nomenclature&#34;&gt;Nomenclature&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;strong&gt;X Window System&lt;/strong&gt; is a network-transparent, client/server system. It is composed of an &lt;em&gt;X server&lt;/em&gt; and of &lt;em&gt;X clients&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;An &lt;strong&gt;X Server&lt;/strong&gt; is an application that runs on a system with inputs (e.g. mouse, keyboard) and outputs (e.g. screen). It interfaces with the kernel to process inputs from the input devices, render graphics via video drivers and push bitmaps on the output devices.&lt;/li&gt;
+&lt;li&gt;An &lt;strong&gt;X client&lt;/strong&gt; is any application which requests rendering of graphics to an X server and receive events from this server (e.g. from input devices). It can run locally or anywhere on the network.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;X11&lt;/strong&gt; protocol is the network protocol that X servers and X clients use to talk.&lt;/li&gt;
+&lt;li&gt;The Xorg server is the most popular implementation of an X server.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Xlib&lt;/strong&gt; and &lt;strong&gt;xcb&lt;/strong&gt; are client libraries that implement X11.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The X Window System having a client/server implementation means that you can have an heavy cpu consuming application (e.g. matlab) acting as an X client on a buffy remote server and display it on a light laptop running an X server. This can be done for example via ssh, using XForwarding. &lt;code&gt;ssh&lt;/code&gt; into the remote server with the &lt;code&gt;-X&lt;/code&gt; flag, then run the &lt;code&gt;matlab&lt;/code&gt; command, and the matlab gui appears on your laptop for you to use with the server&amp;rsquo;s cpu cores.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;The Xorg server is configured through the &lt;code&gt;/etc/X11/xorg.conf&lt;/code&gt; file and the &lt;code&gt;/etc/X11/xorg.conf.d/&lt;/code&gt; directory.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;startx&lt;/code&gt; script start up the X server. It&amp;rsquo;s installed by xinit. It runs the X server and execute the &lt;code&gt;~/.xinitrc&lt;/code&gt; file or read the value of the &lt;code&gt;$XSESSION&lt;/code&gt; variable.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Ctrl&lt;/code&gt;+&lt;code&gt;Alt&lt;/code&gt;+&lt;code&gt;Backspace&lt;/code&gt; will terminate the session and restart X in case something goes wrong.&lt;/p&gt;
+&lt;p&gt;To install an appropriate video driver for your hardware, identify your graphic card(s) with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspci -v | grep -A1 -e VGA -e 3D
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and install the appropriate video driver.&lt;/p&gt;
+&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xrand&lt;/code&gt; is a CLI tool used to manage screen resolutions, rotation and placement. Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# List detected screens&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xrandr
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Change resolution&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xrandr --output DP-3 --mode 1920x1080
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Change frequency&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xrandr --output DP-3 --rate &lt;span style=&#34;color:#ae81ff&#34;&gt;75&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An xrandr script/command can be added to the &lt;code&gt;.xinitrc&lt;/code&gt; file to be executed on every X startup.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xtruss&lt;/code&gt; is the equivalent of &lt;code&gt;strace&lt;/code&gt; for logging interactions between a GUI application and the X Server.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xprop&lt;/code&gt; is a tool for displaying window and font properties in an X server, like &lt;code&gt;WM_NAME&lt;/code&gt; (title of the window) or &lt;code&gt;_NET_WM_ICON&lt;/code&gt; (its icon).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.archlinux.org/title/xorg&#34;&gt;Xorg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.archlinux.org/title/OpenSSH#X11_forwarding&#34;&gt;X11 Forwarding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/X_Window_System_protocols_and_architecture&#34;&gt;X Window System&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.chiark.greenend.org.uk/~sgtatham/xtruss/&#34;&gt;xtruss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.x.org/releases/X11R7.5/doc/man/man1/xprop.1.html&#34;&gt;xprop&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.archlinux.org/title/Display_manager&#34;&gt;Display Manager&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
     <item>
       <title>File Permissions in Linux</title>
-      <link>https://wiki.mrollet.com/posts/linux/file-permissions/</link>
+      <link>http://localhost:1313/posts/linux/file-permissions/</link>
       <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/linux/file-permissions/</guid>
+      <guid>http://localhost:1313/posts/linux/file-permissions/</guid>
       <description>File systems often implement a way to manage permissions on their files. In Linux, most of the supported filesystems like ext2/3/4 or Btrfs implement both the POSIX file system permissions and the more granular Access Control Lists (ACLs). Additional File attribute flags also are available, although their support varies. And to complicate matters further, Linux Security Modules (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of access control.</description>
       <content>&lt;p&gt;File systems often implement a way to manage permissions on their files. In Linux, most of
 the supported filesystems like ext2/3/4 or Btrfs implement both the &lt;em&gt;POSIX file system permissions&lt;/em&gt;
@@ -194,10 +247,10 @@ inconsistency as the &lt;em&gt;setuid&lt;/em&gt; bit without the &lt;em&gt;execu
     
     <item>
       <title>Debian Packaging</title>
-      <link>https://wiki.mrollet.com/posts/linux/debian-packaging/</link>
+      <link>http://localhost:1313/posts/linux/debian-packaging/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
+      <guid>http://localhost:1313/posts/linux/debian-packaging/</guid>
       <description>How do you create the .deb packages that you use on your system to install software ? Let&amp;rsquo;s walk through a simple example with the hello package, a package that installs an executable to display &amp;ldquo;Hello World!&amp;rdquo;. We&amp;rsquo;ll modify it to display a personalized message with your first name and repackage it.
 $ apt show hello Package: hello Version: 2.10-2 Priority: optional Section: devel Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt; Installed-Size: 287 kB Depends: libc6 (&amp;gt;= 2.</description>
       <content>&lt;p&gt;How do you create the &lt;code&gt;.deb&lt;/code&gt; packages that you use on your system to install
@@ -657,10 +710,10 @@ buildpackage--&gt;H
     
     <item>
       <title>Rust for Python Programmers</title>
-      <link>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</link>
+      <link>http://localhost:1313/posts/python/rust-for-python-programmers/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</guid>
+      <guid>http://localhost:1313/posts/python/rust-for-python-programmers/</guid>
       <description>Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language from the perspective of a Python programmer.
 Carefully exploring Rust as a Python developer Rust for Python Programmers From Python to Rust, a video series by &amp;ldquo;Bedroom Builds&amp;rdquo; </description>
       <content>&lt;p&gt;Here&amp;rsquo;s just a bunch of resources about learning the Rust programming language
@@ -675,10 +728,10 @@ from the perspective of a Python programmer.&lt;/p&gt;
     
     <item>
       <title>CISCO Routers Configuration Basics</title>
-      <link>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</link>
+      <link>http://localhost:1313/posts/networking/ccna/cisco-router-cheatsheet/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</guid>
+      <guid>http://localhost:1313/posts/networking/ccna/cisco-router-cheatsheet/</guid>
       <description>Cisco Routers Configuration Basics Enter privileged mode : enable Enter global config mode : configure terminal Set router hostname to R1 : hostname R1 Do a non-config command in config mode : do &amp;lt;COMMAND&amp;gt; Show interfaces : show ip interface brief Show routes : show ip route Show running configuration : show running-config Configure interface g0/1 : interface g0/1 Set interface IP : ip address &amp;lt;IP&amp;gt; &amp;lt;NETMASK&amp;gt; Set interface description : description ## DESCRIPTION ## Enable the interface : no shutdown Add a route (in global config mode) : ip route &amp;lt;DEST NET IP&amp;gt; &amp;lt;DEST NETMASK&amp;gt; &amp;lt;NEXTHOP IP | ROUTER INTERFACE NAME&amp;gt; Remove a route : check routes in the running config : do sh run | include ip route remove the relevant route : no ip route .</description>
       <content>&lt;h1 id=&#34;cisco-routers-configuration-basics&#34;&gt;Cisco Routers Configuration Basics&lt;/h1&gt;
 &lt;ul&gt;
@@ -709,10 +762,10 @@ from the perspective of a Python programmer.&lt;/p&gt;
     
     <item>
       <title>The Filesystem Hierarchy Standard (FHS)</title>
-      <link>https://wiki.mrollet.com/posts/linux/fhs/</link>
+      <link>http://localhost:1313/posts/linux/fhs/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/linux/fhs/</guid>
+      <guid>http://localhost:1313/posts/linux/fhs/</guid>
       <description>Many UNIX systems use a set of standardized directories and files for organizing their file system. Maintained by the Linux Foundation, the Filesystem Hierarchy Standard (FHS) is the reference describing these conventions.
 Conventions /home : user home directories /root : root user&amp;rsquo;s home directory. Not in /home because /home is often on a separate partition or network share and it needs to be accessible in single user mode /boot : boot loader, kernel files /etc : text configuration files /opt : self-contained 3rd party packages /media : content of the removable media /mnt : temporary mounted filesystems /tmp : temporary files, usually deleted on reboot /bin : essential binaries needed before /usr is mounted (eg.</description>
       <content>&lt;p&gt;Many UNIX systems use a set of standardized directories and files for organizing
@@ -803,10 +856,10 @@ done by initramfs, and splitting the directories therefore no longer serves any 
     
     <item>
       <title>Web servers in Python and the WSGI/ASGI protocols</title>
-      <link>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</link>
+      <link>http://localhost:1313/posts/python/web-servers-wsgi-asgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</guid>
+      <guid>http://localhost:1313/posts/python/web-servers-wsgi-asgi/</guid>
       <description>Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate with the HTTP protocol ? And what exactly was the additional component like uWSGI/werkzeug/uvicorn doing to serve your app ?
 Then I encourage you to read the following, a step-by-step and in-depth blog series on understanding web servers in Python and the WSGI and ASGI protocols : https://mleue.com/posts/lets-build-our-own-fastapi/</description>
       <content>&lt;p&gt;Did you ever wonder how your FastAPI, Flask, or Django app was able to communicate
@@ -820,10 +873,10 @@ understanding web servers in Python and the &lt;em&gt;WSGI&lt;/em&gt; and &lt;em
     
     <item>
       <title>Iterators, Generators and Coroutines</title>
-      <link>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</link>
+      <link>http://localhost:1313/posts/python/iterators-generators-and-coroutines/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</guid>
+      <guid>http://localhost:1313/posts/python/iterators-generators-and-coroutines/</guid>
       <description>Iterable An iterable is an object that can produce an iterator by calling the iter() function on it. Eg: list, tuple, dict, set, string, etc. It must define the __iter__() method:
 __iter__(): method called on the initialization of an Iterator. (eg. by iter()) {.is-info}
 abcd = [&amp;#34;a&amp;#34;, &amp;#34;b&amp;#34;, &amp;#34;c&amp;#34;, &amp;#34;d&amp;#34;] type(abcd) # &amp;lt;class &amp;#39;list&amp;#39;&amp;gt; it = iter(abcd) type(it) # &amp;lt;class &amp;#39;list_iterator&amp;#39;&amp;gt; Iterator An iterator is a value producer that yields successive values from its associated iterable object.</description>
@@ -979,10 +1032,10 @@ The previous code can be rewritten as :&lt;/p&gt;
     
     <item>
       <title>Python Packaging</title>
-      <link>https://wiki.mrollet.com/posts/python/python-packaging/</link>
+      <link>http://localhost:1313/posts/python/python-packaging/</link>
       <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/python/python-packaging/</guid>
+      <guid>http://localhost:1313/posts/python/python-packaging/</guid>
       <description>Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path.
 You can do so by creating a setup.py file at the root of your package and running the following from the package’s root :
 pip install -e . This will create an egg-info folder in your package and an .egg-link file pointing to your package code in the site-packages folder of your environment.</description>
@@ -1019,10 +1072,10 @@ directory to the Python path during the test run.&lt;/p&gt;
     
     <item>
       <title>Email digital signature</title>
-      <link>https://wiki.mrollet.com/posts/security/email-digital-signature/</link>
+      <link>http://localhost:1313/posts/security/email-digital-signature/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/security/email-digital-signature/</guid>
+      <guid>http://localhost:1313/posts/security/email-digital-signature/</guid>
       <description>Here are some notions necessary to work with email digital signature.
 Digital signature A digital signature ensures authentication and integrity of a message. The message is hashed by the sender and the hash is encrypted by his private key and sent along with the clear message to the receiver. The receiver then decrypt the encrypted hash with the public key of the sender (ensures authentication), compute the hash of the clear message, and compare it to the decrypted hash.</description>
       <content>&lt;p&gt;Here are some notions necessary to work with email digital signature.&lt;/p&gt;

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>setuptools on My DevOps Notes</title>
-    <link>https://wiki.mrollet.com/tags/setuptools/</link>
-    <description>Recent content in setuptools on My DevOps Notes</description>
+    <title>Setuptools on My DevOps Notes</title>
+    <link>http://localhost:1313/tags/setuptools/</link>
+    <description>Recent content in Setuptools on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jun 2020 22:51:08 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/setuptools/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Mon, 01 Jun 2020 22:51:08 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/setuptools/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Python Packaging</title>
-      <link>https://wiki.mrollet.com/posts/python/python-packaging/</link>
+      <link>http://localhost:1313/posts/python/python-packaging/</link>
       <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/python/python-packaging/</guid>
+      <guid>http://localhost:1313/posts/python/python-packaging/</guid>
       <description>Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path.
 You can do so by creating a setup.py file at the root of your package and running the following from the package’s root :
 pip install -e . This will create an egg-info folder in your package and an .egg-link file pointing to your package code in the site-packages folder of your environment.</description>

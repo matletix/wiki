@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>X on My DevOps Notes</title>
+    <link>http://localhost:1313/tags/x/</link>
+    <description>Recent content in X on My DevOps Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 02 Mar 2024 17:27:30 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/x/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The X Window System</title>
+      <link>http://localhost:1313/posts/linux/x/</link>
+      <pubDate>Sat, 02 Mar 2024 17:27:30 +0100</pubDate>
+      
+      <guid>http://localhost:1313/posts/linux/x/</guid>
+      <description>The X Window System is a framework for creating and managing graphical user interfaces in Unix-like systems.
+Nomenclature The X Window System is a network-transparent, client/server system. It is composed of an X server and of X clients. An X Server is an application that runs on a system with inputs (e.g. mouse, keyboard) and outputs (e.g. screen). It interfaces with the kernel to process inputs from the input devices, render graphics via video drivers and push bitmaps on the output devices.</description>
+      <content>&lt;p&gt;The X Window System is a framework for creating and managing graphical user interfaces in Unix-like systems.&lt;/p&gt;
+&lt;h2 id=&#34;nomenclature&#34;&gt;Nomenclature&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;The &lt;strong&gt;X Window System&lt;/strong&gt; is a network-transparent, client/server system. It is composed of an &lt;em&gt;X server&lt;/em&gt; and of &lt;em&gt;X clients&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;An &lt;strong&gt;X Server&lt;/strong&gt; is an application that runs on a system with inputs (e.g. mouse, keyboard) and outputs (e.g. screen). It interfaces with the kernel to process inputs from the input devices, render graphics via video drivers and push bitmaps on the output devices.&lt;/li&gt;
+&lt;li&gt;An &lt;strong&gt;X client&lt;/strong&gt; is any application which requests rendering of graphics to an X server and receive events from this server (e.g. from input devices). It can run locally or anywhere on the network.&lt;/li&gt;
+&lt;li&gt;The &lt;strong&gt;X11&lt;/strong&gt; protocol is the network protocol that X servers and X clients use to talk.&lt;/li&gt;
+&lt;li&gt;The Xorg server is the most popular implementation of an X server.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Xlib&lt;/strong&gt; and &lt;strong&gt;xcb&lt;/strong&gt; are client libraries that implement X11.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The X Window System having a client/server implementation means that you can have an heavy cpu consuming application (e.g. matlab) acting as an X client on a buffy remote server and display it on a light laptop running an X server. This can be done for example via ssh, using XForwarding. &lt;code&gt;ssh&lt;/code&gt; into the remote server with the &lt;code&gt;-X&lt;/code&gt; flag, then run the &lt;code&gt;matlab&lt;/code&gt; command, and the matlab gui appears on your laptop for you to use with the server&amp;rsquo;s cpu cores.&lt;/p&gt;
+&lt;h2 id=&#34;configuration&#34;&gt;Configuration&lt;/h2&gt;
+&lt;p&gt;The Xorg server is configured through the &lt;code&gt;/etc/X11/xorg.conf&lt;/code&gt; file and the &lt;code&gt;/etc/X11/xorg.conf.d/&lt;/code&gt; directory.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;startx&lt;/code&gt; script start up the X server. It&amp;rsquo;s installed by xinit. It runs the X server and execute the &lt;code&gt;~/.xinitrc&lt;/code&gt; file or read the value of the &lt;code&gt;$XSESSION&lt;/code&gt; variable.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;Ctrl&lt;/code&gt;+&lt;code&gt;Alt&lt;/code&gt;+&lt;code&gt;Backspace&lt;/code&gt; will terminate the session and restart X in case something goes wrong.&lt;/p&gt;
+&lt;p&gt;To install an appropriate video driver for your hardware, identify your graphic card(s) with:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;lspci -v | grep -A1 -e VGA -e 3D
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;and install the appropriate video driver.&lt;/p&gt;
+&lt;h2 id=&#34;tools&#34;&gt;Tools&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xrand&lt;/code&gt; is a CLI tool used to manage screen resolutions, rotation and placement. Example:&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# List detected screens&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xrandr
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Change resolution&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xrandr --output DP-3 --mode 1920x1080
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# Change frequency&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;xrandr --output DP-3 --rate &lt;span style=&#34;color:#ae81ff&#34;&gt;75&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;An xrandr script/command can be added to the &lt;code&gt;.xinitrc&lt;/code&gt; file to be executed on every X startup.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xtruss&lt;/code&gt; is the equivalent of &lt;code&gt;strace&lt;/code&gt; for logging interactions between a GUI application and the X Server.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;xprop&lt;/code&gt; is a tool for displaying window and font properties in an X server, like &lt;code&gt;WM_NAME&lt;/code&gt; (title of the window) or &lt;code&gt;_NET_WM_ICON&lt;/code&gt; (its icon).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;links&#34;&gt;Links&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.archlinux.org/title/xorg&#34;&gt;Xorg&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.archlinux.org/title/OpenSSH#X11_forwarding&#34;&gt;X11 Forwarding&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://en.wikipedia.org/wiki/X_Window_System_protocols_and_architecture&#34;&gt;X Window System&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.chiark.greenend.org.uk/~sgtatham/xtruss/&#34;&gt;xtruss&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.x.org/releases/X11R7.5/doc/man/man1/xprop.1.html&#34;&gt;xprop&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://wiki.archlinux.org/title/Display_manager&#34;&gt;Display Manager&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+    </item>
+    
+  </channel>
+</rss>

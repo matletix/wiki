@@ -2,126 +2,134 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://wiki.mrollet.com/</loc>
-    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
-    <priority>0</priority>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/access/</loc>
+    <loc>http://localhost:1313/tags/gui/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/linux/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/linux/x/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/x/</loc>
+    <lastmod>2024-03-02T17:27:30+01:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/access/</loc>
     <lastmod>2023-03-18T14:29:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/control/</loc>
+    <loc>http://localhost:1313/tags/control/</loc>
     <lastmod>2023-03-18T14:29:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/linux/file-permissions/</loc>
+    <loc>http://localhost:1313/posts/linux/file-permissions/</loc>
     <lastmod>2023-03-18T14:29:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/linux/</loc>
+    <loc>http://localhost:1313/tags/permission/</loc>
     <lastmod>2023-03-18T14:29:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/permission/</loc>
-    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
-  </url><url>
-    <loc>https://wiki.mrollet.com/posts/</loc>
-    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
-  </url><url>
-    <loc>https://wiki.mrollet.com/tags/</loc>
-    <lastmod>2023-03-18T14:29:15+01:00</lastmod>
-  </url><url>
-    <loc>https://wiki.mrollet.com/tags/debian/</loc>
+    <loc>http://localhost:1313/tags/debian/</loc>
     <lastmod>2023-03-01T23:55:28+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/linux/debian-packaging/</loc>
+    <loc>http://localhost:1313/posts/linux/debian-packaging/</loc>
     <lastmod>2023-03-01T23:55:28+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/packaging/</loc>
+    <loc>http://localhost:1313/tags/packaging/</loc>
     <lastmod>2023-03-01T23:55:28+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/programming/</loc>
+    <loc>http://localhost:1313/tags/programming/</loc>
     <lastmod>2023-02-28T22:46:19+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/python/</loc>
+    <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2023-02-28T22:46:19+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/rust/</loc>
+    <loc>http://localhost:1313/tags/rust/</loc>
     <lastmod>2023-02-28T22:46:19+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/python/rust-for-python-programmers/</loc>
+    <loc>http://localhost:1313/posts/python/rust-for-python-programmers/</loc>
     <lastmod>2023-02-28T22:46:19+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/asgi/</loc>
+    <loc>http://localhost:1313/tags/asgi/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/cisco/</loc>
+    <loc>http://localhost:1313/tags/cisco/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/networking/ccna/cisco-router-cheatsheet/</loc>
+    <loc>http://localhost:1313/posts/networking/ccna/cisco-router-cheatsheet/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/fhs/</loc>
+    <loc>http://localhost:1313/tags/fhs/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/filesystem/</loc>
+    <loc>http://localhost:1313/tags/filesystem/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/networking/</loc>
+    <loc>http://localhost:1313/tags/networking/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/routers/</loc>
+    <loc>http://localhost:1313/tags/routers/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/server/</loc>
+    <loc>http://localhost:1313/tags/server/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/linux/fhs/</loc>
+    <loc>http://localhost:1313/posts/linux/fhs/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/web/</loc>
+    <loc>http://localhost:1313/tags/web/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/python/web-servers-wsgi-asgi/</loc>
+    <loc>http://localhost:1313/posts/python/web-servers-wsgi-asgi/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/wsgi/</loc>
+    <loc>http://localhost:1313/tags/wsgi/</loc>
     <lastmod>2023-02-28T20:30:30+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/coroutines/</loc>
+    <loc>http://localhost:1313/tags/coroutines/</loc>
     <lastmod>2022-06-19T14:52:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/generators/</loc>
+    <loc>http://localhost:1313/tags/generators/</loc>
     <lastmod>2022-06-19T14:52:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/iterators/</loc>
+    <loc>http://localhost:1313/tags/iterators/</loc>
     <lastmod>2022-06-19T14:52:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/python/iterators-generators-and-coroutines/</loc>
+    <loc>http://localhost:1313/posts/python/iterators-generators-and-coroutines/</loc>
     <lastmod>2022-06-19T14:52:15+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/python/python-packaging/</loc>
+    <loc>http://localhost:1313/posts/python/python-packaging/</loc>
     <lastmod>2020-06-01T22:51:08+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/setuptools/</loc>
+    <loc>http://localhost:1313/tags/setuptools/</loc>
     <lastmod>2020-06-01T22:51:08+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/certificate/</loc>
+    <loc>http://localhost:1313/tags/certificate/</loc>
     <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/email/</loc>
+    <loc>http://localhost:1313/tags/email/</loc>
     <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/posts/security/email-digital-signature/</loc>
+    <loc>http://localhost:1313/posts/security/email-digital-signature/</loc>
     <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/keys/</loc>
+    <loc>http://localhost:1313/tags/keys/</loc>
     <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/pki/</loc>
+    <loc>http://localhost:1313/tags/pki/</loc>
     <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/tags/signature/</loc>
+    <loc>http://localhost:1313/tags/signature/</loc>
     <lastmod>2020-05-30T18:49:27+01:00</lastmod>
   </url><url>
-    <loc>https://wiki.mrollet.com/about/</loc>
+    <loc>http://localhost:1313/about/</loc>
   </url><url>
-    <loc>https://wiki.mrollet.com/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

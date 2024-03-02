@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>packaging on My DevOps Notes</title>
-    <link>https://wiki.mrollet.com/tags/packaging/</link>
-    <description>Recent content in packaging on My DevOps Notes</description>
+    <title>Packaging on My DevOps Notes</title>
+    <link>http://localhost:1313/tags/packaging/</link>
+    <description>Recent content in Packaging on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/packaging/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 23:55:28 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/packaging/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Debian Packaging</title>
-      <link>https://wiki.mrollet.com/posts/linux/debian-packaging/</link>
+      <link>http://localhost:1313/posts/linux/debian-packaging/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/linux/debian-packaging/</guid>
+      <guid>http://localhost:1313/posts/linux/debian-packaging/</guid>
       <description>How do you create the .deb packages that you use on your system to install software ? Let&amp;rsquo;s walk through a simple example with the hello package, a package that installs an executable to display &amp;ldquo;Hello World!&amp;rdquo;. We&amp;rsquo;ll modify it to display a personalized message with your first name and repackage it.
 $ apt show hello Package: hello Version: 2.10-2 Priority: optional Section: devel Maintainer: Santiago Vila &amp;lt;sanvila@debian.org&amp;gt; Installed-Size: 287 kB Depends: libc6 (&amp;gt;= 2.</description>
       <content>&lt;p&gt;How do you create the &lt;code&gt;.deb&lt;/code&gt; packages that you use on your system to install
@@ -472,10 +472,10 @@ buildpackage--&gt;H
     
     <item>
       <title>Python Packaging</title>
-      <link>https://wiki.mrollet.com/posts/python/python-packaging/</link>
+      <link>http://localhost:1313/posts/python/python-packaging/</link>
       <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/python/python-packaging/</guid>
+      <guid>http://localhost:1313/posts/python/python-packaging/</guid>
       <description>Installing the python package you’re developing allows you to import it by name, without using relative imports (in your tests for example), as it’ll be in the python path.
 You can do so by creating a setup.py file at the root of your package and running the following from the package’s root :
 pip install -e . This will create an egg-info folder in your package and an .egg-link file pointing to your package code in the site-packages folder of your environment.</description>

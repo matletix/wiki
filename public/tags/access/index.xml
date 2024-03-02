@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>access on My DevOps Notes</title>
-    <link>https://wiki.mrollet.com/tags/access/</link>
-    <description>Recent content in access on My DevOps Notes</description>
+    <title>Access on My DevOps Notes</title>
+    <link>http://localhost:1313/tags/access/</link>
+    <description>Recent content in Access on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/access/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/access/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>File Permissions in Linux</title>
-      <link>https://wiki.mrollet.com/posts/linux/file-permissions/</link>
+      <link>http://localhost:1313/posts/linux/file-permissions/</link>
       <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/linux/file-permissions/</guid>
+      <guid>http://localhost:1313/posts/linux/file-permissions/</guid>
       <description>File systems often implement a way to manage permissions on their files. In Linux, most of the supported filesystems like ext2/3/4 or Btrfs implement both the POSIX file system permissions and the more granular Access Control Lists (ACLs). Additional File attribute flags also are available, although their support varies. And to complicate matters further, Linux Security Modules (LSM) like SELinux, AppArmor, Smack or TOMOYO, add another layer of access control.</description>
       <content>&lt;p&gt;File systems often implement a way to manage permissions on their files. In Linux, most of
 the supported filesystems like ext2/3/4 or Btrfs implement both the &lt;em&gt;POSIX file system permissions&lt;/em&gt;

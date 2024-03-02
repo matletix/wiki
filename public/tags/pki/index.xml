@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>pki on My DevOps Notes</title>
-    <link>https://wiki.mrollet.com/tags/pki/</link>
-    <description>Recent content in pki on My DevOps Notes</description>
+    <title>Pki on My DevOps Notes</title>
+    <link>http://localhost:1313/tags/pki/</link>
+    <description>Recent content in Pki on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 30 May 2020 18:49:27 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/pki/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sat, 30 May 2020 18:49:27 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/pki/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Email digital signature</title>
-      <link>https://wiki.mrollet.com/posts/security/email-digital-signature/</link>
+      <link>http://localhost:1313/posts/security/email-digital-signature/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/posts/security/email-digital-signature/</guid>
+      <guid>http://localhost:1313/posts/security/email-digital-signature/</guid>
       <description>Here are some notions necessary to work with email digital signature.
 Digital signature A digital signature ensures authentication and integrity of a message. The message is hashed by the sender and the hash is encrypted by his private key and sent along with the clear message to the receiver. The receiver then decrypt the encrypted hash with the public key of the sender (ensures authentication), compute the hash of the clear message, and compare it to the decrypted hash.</description>
       <content>&lt;p&gt;Here are some notions necessary to work with email digital signature.&lt;/p&gt;

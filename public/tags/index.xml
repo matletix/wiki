@@ -2,277 +2,297 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on My DevOps Notes</title>
-    <link>https://wiki.mrollet.com/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on My DevOps Notes</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sat, 18 Mar 2023 14:29:15 +0100</lastBuildDate><atom:link href="https://wiki.mrollet.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en</language>
+    <lastBuildDate>Sat, 02 Mar 2024 17:27:30 +0100</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>access</title>
-      <link>https://wiki.mrollet.com/tags/access/</link>
-      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      <title>Gui</title>
+      <link>http://localhost:1313/tags/gui/</link>
+      <pubDate>Sat, 02 Mar 2024 17:27:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/access/</guid>
+      <guid>http://localhost:1313/tags/gui/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>control</title>
-      <link>https://wiki.mrollet.com/tags/control/</link>
-      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      <title>Linux</title>
+      <link>http://localhost:1313/tags/linux/</link>
+      <pubDate>Sat, 02 Mar 2024 17:27:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/control/</guid>
+      <guid>http://localhost:1313/tags/linux/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>linux</title>
-      <link>https://wiki.mrollet.com/tags/linux/</link>
-      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      <title>X</title>
+      <link>http://localhost:1313/tags/x/</link>
+      <pubDate>Sat, 02 Mar 2024 17:27:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/linux/</guid>
+      <guid>http://localhost:1313/tags/x/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>permission</title>
-      <link>https://wiki.mrollet.com/tags/permission/</link>
+      <title>Access</title>
+      <link>http://localhost:1313/tags/access/</link>
       <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/permission/</guid>
+      <guid>http://localhost:1313/tags/access/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>debian</title>
-      <link>https://wiki.mrollet.com/tags/debian/</link>
+      <title>Control</title>
+      <link>http://localhost:1313/tags/control/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>http://localhost:1313/tags/control/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Permission</title>
+      <link>http://localhost:1313/tags/permission/</link>
+      <pubDate>Sat, 18 Mar 2023 14:29:15 +0100</pubDate>
+      
+      <guid>http://localhost:1313/tags/permission/</guid>
+      <description></description>
+      <content></content>
+    </item>
+    
+    <item>
+      <title>Debian</title>
+      <link>http://localhost:1313/tags/debian/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/debian/</guid>
+      <guid>http://localhost:1313/tags/debian/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>packaging</title>
-      <link>https://wiki.mrollet.com/tags/packaging/</link>
+      <title>Packaging</title>
+      <link>http://localhost:1313/tags/packaging/</link>
       <pubDate>Wed, 01 Mar 2023 23:55:28 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/packaging/</guid>
+      <guid>http://localhost:1313/tags/packaging/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>programming</title>
-      <link>https://wiki.mrollet.com/tags/programming/</link>
+      <title>Programming</title>
+      <link>http://localhost:1313/tags/programming/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/programming/</guid>
+      <guid>http://localhost:1313/tags/programming/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>python</title>
-      <link>https://wiki.mrollet.com/tags/python/</link>
+      <title>Python</title>
+      <link>http://localhost:1313/tags/python/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/python/</guid>
+      <guid>http://localhost:1313/tags/python/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>rust</title>
-      <link>https://wiki.mrollet.com/tags/rust/</link>
+      <title>Rust</title>
+      <link>http://localhost:1313/tags/rust/</link>
       <pubDate>Tue, 28 Feb 2023 22:46:19 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/rust/</guid>
+      <guid>http://localhost:1313/tags/rust/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>asgi</title>
-      <link>https://wiki.mrollet.com/tags/asgi/</link>
+      <title>Asgi</title>
+      <link>http://localhost:1313/tags/asgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/asgi/</guid>
+      <guid>http://localhost:1313/tags/asgi/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>cisco</title>
-      <link>https://wiki.mrollet.com/tags/cisco/</link>
+      <title>Cisco</title>
+      <link>http://localhost:1313/tags/cisco/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/cisco/</guid>
+      <guid>http://localhost:1313/tags/cisco/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>fhs</title>
-      <link>https://wiki.mrollet.com/tags/fhs/</link>
+      <title>Fhs</title>
+      <link>http://localhost:1313/tags/fhs/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/fhs/</guid>
+      <guid>http://localhost:1313/tags/fhs/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>filesystem</title>
-      <link>https://wiki.mrollet.com/tags/filesystem/</link>
+      <title>Filesystem</title>
+      <link>http://localhost:1313/tags/filesystem/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/filesystem/</guid>
+      <guid>http://localhost:1313/tags/filesystem/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>networking</title>
-      <link>https://wiki.mrollet.com/tags/networking/</link>
+      <title>Networking</title>
+      <link>http://localhost:1313/tags/networking/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/networking/</guid>
+      <guid>http://localhost:1313/tags/networking/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>routers</title>
-      <link>https://wiki.mrollet.com/tags/routers/</link>
+      <title>Routers</title>
+      <link>http://localhost:1313/tags/routers/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/routers/</guid>
+      <guid>http://localhost:1313/tags/routers/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>server</title>
-      <link>https://wiki.mrollet.com/tags/server/</link>
+      <title>Server</title>
+      <link>http://localhost:1313/tags/server/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/server/</guid>
+      <guid>http://localhost:1313/tags/server/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>web</title>
-      <link>https://wiki.mrollet.com/tags/web/</link>
+      <title>Web</title>
+      <link>http://localhost:1313/tags/web/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/web/</guid>
+      <guid>http://localhost:1313/tags/web/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>wsgi</title>
-      <link>https://wiki.mrollet.com/tags/wsgi/</link>
+      <title>Wsgi</title>
+      <link>http://localhost:1313/tags/wsgi/</link>
       <pubDate>Tue, 28 Feb 2023 20:30:30 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/wsgi/</guid>
+      <guid>http://localhost:1313/tags/wsgi/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>coroutines</title>
-      <link>https://wiki.mrollet.com/tags/coroutines/</link>
+      <title>Coroutines</title>
+      <link>http://localhost:1313/tags/coroutines/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/coroutines/</guid>
+      <guid>http://localhost:1313/tags/coroutines/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>generators</title>
-      <link>https://wiki.mrollet.com/tags/generators/</link>
+      <title>Generators</title>
+      <link>http://localhost:1313/tags/generators/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/generators/</guid>
+      <guid>http://localhost:1313/tags/generators/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>iterators</title>
-      <link>https://wiki.mrollet.com/tags/iterators/</link>
+      <title>Iterators</title>
+      <link>http://localhost:1313/tags/iterators/</link>
       <pubDate>Sun, 19 Jun 2022 14:52:15 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/iterators/</guid>
+      <guid>http://localhost:1313/tags/iterators/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>setuptools</title>
-      <link>https://wiki.mrollet.com/tags/setuptools/</link>
+      <title>Setuptools</title>
+      <link>http://localhost:1313/tags/setuptools/</link>
       <pubDate>Mon, 01 Jun 2020 22:51:08 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/setuptools/</guid>
+      <guid>http://localhost:1313/tags/setuptools/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>certificate</title>
-      <link>https://wiki.mrollet.com/tags/certificate/</link>
+      <title>Certificate</title>
+      <link>http://localhost:1313/tags/certificate/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/certificate/</guid>
+      <guid>http://localhost:1313/tags/certificate/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>email</title>
-      <link>https://wiki.mrollet.com/tags/email/</link>
+      <title>Email</title>
+      <link>http://localhost:1313/tags/email/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/email/</guid>
+      <guid>http://localhost:1313/tags/email/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>keys</title>
-      <link>https://wiki.mrollet.com/tags/keys/</link>
+      <title>Keys</title>
+      <link>http://localhost:1313/tags/keys/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/keys/</guid>
+      <guid>http://localhost:1313/tags/keys/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>pki</title>
-      <link>https://wiki.mrollet.com/tags/pki/</link>
+      <title>Pki</title>
+      <link>http://localhost:1313/tags/pki/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/pki/</guid>
+      <guid>http://localhost:1313/tags/pki/</guid>
       <description></description>
       <content></content>
     </item>
     
     <item>
-      <title>signature</title>
-      <link>https://wiki.mrollet.com/tags/signature/</link>
+      <title>Signature</title>
+      <link>http://localhost:1313/tags/signature/</link>
       <pubDate>Sat, 30 May 2020 18:49:27 +0100</pubDate>
       
-      <guid>https://wiki.mrollet.com/tags/signature/</guid>
+      <guid>http://localhost:1313/tags/signature/</guid>
       <description></description>
       <content></content>
     </item>
