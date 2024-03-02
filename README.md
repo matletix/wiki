@@ -21,7 +21,12 @@ cd wiki/
 hugo
 ```
 
-You're ready to serve your website with Nginx : 
+To serve the website locally, run:
+```bash
+hugo server
+```
+
+To serve your website with Nginx : 
 ```
 server_tokens off;
 server {
